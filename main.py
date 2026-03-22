@@ -68,8 +68,13 @@ class PreviewWidget(QWidget):
             painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
         elif style == "dot":
             painter.setBrush(QBrush(QColor(self.preset.color)))
-            painter.drawEllipse(center, 2, 2)
+            dot_size = max(2, self.preset.size // 3)  # 预览中的点大小
+            painter.drawEllipse(center, dot_size, dot_size)
         elif style == "circle":
+            pen = QPen(QColor(self.preset.color), max(1, self.preset.thickness // 2))
+            pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+            painter.setPen(pen)
+            painter.setBrush(Qt.BrushStyle.NoBrush)  # 空心圆
             painter.drawEllipse(center, size//2, size//2)
         elif style == "plus":
             painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
@@ -175,13 +180,18 @@ class CrosshairOverlay(QWidget):
             painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
             
         elif style == "dot":
-            # 点准星
+            # 点准星 - 使用更大的圆点
             painter.setBrush(QBrush(QColor(self.preset.color)))
-            painter.drawEllipse(center, 3, 3)
+            dot_size = max(3, self.preset.size // 3)  # 根据大小调整点的大小
+            painter.drawEllipse(center, dot_size, dot_size)
             
         elif style == "circle":
-            # 圆形准星
-            painter.drawEllipse(center, size//2, size//2)
+            # 圆形准星 - 确保线条粗细合适
+            pen = QPen(QColor(self.preset.color), max(2, self.preset.thickness))
+            pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+            painter.setPen(pen)
+            painter.setBrush(Qt.BrushStyle.NoBrush)  # 空心圆
+            painter.drawEllipse(center, self.preset.size//2, self.preset.size//2)
             
         elif style == "plus":
             # 加号准星（无间隙）
@@ -272,7 +282,46 @@ class PresetManager:
         styles = ["cross", "dot", "circle", "plus", "x", "cross_dot", "circle_dot", "bracket", "line", "double_line"]
         colors = ["#00FF00", "#FF0000", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFFFFF", "#FF8800", "#8800FF", "#00FF88"]
         
-        # 基础预设
+        # 专门添加更多圆点和圆形准星预设
+        dot_sizes = [2, 3, 4, 5, 6, 8, 10]
+        circle_sizes = [8, 10, 12, 15, 18, 20, 25]
+        
+        # 添加更多点准星预设
+        for color in colors[:5]:  # 使用前5种颜色
+            for dot_size in dot_sizes:
+                if len(presets) < 200:
+                    style_name = self.get_style_name("dot")
+                    name = f"{style_name}_{color.replace('#', '')}_大小{dot_size}"
+                    presets.append(CrosshairPreset(name, "dot", color, dot_size, 1))
+        
+        # 添加更多圆形准星预设
+        for color in colors[:5]:  # 使用前5种颜色
+            for circle_size in circle_sizes:
+                if len(presets) < 200:
+                    style_name = self.get_style_name("circle")
+                    name = f"{style_name}_{color.replace('#', '')}_大小{circle_size}"
+                    presets.append(CrosshairPreset(name, "circle", color, circle_size, 2))
+        
+        # 添加圆环准星（空心圆）
+        for color in colors[:3]:  # 使用前3种颜色
+            for ring_size in [10, 15, 20, 25]:
+                if len(presets) < 200:
+                    name = f"圆环准星_{color.replace('#', '')}_大小{ring_size}"
+                    presets.append(CrosshairPreset(name, "circle", color, ring_size, 3))
+        
+        # 添加多层圆点准星
+        for color in colors[:3]:
+            if len(presets) < 200:
+                name = f"多层圆点_{color.replace('#', '')}"
+                presets.append(CrosshairPreset(name, "dot", color, 8, 1))
+        
+        # 添加同心圆准星
+        for color in colors[:3]:
+            if len(presets) < 200:
+                name = f"同心圆_{color.replace('#', '')}"
+                presets.append(CrosshairPreset(name, "circle_dot", color, 15, 2))
+        
+        # 基础预设（填充剩余位置）
         for i, style in enumerate(styles):
             for j, color in enumerate(colors):
                 for size in [10, 15, 20, 25, 30]:

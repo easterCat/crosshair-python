@@ -4,9 +4,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -20,9 +18,11 @@ wheels/
 .installed.cfg
 *.egg
 
-# PyInstaller
-*.manifest
-*.spec
+# PyInstaller - 注释掉以允许提交build和dist
+# *.manifest
+# *.spec
+# build/
+# dist/
 
 # Unit test / coverage reports
 htmlcov/
@@ -61,8 +61,8 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Windows specific
-*.exe
-*.msi
-*.msm
-*.msp
+# Windows specific - 注释掉以允许提交exe
+# *.exe
+# *.msi
+# *.msm
+# *.msp
