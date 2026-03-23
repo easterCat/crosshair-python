@@ -707,6 +707,20 @@ class PresetManager:
         presets = []
         colors = ["#00FF00", "#FF0000", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFFFFF", "#FF8800", "#8800FF", "#00FF88"]
         
+        # 颜色代码到中文名称的映射
+        color_names = {
+            "#00FF00": "绿色",
+            "#FF0000": "红色", 
+            "#0000FF": "蓝色",
+            "#FFFF00": "黄色",
+            "#FF00FF": "紫色",
+            "#00FFFF": "青色",
+            "#FFFFFF": "白色",
+            "#FF8800": "橙色",
+            "#8800FF": "紫罗兰",
+            "#00FF88": "薄荷绿"
+        }
+        
         # 1. 优先生成基础样式（点准星和十字准星优先）
         basic_styles = ["cross", "dot", "circle", "plus", "x", "cross_dot", "circle_dot"]
         for style in basic_styles:
@@ -719,7 +733,8 @@ class PresetManager:
                 for size in sizes:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
-                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        color_name = color_names.get(color, color.replace('#', ''))
+                        name = f"{style_name}_{color_name}_大小{size}"
                         presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
         
         # 2. 然后生成新样式预设
@@ -729,7 +744,8 @@ class PresetManager:
                 for size in [15, 20, 25]:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
-                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        color_name = color_names.get(color, color.replace('#', ''))
+                        name = f"{style_name}_{color_name}_大小{size}"
                         presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
         
         # 3. 接着生成几何样式预设
@@ -739,7 +755,8 @@ class PresetManager:
                 for size in [12, 18, 25]:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
-                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        color_name = color_names.get(color, color.replace('#', ''))
+                        name = f"{style_name}_{color_name}_大小{size}"
                         presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
         
         # 4. 再生成功能样式预设
@@ -749,7 +766,8 @@ class PresetManager:
                 for size in [15, 20, 25]:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
-                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        color_name = color_names.get(color, color.replace('#', ''))
+                        name = f"{style_name}_{color_name}_大小{size}"
                         presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
         
         # 5. 然后生成专业样式预设
@@ -759,7 +777,8 @@ class PresetManager:
                 for size in [15, 20, 25]:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
-                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        color_name = color_names.get(color, color.replace('#', ''))
+                        name = f"{style_name}_{color_name}_大小{size}"
                         presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
         
         # 6. 最后生成复合样式预设
@@ -769,7 +788,8 @@ class PresetManager:
                 for size in [15, 20, 25]:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
-                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        color_name = color_names.get(color, color.replace('#', ''))
+                        name = f"{style_name}_{color_name}_大小{size}"
                         presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
         
         # 确保正好200个
