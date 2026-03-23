@@ -1154,7 +1154,7 @@ class MainWindow(QMainWindow):
         control_layout.setSpacing(16)  # 增加间距
         control_layout.setContentsMargins(16, 16, 16, 16)
         
-        self.toggle_button = QPushButton("显示/隐藏准星")
+        self.toggle_button = QPushButton("显示/隐藏")
         self.toggle_button.setFixedSize(80, 25)  # 固定尺寸
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         control_layout.addWidget(self.toggle_button)
@@ -1206,10 +1206,10 @@ class MainWindow(QMainWindow):
         hotkey_title.setObjectName("title")
         hotkey_layout.addWidget(hotkey_title)
         
-        # 使用网格布局，每行显示两个快捷键
-        hotkey_table = QGridLayout()
-        hotkey_table.setSpacing(10)
-        hotkey_table.setContentsMargins(0, 0, 0, 0)
+        # 使用水平布局，一行展示所有快捷键
+        hotkey_h_layout = QHBoxLayout()
+        hotkey_h_layout.setSpacing(15)
+        hotkey_h_layout.setContentsMargins(0, 0, 0, 0)
         
         hotkey_items = [
             ("F6", "显示/隐藏准星"),
@@ -1218,9 +1218,12 @@ class MainWindow(QMainWindow):
             ("Ctrl+Q", "退出程序")
         ]
         
-        for i, (key, desc) in enumerate(hotkey_items):
-            row = i // 2  # 每行两个
-            col = i % 2   # 列索引
+        for key, desc in hotkey_items:
+            # 快捷键容器
+            hotkey_container = QWidget()
+            hotkey_container_layout = QHBoxLayout(hotkey_container)
+            hotkey_container_layout.setSpacing(6)
+            hotkey_container_layout.setContentsMargins(0, 0, 0, 0)
             
             # 快捷键标签
             key_label = QLabel(key)
@@ -1228,15 +1231,15 @@ class MainWindow(QMainWindow):
                 QLabel {
                     background-color: #FFF3E0;
                     color: #E65100;
-                    padding: 3px 6px;
-                    border-radius: 6px;
+                    padding: 2px 5px;
+                    border-radius: 4px;
                     font-weight: 500;
-                    font-size: 9px;
+                    font-size: 8px;
                     border: 1px solid #FFCC80;
-                    min-width: 30px;
-                    max-width: 40px;
+                    min-width: 25px;
+                    max-width: 35px;
                     text-align: center;
-                    min-height: 14px;
+                    min-height: 12px;
                 }
             """)
             key_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1246,17 +1249,18 @@ class MainWindow(QMainWindow):
             desc_label.setStyleSheet("""
                 QLabel {
                     color: #424242;
-                    font-size: 9px;
-                    padding: 3px 6px;
-                    min-height: 14px;
+                    font-size: 8px;
+                    padding: 2px 5px;
+                    min-height: 12px;
                 }
             """)
             
-            # 添加到网格布局
-            hotkey_table.addWidget(key_label, row, col * 2)
-            hotkey_table.addWidget(desc_label, row, col * 2 + 1)
+            hotkey_container_layout.addWidget(key_label)
+            hotkey_container_layout.addWidget(desc_label)
+            hotkey_h_layout.addWidget(hotkey_container)
         
-        hotkey_layout.addLayout(hotkey_table)
+        hotkey_h_layout.addStretch()
+        hotkey_layout.addLayout(hotkey_h_layout)
         
         hotkey_group.setLayout(hotkey_layout)
         layout.addWidget(hotkey_group)
