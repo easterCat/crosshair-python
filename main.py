@@ -1098,6 +1098,26 @@ class MainWindow(QMainWindow):
         self.color_button = QPushButton("选择颜色")
         self.color_button.setFixedSize(60, 25)
         self.color_button.clicked.connect(self.choose_color)
+        # 向上移动3像素
+        self.color_button.setStyleSheet("""
+            QPushButton {
+                background-color: #2196F3;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 11px;
+                font-weight: 500;
+                margin-top: -3px;
+            }
+            
+            QPushButton:hover {
+                background-color: #1976D2;
+            }
+            
+            QPushButton:pressed {
+                background-color: #0D47A1;
+            }
+        """)
         color_label = QLabel("颜色")
         color_label.setObjectName("title")
         color_label.setAlignment(Qt.AlignmentFlag.AlignVCenter)  # 垂直居中
