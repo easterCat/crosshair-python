@@ -787,7 +787,7 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         """初始化用户界面"""
         self.setWindowTitle("FPS Crosshair Tool")
-        self.setFixedSize(1024, 700)
+        self.setFixedSize(1200, 800)  # 增加窗口尺寸
         
         # Material Design QSS样式
         self.setStyleSheet("""
@@ -805,21 +805,22 @@ class MainWindow(QMainWindow):
                 border: 1px solid #E0E0E0;
                 border-radius: 8px;
                 margin-top: 12px;
-                padding-top: 20px;
+                padding-top: 25px;
                 font-weight: 500;
                 color: #212121;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                min-height: 80px;
             }
             
             QGroupBox::title {
                 subcontrol-origin: margin;
                 left: 16px;
-                padding: 0 8px 0 8px;
+                padding: 4px 12px 4px 12px;
                 background-color: #2196F3;
                 color: #FFFFFF;
                 border-radius: 4px;
                 font-weight: 500;
-                font-size: 13px;
+                font-size: 14px;
             }
             
             /* Material Design 按钮样式 */
@@ -828,11 +829,13 @@ class MainWindow(QMainWindow):
                 color: #FFFFFF;
                 border: none;
                 border-radius: 4px;
-                padding: 8px 16px;
+                padding: 10px 20px;
                 font-weight: 500;
                 font-size: 13px;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
+                min-height: 24px;
+                min-width: 80px;
             }
             
             QPushButton:hover {
@@ -848,18 +851,18 @@ class MainWindow(QMainWindow):
             /* Material Design 滑块样式 */
             QSlider::groove:horizontal {
                 border: none;
-                height: 6px;
+                height: 8px;
                 background: #E0E0E0;
-                border-radius: 3px;
+                border-radius: 4px;
             }
             
             QSlider::handle:horizontal {
                 background: #2196F3;
                 border: 2px solid #FFFFFF;
-                width: 16px;
-                height: 16px;
-                margin: -5px 0;
-                border-radius: 8px;
+                width: 20px;
+                height: 20px;
+                margin: -6px 0;
+                border-radius: 10px;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             }
             
@@ -873,10 +876,11 @@ class MainWindow(QMainWindow):
                 background-color: #FFFFFF;
                 border: 1px solid #E0E0E0;
                 border-radius: 4px;
-                padding: 8px 12px;
+                padding: 10px 16px;
                 font-size: 13px;
                 color: #212121;
-                min-height: 20px;
+                min-height: 28px;
+                min-width: 200px;
             }
             
             QComboBox:hover {
@@ -890,15 +894,15 @@ class MainWindow(QMainWindow):
             
             QComboBox::drop-down {
                 border: none;
-                width: 24px;
+                width: 30px;
                 background-color: transparent;
             }
             
             QComboBox::down-arrow {
                 image: none;
-                border-left: 4px solid transparent;
-                border-right: 4px solid transparent;
-                border-top: 4px solid #757575;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 5px solid #757575;
             }
             
             QComboBox QAbstractItemView {
@@ -907,21 +911,23 @@ class MainWindow(QMainWindow):
                 border-radius: 4px;
                 selection-background-color: #E3F2FD;
                 selection-color: #1976D2;
-                padding: 4px;
+                padding: 6px;
+                min-height: 200px;
             }
             
             /* Material Design 复选框样式 */
             QCheckBox {
                 color: #212121;
-                font-size: 13px;
-                spacing: 8px;
+                font-size: 14px;
+                spacing: 12px;
+                min-height: 20px;
             }
             
             QCheckBox::indicator {
-                width: 18px;
-                height: 18px;
+                width: 20px;
+                height: 20px;
                 border: 2px solid #757575;
-                border-radius: 3px;
+                border-radius: 4px;
                 background-color: #FFFFFF;
             }
             
@@ -938,24 +944,28 @@ class MainWindow(QMainWindow):
             /* Material Design 标签样式 */
             QLabel {
                 color: #212121;
-                font-size: 13px;
+                font-size: 14px;
                 font-weight: 400;
+                min-height: 16px;
             }
             
             QLabel#title {
-                font-size: 16px;
+                font-size: 18px;
                 font-weight: 500;
                 color: #212121;
-                margin-bottom: 8px;
+                margin-bottom: 12px;
+                min-height: 22px;
             }
             
             QLabel#value {
                 background-color: #E3F2FD;
                 color: #1976D2;
-                padding: 4px 8px;
-                border-radius: 12px;
+                padding: 6px 12px;
+                border-radius: 16px;
                 font-weight: 500;
-                font-size: 12px;
+                font-size: 13px;
+                min-height: 20px;
+                min-width: 60px;
             }
             
             /* Material Design 滚动条样式 */
@@ -987,27 +997,29 @@ class MainWindow(QMainWindow):
         main_widget = QWidget()
         self.setCentralWidget(main_widget)
         layout = QVBoxLayout(main_widget)
-        layout.setSpacing(16)
-        layout.setContentsMargins(24, 24, 24, 24)
+        layout.setSpacing(20)
+        layout.setContentsMargins(30, 30, 30, 30)
         
         # 预设选择（带预览）
         preset_group = QGroupBox("准星预设")
         preset_layout = QVBoxLayout()
-        preset_layout.setSpacing(12)
+        preset_layout.setSpacing(16)
+        preset_layout.setContentsMargins(20, 20, 20, 20)
         
         # 预设选择和预览的水平布局
         preset_h_layout = QHBoxLayout()
-        preset_h_layout.setSpacing(16)
+        preset_h_layout.setSpacing(20)
         
         # 预设下拉框
         preset_v_layout = QVBoxLayout()
-        preset_v_layout.setSpacing(8)
+        preset_v_layout.setSpacing(12)
         
         preset_label = QLabel("选择预设")
         preset_label.setObjectName("title")
         preset_v_layout.addWidget(preset_label)
         
         self.preset_combo = QComboBox()
+        self.preset_combo.setMinimumWidth(300)
         for preset in self.preset_manager.presets:
             self.preset_combo.addItem(preset.name)
         self.preset_combo.currentIndexChanged.connect(self.on_preset_changed)
@@ -1015,11 +1027,13 @@ class MainWindow(QMainWindow):
         
         # 切换按钮
         button_layout = QHBoxLayout()
-        button_layout.setSpacing(8)
+        button_layout.setSpacing(12)
         
         self.prev_button = QPushButton("上一个")
+        self.prev_button.setMinimumWidth(100)
         self.prev_button.clicked.connect(self.prev_preset)
         self.next_button = QPushButton("下一个")
+        self.next_button.setMinimumWidth(100)
         self.next_button.clicked.connect(self.next_preset)
         button_layout.addWidget(self.prev_button)
         button_layout.addWidget(self.next_button)
@@ -1027,7 +1041,7 @@ class MainWindow(QMainWindow):
         
         # 预览组件
         preview_v_layout = QVBoxLayout()
-        preview_v_layout.setSpacing(8)
+        preview_v_layout.setSpacing(12)
         
         preview_label = QLabel("实时预览")
         preview_label.setObjectName("title")
@@ -1043,11 +1057,12 @@ class MainWindow(QMainWindow):
             QLabel {
                 background-color: #E8F5E8;
                 color: #2E7D32;
-                padding: 8px 12px;
-                border-radius: 16px;
+                padding: 10px 16px;
+                border-radius: 20px;
                 font-weight: 500;
-                font-size: 14px;
+                font-size: 15px;
                 border: 1px solid #A5D6A7;
+                min-height: 24px;
             }
         """)
         preview_v_layout.addWidget(self.style_label)
@@ -1062,11 +1077,12 @@ class MainWindow(QMainWindow):
         # 调整选项
         adjust_group = QGroupBox("调整选项")
         adjust_layout = QGridLayout()
-        adjust_layout.setSpacing(12)
-        adjust_layout.setContentsMargins(16, 16, 16, 16)
+        adjust_layout.setSpacing(16)
+        adjust_layout.setContentsMargins(20, 20, 20, 20)
         
         # 颜色选择
         self.color_button = QPushButton("选择颜色")
+        self.color_button.setMinimumWidth(120)
         self.color_button.clicked.connect(self.choose_color)
         color_label = QLabel("颜色")
         color_label.setObjectName("title")
@@ -1085,6 +1101,7 @@ class MainWindow(QMainWindow):
         self.size_label = QLabel("1")
         self.size_label.setObjectName("value")
         self.size_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.size_label.setMinimumWidth(60)
         adjust_layout.addWidget(self.size_label, 1, 2)
         
         # 粗细调整
@@ -1099,6 +1116,7 @@ class MainWindow(QMainWindow):
         self.thickness_label = QLabel("2")
         self.thickness_label.setObjectName("value")
         self.thickness_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.thickness_label.setMinimumWidth(60)
         adjust_layout.addWidget(self.thickness_label, 2, 2)
         
         # 透明度调整
@@ -1114,6 +1132,7 @@ class MainWindow(QMainWindow):
         self.opacity_label = QLabel("100%")
         self.opacity_label.setObjectName("value")
         self.opacity_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.opacity_label.setMinimumWidth(60)
         adjust_layout.addWidget(self.opacity_label, 3, 2)
         
         adjust_group.setLayout(adjust_layout)
@@ -1122,13 +1141,16 @@ class MainWindow(QMainWindow):
         # 控制按钮
         control_group = QGroupBox("控制中心")
         control_layout = QVBoxLayout()
-        control_layout.setSpacing(12)
+        control_layout.setSpacing(16)
+        control_layout.setContentsMargins(20, 20, 20, 20)
         
         self.toggle_button = QPushButton("显示/隐藏准星")
+        self.toggle_button.setMinimumWidth(150)
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         control_layout.addWidget(self.toggle_button)
         
         self.click_through_checkbox = QCheckBox("点击穿透")
+        self.click_through_checkbox.setMinimumHeight(24)
         self.click_through_checkbox.setChecked(True)
         self.click_through_checkbox.stateChanged.connect(self.toggle_click_through)
         control_layout.addWidget(self.click_through_checkbox)
@@ -1139,7 +1161,8 @@ class MainWindow(QMainWindow):
         # 快捷键说明
         hotkey_group = QGroupBox("快捷键指南")
         hotkey_layout = QVBoxLayout()
-        hotkey_layout.setSpacing(8)
+        hotkey_layout.setSpacing(12)
+        hotkey_layout.setContentsMargins(20, 20, 20, 20)
         
         hotkey_title = QLabel("全局快捷键")
         hotkey_title.setObjectName("title")
@@ -1154,26 +1177,29 @@ class MainWindow(QMainWindow):
         
         for key, desc in hotkey_items:
             item_layout = QHBoxLayout()
+            item_layout.setSpacing(12)
             key_label = QLabel(key)
             key_label.setStyleSheet("""
                 QLabel {
                     background-color: #FFF3E0;
                     color: #E65100;
-                    padding: 4px 8px;
-                    border-radius: 12px;
+                    padding: 6px 12px;
+                    border-radius: 16px;
                     font-weight: 500;
-                    font-size: 11px;
+                    font-size: 12px;
                     border: 1px solid #FFCC80;
-                    min-width: 40px;
+                    min-width: 50px;
                     text-align: center;
+                    min-height: 20px;
                 }
             """)
             desc_label = QLabel(desc)
             desc_label.setStyleSheet("""
                 QLabel {
                     color: #424242;
-                    font-size: 12px;
-                    padding: 4px 8px;
+                    font-size: 14px;
+                    padding: 6px 12px;
+                    min-height: 20px;
                 }
             """)
             item_layout.addWidget(key_label)
