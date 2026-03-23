@@ -1095,8 +1095,9 @@ class MainWindow(QMainWindow):
         self.color_button.clicked.connect(self.choose_color)
         color_label = QLabel("颜色")
         color_label.setObjectName("title")
-        adjust_layout.addWidget(color_label, 0, 0)
-        adjust_layout.addWidget(self.color_button, 0, 1, 1, 2)
+        color_label.setAlignment(Qt.AlignmentFlag.AlignVCenter)  # 垂直居中
+        adjust_layout.addWidget(color_label, 0, 0, Qt.AlignmentFlag.AlignVCenter)  # 垂直居中对齐
+        adjust_layout.addWidget(self.color_button, 0, 1, 1, 2, Qt.AlignmentFlag.AlignVCenter)  # 按钮也垂直居中
         adjust_layout.setVerticalSpacing(20)  # 增加垂直间距
         
         # 大小调整
@@ -1105,10 +1106,11 @@ class MainWindow(QMainWindow):
         adjust_layout.addWidget(size_label, 1, 0)
         
         self.size_slider = QSlider(Qt.Orientation.Horizontal)
-        self.size_slider.setRange(1, 50)
+        self.size_slider.setRange(3, 9)
+        self.size_slider.setValue(5)  # 设置默认值为5
         self.size_slider.valueChanged.connect(self.on_size_changed)
         adjust_layout.addWidget(self.size_slider, 1, 1)
-        self.size_label = QLabel("1")
+        self.size_label = QLabel("5")
         self.size_label.setObjectName("value")
         self.size_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.size_label.setMinimumWidth(40)
