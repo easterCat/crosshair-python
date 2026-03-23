@@ -899,10 +899,11 @@ class MainWindow(QMainWindow):
             }
             
             QComboBox::down-arrow {
-                image: none;
-                border-left: 4px solid transparent;
-                border-right: 4px solid transparent;
-                border-top: 4px solid #757575;
+                width: 8px;
+                height: 8px;
+                background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNCA2TDggMkwwIDJMNCA2WiIgZmlsbD0iIzc1NzU3NSIvPgo8L3N2Zz4K);
+                background-repeat: no-repeat;
+                background-position: center;
             }
             
             QComboBox QAbstractItemView {
@@ -1085,8 +1086,8 @@ class MainWindow(QMainWindow):
         # 调整选项
         adjust_group = QGroupBox("调整选项")
         adjust_layout = QGridLayout()
-        adjust_layout.setSpacing(12)
-        adjust_layout.setContentsMargins(16, 16, 16, 16)
+        adjust_layout.setSpacing(16)
+        adjust_layout.setContentsMargins(20, 20, 20, 20)  # 增大内边距
         
         # 颜色选择
         self.color_button = QPushButton("选择颜色")
@@ -1096,7 +1097,7 @@ class MainWindow(QMainWindow):
         color_label.setObjectName("title")
         adjust_layout.addWidget(color_label, 0, 0)
         adjust_layout.addWidget(self.color_button, 0, 1, 1, 2)
-        adjust_layout.setVerticalSpacing(16)  # 添加垂直间距
+        adjust_layout.setVerticalSpacing(20)  # 增加垂直间距
         
         # 大小调整
         size_label = QLabel("大小")
@@ -1205,9 +1206,10 @@ class MainWindow(QMainWindow):
         hotkey_title.setObjectName("title")
         hotkey_layout.addWidget(hotkey_title)
         
-        # 使用表格布局展示快捷键
+        # 使用网格布局，每行显示两个快捷键
         hotkey_table = QGridLayout()
-        hotkey_table.setSpacing(8)
+        hotkey_table.setSpacing(10)
+        hotkey_table.setContentsMargins(0, 0, 0, 0)
         
         hotkey_items = [
             ("F6", "显示/隐藏准星"),
@@ -1217,20 +1219,24 @@ class MainWindow(QMainWindow):
         ]
         
         for i, (key, desc) in enumerate(hotkey_items):
+            row = i // 2  # 每行两个
+            col = i % 2   # 列索引
+            
             # 快捷键标签
             key_label = QLabel(key)
             key_label.setStyleSheet("""
                 QLabel {
                     background-color: #FFF3E0;
                     color: #E65100;
-                    padding: 4px 8px;
-                    border-radius: 8px;
+                    padding: 3px 6px;
+                    border-radius: 6px;
                     font-weight: 500;
-                    font-size: 10px;
+                    font-size: 9px;
                     border: 1px solid #FFCC80;
-                    min-width: 35px;
+                    min-width: 30px;
+                    max-width: 40px;
                     text-align: center;
-                    min-height: 16px;
+                    min-height: 14px;
                 }
             """)
             key_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1240,15 +1246,15 @@ class MainWindow(QMainWindow):
             desc_label.setStyleSheet("""
                 QLabel {
                     color: #424242;
-                    font-size: 10px;
-                    padding: 4px 8px;
-                    min-height: 16px;
+                    font-size: 9px;
+                    padding: 3px 6px;
+                    min-height: 14px;
                 }
             """)
             
-            # 添加到表格布局
-            hotkey_table.addWidget(key_label, i, 0)
-            hotkey_table.addWidget(desc_label, i, 1)
+            # 添加到网格布局
+            hotkey_table.addWidget(key_label, row, col * 2)
+            hotkey_table.addWidget(desc_label, row, col * 2 + 1)
         
         hotkey_layout.addLayout(hotkey_table)
         
