@@ -694,75 +694,61 @@ class PresetManager:
     def generate_200_presets(self) -> List[CrosshairPreset]:
         """生成200个准星预设"""
         presets = []
-        # 重新组织样式，优先使用独特样式
-        styles = [
-            # 基础样式（保留最重要的）
-            "cross", "dot", "circle", "plus", "x", "cross_dot", "circle_dot",
-            # 几何样式
-            "triangle", "diamond", "square", "hexagon", "star",
-            # 功能样式
-            "t_shape", "l_shape", "chevron", "arrow", "bracket",
-            # 专业样式
-            "target", "scope", "reticle", "mil_dot", "horseshoe",
-            # 复合样式
-            "crosshair_circle", "dot_circle", "crosshair_plus", "dotted_circle",
-            # 特殊样式
-            "hourglass", "crown", "grid", "spike", "compass", "segmented"
-        ]
         colors = ["#00FF00", "#FF0000", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFFFFF", "#FF8800", "#8800FF", "#00FF88"]
         
-        # 专门添加更多圆点和圆形准星预设
-        dot_sizes = [2, 3, 4, 5, 6, 8, 10]
-        circle_sizes = [8, 10, 12, 15, 18, 20, 25]
-        
-        # 添加更多点准星预设
-        for color in colors[:5]:  # 使用前5种颜色
-            for dot_size in dot_sizes:
-                if len(presets) < 200:
-                    style_name = self.get_style_name("dot")
-                    name = f"{style_name}_{color.replace('#', '')}_大小{dot_size}"
-                    presets.append(CrosshairPreset(name, "dot", color, dot_size, 1, 1.0))
-        
-        # 添加更多圆形准星预设
-        for color in colors[:5]:  # 使用前5种颜色
-            for circle_size in circle_sizes:
-                if len(presets) < 200:
-                    style_name = self.get_style_name("circle")
-                    name = f"{style_name}_{color.replace('#', '')}_大小{circle_size}"
-                    presets.append(CrosshairPreset(name, "circle", color, circle_size, 2, 1.0))
-        
-        # 添加圆环准星（空心圆）
-        for color in colors[:3]:  # 使用前3种颜色
-            for ring_size in [10, 15, 20, 25]:
-                if len(presets) < 200:
-                    name = f"圆环准星_{color.replace('#', '')}_大小{ring_size}"
-                    presets.append(CrosshairPreset(name, "circle", color, ring_size, 3, 0.8))
-        
-        # 添加多层圆点准星
-        for color in colors[:3]:
-            if len(presets) < 200:
-                name = f"多层圆点_{color.replace('#', '')}"
-                presets.append(CrosshairPreset(name, "dot", color, 8, 1, 0.9))
-        
-        # 添加同心圆准星
-        for color in colors[:3]:
-            if len(presets) < 200:
-                name = f"同心圆_{color.replace('#', '')}"
-                presets.append(CrosshairPreset(name, "circle_dot", color, 15, 2, 0.85))
-        
-        # 基础预设（填充剩余位置）
-        for i, style in enumerate(styles):
-            for j, color in enumerate(colors):
-                for size in [10, 15, 20, 25, 30]:
-                    for thickness in [1, 2, 3, 4]:
-                        if len(presets) < 200:
-                            style_name = self.get_style_name(style)
-                            name = f"{style_name}_{color.replace('#', '')}_大小{size}_粗细{thickness}"
-                            presets.append(CrosshairPreset(name, style, color, size, thickness, 1.0))
-        
-        # 为新样式添加专门预设
+        # 优先生成新样式预设（确保新样式可见）
         new_styles = ["hourglass", "crown", "grid", "spike", "compass", "segmented"]
         for style in new_styles:
+            for color in colors[:5]:  # 使用前5种颜色
+                for size in [15, 20, 25]:
+                    if len(presets) < 200:
+                        style_name = self.get_style_name(style)
+                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
+        
+        # 生成基础样式预设（最重要的样式）
+        basic_styles = ["cross", "dot", "circle", "plus", "x", "cross_dot", "circle_dot"]
+        for style in basic_styles:
+            for color in colors[:5]:  # 使用前5种颜色
+                for size in [10, 15, 20, 25]:
+                    if len(presets) < 200:
+                        style_name = self.get_style_name(style)
+                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
+        
+        # 生成几何样式预设
+        geo_styles = ["triangle", "diamond", "square", "hexagon", "star"]
+        for style in geo_styles:
+            for color in colors[:5]:  # 使用前5种颜色
+                for size in [12, 18, 25]:
+                    if len(presets) < 200:
+                        style_name = self.get_style_name(style)
+                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
+        
+        # 生成功能样式预设
+        func_styles = ["t_shape", "l_shape", "chevron", "arrow", "bracket"]
+        for style in func_styles:
+            for color in colors[:5]:  # 使用前5种颜色
+                for size in [15, 20, 25]:
+                    if len(presets) < 200:
+                        style_name = self.get_style_name(style)
+                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
+        
+        # 生成专业样式预设
+        pro_styles = ["target", "scope", "reticle", "mil_dot", "horseshoe"]
+        for style in pro_styles:
+            for color in colors[:3]:  # 使用前3种颜色
+                for size in [15, 20, 25]:
+                    if len(presets) < 200:
+                        style_name = self.get_style_name(style)
+                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
+        
+        # 生成复合样式预设
+        complex_styles = ["crosshair_circle", "dot_circle", "crosshair_plus", "dotted_circle"]
+        for style in complex_styles:
             for color in colors[:3]:  # 使用前3种颜色
                 for size in [15, 20, 25]:
                     if len(presets) < 200:
