@@ -10,7 +10,7 @@ from typing import Dict, List, Tuple
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                             QHBoxLayout, QPushButton, QColorDialog, QSlider, 
                             QLabel, QComboBox, QGroupBox, QGridLayout, QSpinBox,
-                            QCheckBox, QSystemTrayIcon, QMenu, QStyle)
+                            QCheckBox, QSystemTrayIcon, QMenu, QStyle, QFrame)
 from PyQt6.QtCore import Qt, QTimer, QPoint, pyqtSignal, QThread
 from PyQt6.QtGui import QPainter, QColor, QPen, QBrush, QIcon, QKeySequence, QShortcut
 import win32api
@@ -22,6 +22,16 @@ import keyboard
 import threading
 import time
 import math
+
+# Fluent Widgets imports
+try:
+    from qfluentwidgets import (
+        FluentIconTheme, FluentTheme, PushButton, CardWidget, 
+        InfoBar, InfoBarPosition, setTheme, setThemeColor
+    )
+    FLUENT_AVAILABLE = True
+except ImportError:
+    FLUENT_AVAILABLE = False
 
 class CrosshairPreset:
     """准星预设数据类"""
@@ -38,8 +48,16 @@ class PreviewWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.preset = CrosshairPreset("Preview", "cross")
-        self.setFixedSize(100, 100)
-        self.setStyleSheet("background-color: #2b2b2b; border: 1px solid #555;")
+        self.setFixedSize(120, 120)
+        
+        # 设置现代化样式
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #2b2b2b;
+                border: 2px solid #3d3d3d;
+                border-radius: 8px;
+            }
+        """)
         
     def paintEvent(self, event):
         """绘制预览准星"""
@@ -776,7 +794,81 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         """初始化用户界面"""
         self.setWindowTitle("FPS Crosshair Tool")
-        self.setFixedSize(1024, 700)  # 增加宽度到1024
+        self.setFixedSize(1024, 700)
+        
+        # 设置现代化样式
+        self.setStyleSheet("""
+            QMainWindow {
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+            QGroupBox {
+                font-weight: bold;
+                border: 2px solid #3d3d3d;
+                border-radius: 8px;
+                margin-top: 10px;
+                padding-top: 15px;
+                background-color: #2d2d2d;
+                color: #ffffff;
+            }
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                left: 10px;
+                padding: 0 10px 0 10px;
+                background-color: #0078d4;
+                border-radius: 4px;
+            }
+            QPushButton {
+                background-color: #0078d4;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                font-weight: bold;
+                min-height: 20px;
+            }
+            QPushButton:hover {
+                background-color: #106ebe;
+            }
+            QPushButton:pressed {
+                background-color: #005a9e;
+            }
+            QSlider::groove:horizontal {
+                border: 1px solid #3d3d3d;
+                height: 8px;
+                background: #404040;
+                border-radius: 4px;
+            }
+            QSlider::handle:horizontal {
+                background: #0078d4;
+                border: 1px solid #005a9e;
+                width: 18px;
+                margin: -2px 0;
+                border-radius: 4px;
+            }
+            QComboBox {
+                background-color: #404040;
+                border: 2px solid #3d3d3d;
+                border-radius: 4px;
+                padding: 5px;
+                min-height: 20px;
+                color: white;
+            }
+            QComboBox::drop-down {
+                border: none;
+                width: 20px;
+            }
+            QComboBox::down-arrow {
+                image: none;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 5px solid white;
+            }
+            QLabel {
+                color: #ffffff;
+                font-size: 12px;
+            }
+        """)
         
         # 设置窗口图标
         self.setWindowIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon))
@@ -785,25 +877,37 @@ class MainWindow(QMainWindow):
         main_widget = QWidget()
         self.setCentralWidget(main_widget)
         layout = QVBoxLayout(main_widget)
+        layout.setSpacing(15)
+        layout.setContentsMargins(20, 20, 20, 20)
         
         # 预设选择（带预览）
         preset_group = QGroupBox("准星预设")
         preset_layout = QVBoxLayout()
+        preset_layout.setSpacing(10)
         
         # 预设选择和预览的水平布局
         preset_h_layout = QHBoxLayout()
+        preset_h_layout.setSpacing(15)
         
         # 预设下拉框
         preset_v_layout = QVBoxLayout()
-        preset_v_layout.addWidget(QLabel("选择预设:"))
+        preset_v_layout.setSpacing(8)
+        
+        preset_label = QLabel("选择预设:")
+        preset_label.setStyleSheet("font-size: 14px; font-weight: bold; color: #0078d4;")
+        preset_v_layout.addWidget(preset_label)
+        
         self.preset_combo = QComboBox()
         for preset in self.preset_manager.presets:
             self.preset_combo.addItem(preset.name)
         self.preset_combo.currentIndexChanged.connect(self.on_preset_changed)
+        self.preset_combo.setMinimumHeight(30)
         preset_v_layout.addWidget(self.preset_combo)
         
         # 切换按钮
         button_layout = QHBoxLayout()
+        button_layout.setSpacing(10)
+        
         self.prev_button = QPushButton("◀ 上一个")
         self.prev_button.clicked.connect(self.prev_preset)
         self.next_button = QPushButton("下一个 ▶")
@@ -814,13 +918,26 @@ class MainWindow(QMainWindow):
         
         # 预览组件
         preview_v_layout = QVBoxLayout()
-        preview_v_layout.addWidget(QLabel("预览:"))
+        preview_v_layout.setSpacing(8)
+        
+        preview_label = QLabel("实时预览:")
+        preview_label.setStyleSheet("font-size: 14px; font-weight: bold; color: #0078d4;")
+        preview_v_layout.addWidget(preview_label)
+        
         self.preview_widget = PreviewWidget()
         preview_v_layout.addWidget(self.preview_widget)
         
         # 当前类型显示
         self.style_label = QLabel("当前类型: 十字准星")
-        self.style_label.setStyleSheet("font-weight: bold; color: #00FF00;")
+        self.style_label.setStyleSheet("""
+            font-size: 16px; 
+            font-weight: bold; 
+            color: #00ff88;
+            background-color: #1e1e1e;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #00ff88;
+        """)
         preview_v_layout.addWidget(self.style_label)
         
         preset_h_layout.addLayout(preset_v_layout)
@@ -833,53 +950,69 @@ class MainWindow(QMainWindow):
         # 调整选项
         adjust_group = QGroupBox("调整选项")
         adjust_layout = QGridLayout()
+        adjust_layout.setSpacing(10)
+        adjust_layout.setContentsMargins(15, 15, 15, 15)
         
         # 颜色选择
-        self.color_button = QPushButton("选择颜色")
+        self.color_button = QPushButton("🎨 选择颜色")
         self.color_button.clicked.connect(self.choose_color)
         adjust_layout.addWidget(QLabel("颜色:"), 0, 0)
         adjust_layout.addWidget(self.color_button, 0, 1)
         
         # 大小调整
+        size_label = QLabel("大小:")
+        size_label.setStyleSheet("font-size: 14px; font-weight: bold; color: #0078d4;")
+        adjust_layout.addWidget(size_label, 1, 0)
+        
         self.size_slider = QSlider(Qt.Orientation.Horizontal)
-        self.size_slider.setRange(1, 50)  # 支持大小为1的预设
+        self.size_slider.setRange(1, 50)
         self.size_slider.valueChanged.connect(self.on_size_changed)
-        adjust_layout.addWidget(QLabel("大小:"), 1, 0)
         adjust_layout.addWidget(self.size_slider, 1, 1)
         self.size_label = QLabel("1")
+        self.size_label.setStyleSheet("font-size: 12px; color: #00ff88; background-color: #2d2d2d; padding: 4px; border-radius: 4px;")
         adjust_layout.addWidget(self.size_label, 1, 2)
         
         # 粗细调整
+        thickness_label = QLabel("粗细:")
+        thickness_label.setStyleSheet("font-size: 14px; font-weight: bold; color: #0078d4;")
+        adjust_layout.addWidget(thickness_label, 2, 0)
+        
         self.thickness_slider = QSlider(Qt.Orientation.Horizontal)
         self.thickness_slider.setRange(1, 10)
         self.thickness_slider.valueChanged.connect(self.on_thickness_changed)
-        adjust_layout.addWidget(QLabel("粗细:"), 2, 0)
         adjust_layout.addWidget(self.thickness_slider, 2, 1)
         self.thickness_label = QLabel("2")
+        self.thickness_label.setStyleSheet("font-size: 12px; color: #00ff88; background-color: #2d2d2d; padding: 4px; border-radius: 4px;")
         adjust_layout.addWidget(self.thickness_label, 2, 2)
         
         # 透明度调整
+        opacity_label = QLabel("透明度:")
+        opacity_label.setStyleSheet("font-size: 14px; font-weight: bold; color: #0078d4;")
+        adjust_layout.addWidget(opacity_label, 3, 0)
+        
         self.opacity_slider = QSlider(Qt.Orientation.Horizontal)
-        self.opacity_slider.setRange(10, 100)  # 10% - 100%
+        self.opacity_slider.setRange(10, 100)
         self.opacity_slider.setValue(100)
         self.opacity_slider.valueChanged.connect(self.on_opacity_changed)
-        adjust_layout.addWidget(QLabel("透明度:"), 3, 0)
         adjust_layout.addWidget(self.opacity_slider, 3, 1)
         self.opacity_label = QLabel("100%")
+        self.opacity_label.setStyleSheet("font-size: 12px; color: #00ff88; background-color: #2d2d2d; padding: 4px; border-radius: 4px;")
         adjust_layout.addWidget(self.opacity_label, 3, 2)
         
         adjust_group.setLayout(adjust_layout)
         layout.addWidget(adjust_group)
         
         # 控制按钮
-        control_group = QGroupBox("控制")
+        control_group = QGroupBox("控制中心")
         control_layout = QVBoxLayout()
+        control_layout.setSpacing(10)
         
-        self.toggle_button = QPushButton("显示/隐藏准星")
+        # 主要控制按钮
+        self.toggle_button = QPushButton("👁 显示/隐藏准星")
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         control_layout.addWidget(self.toggle_button)
         
-        self.click_through_checkbox = QCheckBox("点击穿透")
+        self.click_through_checkbox = QCheckBox("🖱️ 点击穿透")
         self.click_through_checkbox.setChecked(True)
         self.click_through_checkbox.stateChanged.connect(self.toggle_click_through)
         control_layout.addWidget(self.click_through_checkbox)
@@ -888,12 +1021,32 @@ class MainWindow(QMainWindow):
         layout.addWidget(control_group)
         
         # 快捷键说明
-        hotkey_group = QGroupBox("快捷键")
+        hotkey_group = QGroupBox("快捷键指南")
         hotkey_layout = QVBoxLayout()
-        hotkey_layout.addWidget(QLabel("F6 - 显示/隐藏准星"))
-        hotkey_layout.addWidget(QLabel("F7 - 切换下一个预设"))
-        hotkey_layout.addWidget(QLabel("F8 - 切换上一个预设"))
-        hotkey_layout.addWidget(QLabel("Ctrl+Q - 退出程序"))
+        hotkey_layout.setSpacing(8)
+        
+        hotkey_title = QLabel("全局快捷键")
+        hotkey_title.setStyleSheet("font-size: 14px; font-weight: bold; color: #0078d4; margin-bottom: 10px;")
+        hotkey_layout.addWidget(hotkey_title)
+        
+        hotkey_items = [
+            ("F6", "显示/隐藏准星"),
+            ("F7", "切换下一个预设"),
+            ("F8", "切换上一个预设"),
+            ("Ctrl+Q", "退出程序")
+        ]
+        
+        for key, desc in hotkey_items:
+            item_layout = QHBoxLayout()
+            key_label = QLabel(f"🎮 {key}")
+            key_label.setStyleSheet("font-weight: bold; color: #0078d4; min-width: 80px;")
+            desc_label = QLabel(desc)
+            desc_label.setStyleSheet("color: #ffffff; padding: 4px;")
+            item_layout.addWidget(key_label)
+            item_layout.addWidget(desc_label)
+            item_layout.addStretch()
+            hotkey_layout.addLayout(item_layout)
+        
         hotkey_group.setLayout(hotkey_layout)
         layout.addWidget(hotkey_group)
         
