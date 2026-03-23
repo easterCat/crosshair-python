@@ -1096,18 +1096,18 @@ class MainWindow(QMainWindow):
         
         # 颜色选择
         self.color_button = QPushButton("选择颜色")
-        self.color_button.setFixedSize(60, 25)
+        self.color_button.setFixedSize(55, 22)  # 缩小按钮尺寸
         self.color_button.clicked.connect(self.choose_color)
-        # 向上移动3像素
+        # 向上移动3像素，添加上边距2像素
         self.color_button.setStyleSheet("""
             QPushButton {
                 background-color: #2196F3;
                 color: white;
                 border: none;
                 border-radius: 4px;
-                font-size: 11px;
+                font-size: 10px;
                 font-weight: 500;
-                margin-top: -3px;
+                margin-top: -1px;  # 向上移动1像素，加上边距效果
             }
             
             QPushButton:hover {
