@@ -21,15 +21,17 @@ from ctypes import wintypes
 import keyboard
 import threading
 import time
+import math
 
 class CrosshairPreset:
     """准星预设数据类"""
-    def __init__(self, name: str, style: str, color: str = "#00FF00", size: int = 20, thickness: int = 2):
+    def __init__(self, name: str, style: str, color: str = "#00FF00", size: int = 20, thickness: int = 2, opacity: float = 1.0):
         self.name = name
         self.style = style  # cross, dot, circle, plus, x, etc.
         self.color = color
         self.size = size
         self.thickness = thickness
+        self.opacity = opacity  # 透明度 0.0-1.0
 
 class PreviewWidget(QWidget):
     """准星预览组件"""
@@ -47,8 +49,9 @@ class PreviewWidget(QWidget):
         # 获取预览区域中心
         center = QPoint(self.width() // 2, self.height() // 2)
         
-        # 设置画笔
+        # 设置画笔和透明度
         color = QColor(self.preset.color)
+        color.setAlphaF(self.preset.opacity)  # 设置透明度
         pen = QPen(color, max(1, self.preset.thickness // 2))  # 预览中使用较细的线条
         pen.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen)
@@ -68,14 +71,15 @@ class PreviewWidget(QWidget):
             painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
         elif style == "dot":
             painter.setBrush(QBrush(QColor(self.preset.color)))
-            dot_size = max(2, self.preset.size // 3)  # 预览中的点大小
+            dot_size = max(1, int(self.preset.size * scale))  # 预览中的点大小
             painter.drawEllipse(center, dot_size, dot_size)
         elif style == "circle":
-            pen = QPen(QColor(self.preset.color), max(1, self.preset.thickness // 2))
+            pen = QPen(QColor(self.preset.color), max(1, int(self.preset.thickness * scale)))
             pen.setCapStyle(Qt.PenCapStyle.RoundCap)
             painter.setPen(pen)
             painter.setBrush(Qt.BrushStyle.NoBrush)  # 空心圆
-            painter.drawEllipse(center, size//2, size//2)
+            circle_size = int(self.preset.size * scale)
+            painter.drawEllipse(center, circle_size, circle_size)
         elif style == "plus":
             painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
             painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size)
@@ -110,6 +114,194 @@ class PreviewWidget(QWidget):
             offset = size // 3
             painter.drawLine(center.x() - offset, center.y() - size, center.x() - offset, center.y() + size)
             painter.drawLine(center.x() + offset, center.y() - size, center.x() + offset, center.y() + size)
+        elif style == "t_shape":
+            # T形准星
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y(), center.x(), center.y() + size)
+        elif style == "l_shape":
+            # L形准星
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y())
+            painter.drawLine(center.x(), center.y(), center.x() + size, center.y())
+        elif style == "triangle":
+            # 三角准星
+            triangle_points = [
+                QPoint(center.x(), center.y() - size),
+                QPoint(center.x() - size, center.y() + size),
+                QPoint(center.x() + size, center.y() + size)
+            ]
+            painter.drawPolygon(triangle_points)
+        elif style == "diamond":
+            # 菱形准星
+            diamond_points = [
+                QPoint(center.x(), center.y() - size),
+                QPoint(center.x() + size, center.y()),
+                QPoint(center.x(), center.y() + size),
+                QPoint(center.x() - size, center.y())
+            ]
+            painter.drawPolygon(diamond_points)
+        elif style == "chevron":
+            # V形准星
+            painter.drawLine(center.x() - size, center.y() - size, center.x(), center.y() + size)
+            painter.drawLine(center.x(), center.y() + size, center.x() + size, center.y() - size)
+        elif style == "square":
+            # 方形准星
+            square_size = size // 2
+            painter.drawRect(center.x() - square_size, center.y() - square_size, square_size * 2, square_size * 2)
+        elif style == "crosshair_circle":
+            # 十字圆准星
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size)
+            painter.drawEllipse(center, size//2, size//2)
+        elif style == "dot_circle":
+            # 点圆准星
+            painter.drawEllipse(center, size//2, size//2)
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 1, 1)
+        # 新增独特准星样式（预览版本）
+        elif style == "hourglass":
+            # 沙漏准星
+            gap = size // 3
+            painter.drawLine(center.x() - size, center.y() - size, center.x() + size, center.y() + size)
+            painter.drawLine(center.x() + size, center.y() - size, center.x() - size, center.y() + size)
+            painter.drawLine(center.x() - size, center.y() - gap, center.x() + size, center.y() - gap)
+            painter.drawLine(center.x() - size, center.y() + gap, center.x() + size, center.y() + gap)
+            
+        elif style == "star":
+            # 星形准星
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size)
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            offset = size // 2
+            painter.drawLine(center.x() - offset, center.y() - offset, center.x() + offset, center.y() + offset)
+            painter.drawLine(center.x() - offset, center.y() + offset, center.x() + offset, center.y() - offset)
+            
+        elif style == "hexagon":
+            # 六边形准星
+            hex_size = size // 2
+            points = []
+            for i in range(6):
+                angle = i * 60
+                x = center.x() + hex_size * math.cos(math.radians(angle))
+                y = center.y() + hex_size * math.sin(math.radians(angle))
+                points.append(QPoint(int(x), int(y)))
+            painter.drawPolygon(points)
+            
+        elif style == "crown":
+            # 皇冠准星
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y())
+            painter.drawLine(center.x() - size//2, center.y() - size//2, center.x() + size//2, center.y() - size//2)
+            
+        elif style == "arrow":
+            # 箭头准星
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size//2)
+            painter.drawLine(center.x(), center.y() - size, center.x() - size//3, center.y() - size//2)
+            painter.drawLine(center.x(), center.y() - size, center.x() + size//3, center.y() - size//2)
+            
+        elif style == "target":
+            # 靶心准星
+            for i in range(3):
+                circle_size = size - i * (size // 3)
+                painter.drawEllipse(center, circle_size, circle_size)
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 1, 1)
+            
+        elif style == "grid":
+            # 网格准星
+            grid_size = size // 3
+            painter.drawLine(center.x() - grid_size, center.y(), center.x() + grid_size, center.y())
+            painter.drawLine(center.x(), center.y() - grid_size, center.x(), center.y() + grid_size)
+            painter.drawRect(center.x() - grid_size, center.y() - grid_size, grid_size * 2, grid_size * 2)
+            
+        elif style == "spike":
+            # 尖刺准星
+            for i in range(8):
+                angle = i * 45
+                x = center.x() + size * math.cos(math.radians(angle))
+                y = center.y() + size * math.sin(math.radians(angle))
+                painter.drawLine(center.x(), center.y(), int(x), int(y))
+                
+        elif style == "compass":
+            # 指南针准星
+            painter.drawEllipse(center, size//2, size//2)
+            painter.drawLine(center.x(), center.y() - size//2, center.x(), center.y() + size//2)
+            painter.drawLine(center.x() - size//2, center.y(), center.x() + size//2, center.y())
+            # 北方向标记
+            painter.drawLine(center.x(), center.y() - size//2, center.x(), center.y() - size//2 - size//4)
+            
+        elif style == "scope":
+            # 瞄准镜准星
+            painter.drawEllipse(center, size//3, size//3)
+            painter.drawLine(center.x() - size, center.y(), center.x() - size//3, center.y())
+            painter.drawLine(center.x() + size//3, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - size//3)
+            painter.drawLine(center.x(), center.y() + size//3, center.x(), center.y() + size)
+            
+        elif style == "reticle":
+            # 分划线准星
+            gap = size // 4
+            # 水平线
+            painter.drawLine(center.x() - size, center.y(), center.x() - gap, center.y())
+            painter.drawLine(center.x() + gap, center.y(), center.x() + size, center.y())
+            # 垂直线
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - gap)
+            painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
+            # 中心点
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 1, 1)
+            
+        elif style == "horseshoe":
+            # 马蹄铁准星
+            painter.drawArc(center.x() - size, center.y() - size, size * 2, size * 2, 30, 300)
+            painter.drawLine(center.x(), center.y() + size, center.x(), center.y() + size//2)
+            
+        elif style == "crosshair_plus":
+            # 十字加号准星
+            gap = size // 4
+            painter.drawLine(center.x() - size, center.y(), center.x() - gap, center.y())
+            painter.drawLine(center.x() + gap, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - gap)
+            painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 1, 1)
+            
+        elif style == "dotted_circle":
+            # 点线圆准星
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            painter.drawEllipse(center, size//2, size//2)
+            # 添加点标记
+            for i in range(8):
+                angle = i * 45
+                x = center.x() + (size//2) * math.cos(math.radians(angle))
+                y = center.y() + (size//2) * math.sin(math.radians(angle))
+                painter.setBrush(QBrush(QColor(self.preset.color)))
+                painter.drawEllipse(int(x), int(y), 1, 1)
+                
+        elif style == "segmented":
+            # 分段准星
+            segment_length = size // 3
+            gap = size // 6
+            # 水平分段
+            painter.drawLine(center.x() - size, center.y(), center.x() - size + segment_length, center.y())
+            painter.drawLine(center.x() + size - segment_length, center.y(), center.x() + size, center.y())
+            # 垂直分段
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - size + segment_length)
+            painter.drawLine(center.x(), center.y() + size - segment_length, center.x(), center.y() + size)
+            
+        elif style == "mil_dot":
+            # 军用点准星
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 2, 2)
+            # 外圈
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            painter.drawEllipse(center, size//2, size//2)
+            # 刻度线
+            for i in range(4):
+                angle = i * 90
+                x1 = center.x() + (size//2 - 2) * math.cos(math.radians(angle))
+                y1 = center.y() + (size//2 - 2) * math.sin(math.radians(angle))
+                x2 = center.x() + size//2 * math.cos(math.radians(angle))
+                y2 = center.y() + size//2 * math.sin(math.radians(angle))
+                painter.drawLine(int(x1), int(y1), int(x2), int(y2))
         else:
             painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
             painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size)
@@ -156,10 +348,12 @@ class CrosshairOverlay(QWidget):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         
         # 获取屏幕中心
-        center = self.rect().center()
+        screen = QApplication.primaryScreen().geometry()
+        center = QPoint(screen.center())
         
-        # 设置画笔
+        # 设置画笔和透明度
         color = QColor(self.preset.color)
+        color.setAlphaF(self.preset.opacity)  # 设置透明度
         pen = QPen(color, self.preset.thickness)
         pen.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen)
@@ -180,18 +374,17 @@ class CrosshairOverlay(QWidget):
             painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
             
         elif style == "dot":
-            # 点准星 - 使用更大的圆点
+            # 点准星 - 直接使用设置的大小
             painter.setBrush(QBrush(QColor(self.preset.color)))
-            dot_size = max(3, self.preset.size // 3)  # 根据大小调整点的大小
-            painter.drawEllipse(center, dot_size, dot_size)
+            painter.drawEllipse(center, self.preset.size, self.preset.size)
             
         elif style == "circle":
-            # 圆形准星 - 确保线条粗细合适
-            pen = QPen(QColor(self.preset.color), max(2, self.preset.thickness))
+            # 圆形准星 - 使用设置的大小作为半径
+            pen = QPen(QColor(self.preset.color), self.preset.thickness)
             pen.setCapStyle(Qt.PenCapStyle.RoundCap)
             painter.setPen(pen)
             painter.setBrush(Qt.BrushStyle.NoBrush)  # 空心圆
-            painter.drawEllipse(center, self.preset.size//2, self.preset.size//2)
+            painter.drawEllipse(center, self.preset.size, self.preset.size)
             
         elif style == "plus":
             # 加号准星（无间隙）
@@ -245,6 +438,203 @@ class CrosshairOverlay(QWidget):
             painter.drawLine(center.x() - offset, center.y() - size, center.x() - offset, center.y() + size)
             painter.drawLine(center.x() + offset, center.y() - size, center.x() + offset, center.y() + size)
             
+        elif style == "t_shape":
+            # T形准星
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y(), center.x(), center.y() + size)
+            
+        elif style == "l_shape":
+            # L形准星
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y())
+            painter.drawLine(center.x(), center.y(), center.x() + size, center.y())
+            
+        elif style == "triangle":
+            # 三角准星
+            triangle_points = [
+                QPoint(center.x(), center.y() - size),
+                QPoint(center.x() - size, center.y() + size),
+                QPoint(center.x() + size, center.y() + size)
+            ]
+            painter.drawPolygon(triangle_points)
+            
+        elif style == "diamond":
+            # 菱形准星
+            diamond_points = [
+                QPoint(center.x(), center.y() - size),
+                QPoint(center.x() + size, center.y()),
+                QPoint(center.x(), center.y() + size),
+                QPoint(center.x() - size, center.y())
+            ]
+            painter.drawPolygon(diamond_points)
+            
+        elif style == "chevron":
+            # V形准星
+            painter.drawLine(center.x() - size, center.y() - size, center.x(), center.y() + size)
+            painter.drawLine(center.x(), center.y() + size, center.x() + size, center.y() - size)
+            
+        elif style == "square":
+            # 方形准星
+            square_size = size // 2
+            painter.drawRect(center.x() - square_size, center.y() - square_size, square_size * 2, square_size * 2)
+            
+        elif style == "crosshair_circle":
+            # 十字圆准星
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size)
+            painter.drawEllipse(center, size//2, size//2)
+            
+        elif style == "dot_circle":
+            # 点圆准星
+            painter.drawEllipse(center, size//2, size//2)
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 2, 2)
+            
+        # 新增独特准星样式
+        elif style == "hourglass":
+            # 沙漏准星
+            gap = size // 3
+            painter.drawLine(center.x() - size, center.y() - size, center.x() + size, center.y() + size)
+            painter.drawLine(center.x() + size, center.y() - size, center.x() - size, center.y() + size)
+            painter.drawLine(center.x() - size, center.y() - gap, center.x() + size, center.y() - gap)
+            painter.drawLine(center.x() - size, center.y() + gap, center.x() + size, center.y() + gap)
+            
+        elif style == "star":
+            # 星形准星
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size)
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            offset = size // 2
+            painter.drawLine(center.x() - offset, center.y() - offset, center.x() + offset, center.y() + offset)
+            painter.drawLine(center.x() - offset, center.y() + offset, center.x() + offset, center.y() - offset)
+            
+        elif style == "hexagon":
+            # 六边形准星
+            hex_size = size // 2
+            points = []
+            for i in range(6):
+                angle = i * 60
+                x = center.x() + hex_size * math.cos(math.radians(angle))
+                y = center.y() + hex_size * math.sin(math.radians(angle))
+                points.append(QPoint(int(x), int(y)))
+            painter.drawPolygon(points)
+            
+        elif style == "crown":
+            # 皇冠准星
+            painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y())
+            painter.drawLine(center.x() - size//2, center.y() - size//2, center.x() + size//2, center.y() - size//2)
+            
+        elif style == "arrow":
+            # 箭头准星
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() + size//2)
+            painter.drawLine(center.x(), center.y() - size, center.x() - size//3, center.y() - size//2)
+            painter.drawLine(center.x(), center.y() - size, center.x() + size//3, center.y() - size//2)
+            
+        elif style == "target":
+            # 靶心准星
+            for i in range(3):
+                circle_size = size - i * (size // 3)
+                painter.drawEllipse(center, circle_size, circle_size)
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 2, 2)
+            
+        elif style == "grid":
+            # 网格准星
+            grid_size = size // 3
+            painter.drawLine(center.x() - grid_size, center.y(), center.x() + grid_size, center.y())
+            painter.drawLine(center.x(), center.y() - grid_size, center.x(), center.y() + grid_size)
+            painter.drawRect(center.x() - grid_size, center.y() - grid_size, grid_size * 2, grid_size * 2)
+            
+        elif style == "spike":
+            # 尖刺准星
+            for i in range(8):
+                angle = i * 45
+                x = center.x() + size * math.cos(math.radians(angle))
+                y = center.y() + size * math.sin(math.radians(angle))
+                painter.drawLine(center.x(), center.y(), int(x), int(y))
+                
+        elif style == "compass":
+            # 指南针准星
+            painter.drawEllipse(center, size//2, size//2)
+            painter.drawLine(center.x(), center.y() - size//2, center.x(), center.y() + size//2)
+            painter.drawLine(center.x() - size//2, center.y(), center.x() + size//2, center.y())
+            # 北方向标记
+            painter.drawLine(center.x(), center.y() - size//2, center.x(), center.y() - size//2 - size//4)
+            
+        elif style == "scope":
+            # 瞄准镜准星
+            painter.drawEllipse(center, size//3, size//3)
+            painter.drawLine(center.x() - size, center.y(), center.x() - size//3, center.y())
+            painter.drawLine(center.x() + size//3, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - size//3)
+            painter.drawLine(center.x(), center.y() + size//3, center.x(), center.y() + size)
+            
+        elif style == "reticle":
+            # 分划线准星
+            gap = size // 4
+            # 水平线
+            painter.drawLine(center.x() - size, center.y(), center.x() - gap, center.y())
+            painter.drawLine(center.x() + gap, center.y(), center.x() + size, center.y())
+            # 垂直线
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - gap)
+            painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
+            # 中心点
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 1, 1)
+            
+        elif style == "horseshoe":
+            # 马蹄铁准星
+            painter.drawArc(center.x() - size, center.y() - size, size * 2, size * 2, 30, 300)
+            painter.drawLine(center.x(), center.y() + size, center.x(), center.y() + size//2)
+            
+        elif style == "crosshair_plus":
+            # 十字加号准星
+            gap = size // 4
+            painter.drawLine(center.x() - size, center.y(), center.x() - gap, center.y())
+            painter.drawLine(center.x() + gap, center.y(), center.x() + size, center.y())
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - gap)
+            painter.drawLine(center.x(), center.y() + gap, center.x(), center.y() + size)
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 2, 2)
+            
+        elif style == "dotted_circle":
+            # 点线圆准星
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            painter.drawEllipse(center, size//2, size//2)
+            # 添加点标记
+            for i in range(8):
+                angle = i * 45
+                x = center.x() + (size//2) * math.cos(math.radians(angle))
+                y = center.y() + (size//2) * math.sin(math.radians(angle))
+                painter.setBrush(QBrush(QColor(self.preset.color)))
+                painter.drawEllipse(int(x), int(y), 1, 1)
+                
+        elif style == "segmented":
+            # 分段准星
+            segment_length = size // 3
+            gap = size // 6
+            # 水平分段
+            painter.drawLine(center.x() - size, center.y(), center.x() - size + segment_length, center.y())
+            painter.drawLine(center.x() + size - segment_length, center.y(), center.x() + size, center.y())
+            # 垂直分段
+            painter.drawLine(center.x(), center.y() - size, center.x(), center.y() - size + segment_length)
+            painter.drawLine(center.x(), center.y() + size - segment_length, center.x(), center.y() + size)
+            
+        elif style == "mil_dot":
+            # 军用点准星
+            painter.setBrush(QBrush(QColor(self.preset.color)))
+            painter.drawEllipse(center, 3, 3)
+            # 外圈
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            painter.drawEllipse(center, size//2, size//2)
+            # 刻度线
+            for i in range(4):
+                angle = i * 90
+                x1 = center.x() + (size//2 - 2) * math.cos(math.radians(angle))
+                y1 = center.y() + (size//2 - 2) * math.sin(math.radians(angle))
+                x2 = center.x() + size//2 * math.cos(math.radians(angle))
+                y2 = center.y() + size//2 * math.sin(math.radians(angle))
+                painter.drawLine(int(x1), int(y1), int(x2), int(y2))
+            
         else:
             # 默认十字
             painter.drawLine(center.x() - size, center.y(), center.x() + size, center.y())
@@ -268,7 +658,32 @@ class PresetManager:
             "circle_dot": "圆点准星",
             "bracket": "括号准星",
             "line": "单线准星",
-            "double_line": "双线准星"
+            "double_line": "双线准星",
+            "t_shape": "T形准星",
+            "l_shape": "L形准星",
+            "triangle": "三角准星",
+            "diamond": "菱形准星",
+            "chevron": "V形准星",
+            "square": "方形准星",
+            "crosshair_circle": "十字圆准星",
+            "dot_circle": "点圆准星",
+            # 新增独特准星样式
+            "hourglass": "沙漏准星",
+            "star": "星形准星", 
+            "hexagon": "六边形准星",
+            "crown": "皇冠准星",
+            "arrow": "箭头准星",
+            "target": "靶心准星",
+            "grid": "网格准星",
+            "spike": "尖刺准星",
+            "compass": "指南针准星",
+            "scope": "瞄准镜准星",
+            "reticle": "分划线准星",
+            "horseshoe": "马蹄铁准星",
+            "crosshair_plus": "十字加号准星",
+            "dotted_circle": "点线圆准星",
+            "segmented": "分段准星",
+            "mil_dot": "军用点准星"
         }
         self.presets = self.generate_200_presets()
         
@@ -279,7 +694,21 @@ class PresetManager:
     def generate_200_presets(self) -> List[CrosshairPreset]:
         """生成200个准星预设"""
         presets = []
-        styles = ["cross", "dot", "circle", "plus", "x", "cross_dot", "circle_dot", "bracket", "line", "double_line"]
+        # 重新组织样式，优先使用独特样式
+        styles = [
+            # 基础样式（保留最重要的）
+            "cross", "dot", "circle", "plus", "x", "cross_dot", "circle_dot",
+            # 几何样式
+            "triangle", "diamond", "square", "hexagon", "star",
+            # 功能样式
+            "t_shape", "l_shape", "chevron", "arrow", "bracket",
+            # 专业样式
+            "target", "scope", "reticle", "mil_dot", "horseshoe",
+            # 复合样式
+            "crosshair_circle", "dot_circle", "crosshair_plus", "dotted_circle",
+            # 特殊样式
+            "hourglass", "crown", "grid", "spike", "compass", "segmented"
+        ]
         colors = ["#00FF00", "#FF0000", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFFFFF", "#FF8800", "#8800FF", "#00FF88"]
         
         # 专门添加更多圆点和圆形准星预设
@@ -292,7 +721,7 @@ class PresetManager:
                 if len(presets) < 200:
                     style_name = self.get_style_name("dot")
                     name = f"{style_name}_{color.replace('#', '')}_大小{dot_size}"
-                    presets.append(CrosshairPreset(name, "dot", color, dot_size, 1))
+                    presets.append(CrosshairPreset(name, "dot", color, dot_size, 1, 1.0))
         
         # 添加更多圆形准星预设
         for color in colors[:5]:  # 使用前5种颜色
@@ -300,26 +729,26 @@ class PresetManager:
                 if len(presets) < 200:
                     style_name = self.get_style_name("circle")
                     name = f"{style_name}_{color.replace('#', '')}_大小{circle_size}"
-                    presets.append(CrosshairPreset(name, "circle", color, circle_size, 2))
+                    presets.append(CrosshairPreset(name, "circle", color, circle_size, 2, 1.0))
         
         # 添加圆环准星（空心圆）
         for color in colors[:3]:  # 使用前3种颜色
             for ring_size in [10, 15, 20, 25]:
                 if len(presets) < 200:
                     name = f"圆环准星_{color.replace('#', '')}_大小{ring_size}"
-                    presets.append(CrosshairPreset(name, "circle", color, ring_size, 3))
+                    presets.append(CrosshairPreset(name, "circle", color, ring_size, 3, 0.8))
         
         # 添加多层圆点准星
         for color in colors[:3]:
             if len(presets) < 200:
                 name = f"多层圆点_{color.replace('#', '')}"
-                presets.append(CrosshairPreset(name, "dot", color, 8, 1))
+                presets.append(CrosshairPreset(name, "dot", color, 8, 1, 0.9))
         
         # 添加同心圆准星
         for color in colors[:3]:
             if len(presets) < 200:
                 name = f"同心圆_{color.replace('#', '')}"
-                presets.append(CrosshairPreset(name, "circle_dot", color, 15, 2))
+                presets.append(CrosshairPreset(name, "circle_dot", color, 15, 2, 0.85))
         
         # 基础预设（填充剩余位置）
         for i, style in enumerate(styles):
@@ -329,11 +758,11 @@ class PresetManager:
                         if len(presets) < 200:
                             style_name = self.get_style_name(style)
                             name = f"{style_name}_{color.replace('#', '')}_大小{size}_粗细{thickness}"
-                            presets.append(CrosshairPreset(name, style, color, size, thickness))
+                            presets.append(CrosshairPreset(name, style, color, size, thickness, 1.0))
         
         # 确保正好200个
         while len(presets) < 200:
-            presets.append(CrosshairPreset(f"Preset_{len(presets)+1}", "cross", "#00FF00", 20, 2))
+            presets.append(CrosshairPreset(f"Preset_{len(presets)+1}", "cross", "#00FF00", 20, 2, 1.0))
         
         return presets[:200]
 
@@ -351,7 +780,7 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         """初始化用户界面"""
         self.setWindowTitle("FPS Crosshair Tool")
-        self.setFixedSize(450, 650)
+        self.setFixedSize(1024, 700)  # 增加宽度到1024
         
         # 设置窗口图标
         self.setWindowIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon))
@@ -417,23 +846,31 @@ class MainWindow(QMainWindow):
         
         # 大小调整
         self.size_slider = QSlider(Qt.Orientation.Horizontal)
-        self.size_slider.setRange(5, 50)
-        self.size_slider.setValue(20)
+        self.size_slider.setRange(1, 50)  # 支持大小为1的预设
         self.size_slider.valueChanged.connect(self.on_size_changed)
         adjust_layout.addWidget(QLabel("大小:"), 1, 0)
         adjust_layout.addWidget(self.size_slider, 1, 1)
-        self.size_label = QLabel("20")
+        self.size_label = QLabel("1")
         adjust_layout.addWidget(self.size_label, 1, 2)
         
         # 粗细调整
         self.thickness_slider = QSlider(Qt.Orientation.Horizontal)
         self.thickness_slider.setRange(1, 10)
-        self.thickness_slider.setValue(2)
         self.thickness_slider.valueChanged.connect(self.on_thickness_changed)
         adjust_layout.addWidget(QLabel("粗细:"), 2, 0)
         adjust_layout.addWidget(self.thickness_slider, 2, 1)
         self.thickness_label = QLabel("2")
         adjust_layout.addWidget(self.thickness_label, 2, 2)
+        
+        # 透明度调整
+        self.opacity_slider = QSlider(Qt.Orientation.Horizontal)
+        self.opacity_slider.setRange(10, 100)  # 10% - 100%
+        self.opacity_slider.setValue(100)
+        self.opacity_slider.valueChanged.connect(self.on_opacity_changed)
+        adjust_layout.addWidget(QLabel("透明度:"), 3, 0)
+        adjust_layout.addWidget(self.opacity_slider, 3, 1)
+        self.opacity_label = QLabel("100%")
+        adjust_layout.addWidget(self.opacity_label, 3, 2)
         
         adjust_group.setLayout(adjust_layout)
         layout.addWidget(adjust_group)
@@ -466,6 +903,9 @@ class MainWindow(QMainWindow):
         
         # 显示准星
         self.overlay.show()
+        
+        # 初始化第一个预设的显示
+        self.on_preset_changed(0)
         
     def setup_hotkeys(self):
         """设置全局快捷键"""
@@ -515,6 +955,8 @@ class MainWindow(QMainWindow):
         # 更新控件
         self.size_slider.setValue(preset.size)
         self.thickness_slider.setValue(preset.thickness)
+        self.opacity_slider.setValue(int(preset.opacity * 100))
+        self.opacity_label.setText(f"{int(preset.opacity * 100)}%")
         
     def choose_color(self):
         """选择颜色"""
@@ -540,6 +982,15 @@ class MainWindow(QMainWindow):
         self.thickness_label.setText(str(value))
         preset = self.preset_manager.presets[self.current_preset_index]
         preset.thickness = value
+        self.overlay.update_preset(preset)
+        # 更新预览
+        self.preview_widget.update_preset(preset)
+        
+    def on_opacity_changed(self, value):
+        """透明度改变事件"""
+        self.opacity_label.setText(f"{value}%")
+        preset = self.preset_manager.presets[self.current_preset_index]
+        preset.opacity = value / 100.0  # 转换为0.0-1.0
         self.overlay.update_preset(preset)
         # 更新预览
         self.preview_widget.update_preset(preset)
