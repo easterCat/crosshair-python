@@ -976,7 +976,7 @@ class MainWindow(QMainWindow):
             }
             
             QLabel#title {
-                font-size: 14px;
+                font-size: 12px;
                 font-weight: 500;
                 color: #212121;
                 margin-bottom: 8px;
