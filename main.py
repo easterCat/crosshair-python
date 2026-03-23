@@ -1054,7 +1054,6 @@ class MainWindow(QMainWindow):
         preview_container_layout.setContentsMargins(0, 0, 0, 0)
         
         self.preview_widget = PreviewWidget()
-        self.preview_widget.setAlignment(Qt.AlignmentFlag.AlignCenter)
         preview_container_layout.addWidget(self.preview_widget, 0, Qt.AlignmentFlag.AlignCenter)
         
         preview_v_layout.addWidget(preview_container, 0, Qt.AlignmentFlag.AlignCenter)
