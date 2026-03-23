@@ -760,6 +760,16 @@ class PresetManager:
                             name = f"{style_name}_{color.replace('#', '')}_大小{size}_粗细{thickness}"
                             presets.append(CrosshairPreset(name, style, color, size, thickness, 1.0))
         
+        # 为新样式添加专门预设
+        new_styles = ["hourglass", "crown", "grid", "spike", "compass", "segmented"]
+        for style in new_styles:
+            for color in colors[:3]:  # 使用前3种颜色
+                for size in [15, 20, 25]:
+                    if len(presets) < 200:
+                        style_name = self.get_style_name(style)
+                        name = f"{style_name}_{color.replace('#', '')}_大小{size}"
+                        presets.append(CrosshairPreset(name, style, color, size, 2, 1.0))
+        
         # 确保正好200个
         while len(presets) < 200:
             presets.append(CrosshairPreset(f"Preset_{len(presets)+1}", "cross", "#00FF00", 20, 2, 1.0))
