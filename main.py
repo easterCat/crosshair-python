@@ -1041,14 +1041,23 @@ class MainWindow(QMainWindow):
         
         # 预览组件
         preview_v_layout = QVBoxLayout()
-        preview_v_layout.setSpacing(8)
+        preview_v_layout.setSpacing(12)
         
         preview_label = QLabel("实时预览")
         preview_label.setObjectName("title")
         preview_v_layout.addWidget(preview_label)
         
+        # 预览容器，确保居中
+        preview_container = QWidget()
+        preview_container.setFixedSize(120, 120)
+        preview_container_layout = QVBoxLayout(preview_container)
+        preview_container_layout.setContentsMargins(0, 0, 0, 0)
+        
         self.preview_widget = PreviewWidget()
-        preview_v_layout.addWidget(self.preview_widget)
+        self.preview_widget.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        preview_container_layout.addWidget(self.preview_widget, 0, Qt.AlignmentFlag.AlignCenter)
+        
+        preview_v_layout.addWidget(preview_container, 0, Qt.AlignmentFlag.AlignCenter)
         
         # 当前类型显示
         self.style_label = QLabel("当前类型: 十字准星")
@@ -1065,7 +1074,7 @@ class MainWindow(QMainWindow):
                 min-height: 18px;
             }
         """)
-        preview_v_layout.addWidget(self.style_label)
+        preview_v_layout.addWidget(self.style_label, 0, Qt.AlignmentFlag.AlignCenter)
         
         preset_h_layout.addLayout(preset_v_layout)
         preset_h_layout.addLayout(preview_v_layout)
@@ -1082,12 +1091,13 @@ class MainWindow(QMainWindow):
         
         # 颜色选择
         self.color_button = QPushButton("选择颜色")
-        self.color_button.setMinimumWidth(80)
+        self.color_button.setFixedSize(60, 25)
         self.color_button.clicked.connect(self.choose_color)
         color_label = QLabel("颜色")
         color_label.setObjectName("title")
         adjust_layout.addWidget(color_label, 0, 0)
         adjust_layout.addWidget(self.color_button, 0, 1, 1, 2)
+        adjust_layout.setVerticalSpacing(16)  # 添加垂直间距
         
         # 大小调整
         size_label = QLabel("大小")
@@ -1141,16 +1151,44 @@ class MainWindow(QMainWindow):
         # 控制按钮
         control_group = QGroupBox("控制中心")
         control_layout = QVBoxLayout()
-        control_layout.setSpacing(12)
+        control_layout.setSpacing(16)  # 增加间距
         control_layout.setContentsMargins(16, 16, 16, 16)
         
         self.toggle_button = QPushButton("显示/隐藏准星")
-        self.toggle_button.setMinimumWidth(100)
+        self.toggle_button.setFixedSize(80, 25)  # 固定尺寸
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         control_layout.addWidget(self.toggle_button)
         
+        # 修复复选框样式
         self.click_through_checkbox = QCheckBox("点击穿透")
-        self.click_through_checkbox.setMinimumHeight(18)
+        self.click_through_checkbox.setMinimumHeight(20)
+        self.click_through_checkbox.setStyleSheet("""
+            QCheckBox {
+                color: #212121;
+                font-size: 11px;
+                spacing: 8px;
+                min-height: 20px;
+                padding: 4px 0px;
+            }
+            
+            QCheckBox::indicator {
+                width: 16px;
+                height: 16px;
+                border: 2px solid #757575;
+                border-radius: 3px;
+                background-color: #FFFFFF;
+            }
+            
+            QCheckBox::indicator:hover {
+                border: 2px solid #2196F3;
+            }
+            
+            QCheckBox::indicator:checked {
+                background-color: #2196F3;
+                border: 2px solid #2196F3;
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDRMMTUgN0w2IDE2TDMgMTNMNiAxMEwxMiA0WiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4K);
+            }
+        """)
         self.click_through_checkbox.setChecked(True)
         self.click_through_checkbox.stateChanged.connect(self.toggle_click_through)
         control_layout.addWidget(self.click_through_checkbox)
@@ -1161,12 +1199,16 @@ class MainWindow(QMainWindow):
         # 快捷键说明
         hotkey_group = QGroupBox("快捷键指南")
         hotkey_layout = QVBoxLayout()
-        hotkey_layout.setSpacing(8)
+        hotkey_layout.setSpacing(12)
         hotkey_layout.setContentsMargins(16, 16, 16, 16)
         
         hotkey_title = QLabel("全局快捷键")
         hotkey_title.setObjectName("title")
         hotkey_layout.addWidget(hotkey_title)
+        
+        # 使用表格布局展示快捷键
+        hotkey_table = QGridLayout()
+        hotkey_table.setSpacing(8)
         
         hotkey_items = [
             ("F6", "显示/隐藏准星"),
@@ -1175,37 +1217,41 @@ class MainWindow(QMainWindow):
             ("Ctrl+Q", "退出程序")
         ]
         
-        for key, desc in hotkey_items:
-            item_layout = QHBoxLayout()
-            item_layout.setSpacing(8)
+        for i, (key, desc) in enumerate(hotkey_items):
+            # 快捷键标签
             key_label = QLabel(key)
             key_label.setStyleSheet("""
                 QLabel {
                     background-color: #FFF3E0;
                     color: #E65100;
                     padding: 4px 8px;
-                    border-radius: 12px;
+                    border-radius: 8px;
                     font-weight: 500;
                     font-size: 10px;
                     border: 1px solid #FFCC80;
-                    min-width: 40px;
+                    min-width: 35px;
                     text-align: center;
                     min-height: 16px;
                 }
             """)
+            key_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            
+            # 描述标签
             desc_label = QLabel(desc)
             desc_label.setStyleSheet("""
                 QLabel {
                     color: #424242;
-                    font-size: 11px;
+                    font-size: 10px;
                     padding: 4px 8px;
                     min-height: 16px;
                 }
             """)
-            item_layout.addWidget(key_label)
-            item_layout.addWidget(desc_label)
-            item_layout.addStretch()
-            hotkey_layout.addLayout(item_layout)
+            
+            # 添加到表格布局
+            hotkey_table.addWidget(key_label, i, 0)
+            hotkey_table.addWidget(desc_label, i, 1)
+        
+        hotkey_layout.addLayout(hotkey_table)
         
         hotkey_group.setLayout(hotkey_layout)
         layout.addWidget(hotkey_group)
