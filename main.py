@@ -711,7 +711,12 @@ class PresetManager:
         basic_styles = ["cross", "dot", "circle", "plus", "x", "cross_dot", "circle_dot"]
         for style in basic_styles:
             for color in colors[:5]:  # 使用前5种颜色
-                for size in [10, 15, 20, 25]:
+                # 点准星使用小尺寸，其他使用标准尺寸
+                if style == "dot":
+                    sizes = [3, 5, 7, 9]  # 点准星使用小尺寸
+                else:
+                    sizes = [10, 15, 20, 25]  # 其他样式使用标准尺寸
+                for size in sizes:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
                         name = f"{style_name}_{color.replace('#', '')}_大小{size}"
