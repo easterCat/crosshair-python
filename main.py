@@ -380,7 +380,7 @@ class ThemeManager:
             
             /* Material Design 单选按钮样式 */
             QRadioButton {{
-                color: {theme['label']['color']};
+                color: {theme['label_title']['color']};
                 font-size: 11px;
                 font-weight: 500;
                 spacing: 8px;
@@ -391,9 +391,9 @@ class ThemeManager:
             QRadioButton::indicator {{
                 width: 16px;
                 height: 16px;
-                border: 2px solid {theme['label']['color']};
+                border: 2px solid {theme['label_title']['color']};
                 border-radius: 8px;
-                background-color: {theme['background']['color']};
+                background-color: {theme['main_window']['background-color']};
             }}
             
             QRadioButton::indicator:hover {{
