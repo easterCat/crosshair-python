@@ -10,7 +10,8 @@ from typing import Dict, List, Tuple
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                             QHBoxLayout, QPushButton, QColorDialog, QSlider, 
                             QLabel, QComboBox, QGroupBox, QGridLayout, QSpinBox,
-                            QCheckBox, QSystemTrayIcon, QMenu, QStyle, QFrame)
+                            QCheckBox, QSystemTrayIcon, QMenu, QStyle, QFrame,
+                            QRadioButton)
 from PyQt6.QtCore import Qt, QTimer, QPoint, pyqtSignal, QThread
 from PyQt6.QtGui import QPainter, QColor, QPen, QBrush, QIcon, QKeySequence, QShortcut
 import win32api
