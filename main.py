@@ -1322,7 +1322,7 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         """初始化用户界面"""
         self.setWindowTitle("FPS Crosshair Tool")
-        self.setFixedSize(500, 750)  # 缩小窗口尺寸以适应更多屏幕
+        self.setFixedSize(1024, 750)  # 设置窗口宽度为1024
         
         # Material Design QSS样式
         self.setStyleSheet("""
