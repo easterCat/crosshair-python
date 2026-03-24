@@ -23,6 +23,423 @@ import threading
 import time
 import math
 
+class ThemeManager:
+    """主题管理器"""
+    THEMES = {
+        "default": {
+            "name": "默认主题",
+            "main_window": {
+                "background-color": "#FAFAFA",
+                "color": "#212121",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#FFFFFF",
+                "border": "1px solid #E0E0E0",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "500",
+                "color": "#212121",
+                "box-shadow": "0 2px 4px rgba(0,0,0,0.1)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#2196F3",
+                "color": "#FFFFFF",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#2196F3",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#1976D2"
+            },
+            "slider": {
+                "background-color": "#E0E0E0",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#2196F3",
+                "border": "2px solid #FFFFFF",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#FFFFFF",
+                "border": "1px solid #E0E0E0",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)"
+            },
+            "combobox": {
+                "background-color": "#FFFFFF",
+                "border": "1px solid #E0E0E0",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "500",
+                "color": "#212121",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#424242",
+                "margin-top": "4px"
+            }
+        },
+        "dark": {
+            "name": "黑色主题",
+            "main_window": {
+                "background-color": "#121212",
+                "color": "#FFFFFF",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#1E1E1E",
+                "border": "1px solid #333333",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "500",
+                "color": "#FFFFFF",
+                "box-shadow": "0 2px 4px rgba(0,0,0,0.3)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#BB86FC",
+                "color": "#000000",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#BB86FC",
+                "color": "#000000",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#9B69E8"
+            },
+            "slider": {
+                "background-color": "#333333",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#BB86FC",
+                "border": "2px solid #1E1E1E",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#1E1E1E",
+                "border": "1px solid #333333",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.3)"
+            },
+            "combobox": {
+                "background-color": "#1E1E1E",
+                "border": "1px solid #333333",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#FFFFFF"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "500",
+                "color": "#FFFFFF",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#B0B0B0",
+                "margin-top": "4px"
+            }
+        },
+        "light": {
+            "name": "白色主题",
+            "main_window": {
+                "background-color": "#FFFFFF",
+                "color": "#000000",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#F5F5F5",
+                "border": "1px solid #E0E0E0",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "500",
+                "color": "#000000",
+                "box-shadow": "0 2px 4px rgba(0,0,0,0.05)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#4CAF50",
+                "color": "#FFFFFF",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#4CAF50",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#45A049"
+            },
+            "slider": {
+                "background-color": "#E0E0E0",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#4CAF50",
+                "border": "2px solid #F5F5F5",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#F5F5F5",
+                "border": "1px solid #E0E0E0",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.05)"
+            },
+            "combobox": {
+                "background-color": "#FFFFFF",
+                "border": "1px solid #E0E0E0",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "500",
+                "color": "#000000",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#424242",
+                "margin-top": "4px"
+            }
+        }
+    }
+    
+    @classmethod
+    def get_theme_stylesheet(cls, theme_name: str) -> str:
+        """获取主题样式表"""
+        theme = cls.THEMES.get(theme_name, cls.THEMES["default"])
+        
+        return f"""
+            /* Material Design 主色调 - {theme['name']} */
+            QMainWindow {{
+                background-color: {theme['main_window']['background-color']};
+                color: {theme['main_window']['color']};
+                font-family: {theme['main_window']['font-family']};
+                font-size: {theme['main_window']['font-size']};
+            }}
+            
+            /* Material Design 卡片样式 */
+            QGroupBox {{
+                background-color: {theme['groupbox']['background-color']};
+                border: {theme['groupbox']['border']};
+                border-radius: {theme['groupbox']['border-radius']};
+                margin-top: {theme['groupbox']['margin-top']};
+                padding-top: {theme['groupbox']['padding-top']};
+                font-weight: {theme['groupbox']['font-weight']};
+                color: {theme['groupbox']['color']};
+                box-shadow: {theme['groupbox']['box-shadow']};
+                min-height: {theme['groupbox']['min-height']};
+            }}
+            
+            QGroupBox::title {{
+                subcontrol-origin: margin;
+                left: 16px;
+                padding: 4px 12px 4px 12px;
+                background-color: {theme['groupbox_title']['background-color']};
+                color: {theme['groupbox_title']['color']};
+                border-radius: {theme['groupbox_title']['border-radius']};
+                font-weight: {theme['groupbox_title']['font-weight']};
+                font-size: {theme['groupbox_title']['font-size']};
+            }}
+            
+            /* Material Design 按钮样式 */
+            QPushButton {{
+                background-color: {theme['button']['background-color']};
+                color: {theme['button']['color']};
+                border: {theme['button']['border']};
+                border-radius: {theme['button']['border-radius']};
+                font-weight: {theme['button']['font-weight']};
+                font-size: {theme['button']['font-size']};
+                padding: {theme['button']['padding']};
+            }}
+            
+            QPushButton:hover {{
+                background-color: {theme['button_hover']['background-color']};
+            }}
+            
+            QPushButton:pressed {{
+                background-color: {theme['button_hover']['background-color']};
+                transform: translateY(1px);
+            }}
+            
+            /* Material Design 滑块样式 */
+            QSlider::groove:horizontal {{
+                background-color: {theme['slider']['background-color']};
+                border-radius: {theme['slider']['border-radius']};
+                height: {theme['slider']['height']};
+            }}
+            
+            QSlider::handle:horizontal {{
+                background-color: {theme['slider_handle']['background-color']};
+                border: {theme['slider_handle']['border']};
+                border-radius: {theme['slider_handle']['border-radius']};
+                width: {theme['slider_handle']['width']};
+                height: {theme['slider_handle']['height']};
+                margin: -3px 0;
+            }}
+            
+            /* Material Design 下拉框样式 */
+            QComboBox {{
+                background-color: {theme['combobox']['background-color']};
+                border: {theme['combobox']['border']};
+                border-radius: {theme['combobox']['border-radius']};
+                padding: {theme['combobox']['padding']};
+                font-size: {theme['combobox']['font-size']};
+                {f"color: {theme['combobox']['color']};" if 'color' in theme['combobox'] else ""}
+            }}
+            
+            QComboBox::drop-down {{
+                border: none;
+                width: 20px;
+            }}
+            
+            QComboBox::down-arrow {{
+                image: none;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid {theme['label_title']['color']};
+                margin-right: 4px;
+            }}
+            
+            QComboBox QAbstractItemView {{
+                background-color: {theme['combobox']['background-color']};
+                border: {theme['combobox']['border']};
+                border-radius: {theme['combobox']['border-radius']};
+                {f"color: {theme['combobox']['color']};" if 'color' in theme['combobox'] else ""}
+                selection-background-color: {theme['button']['background-color']};
+                selection-color: {theme['button']['color']};
+            }}
+            
+            /* Material Design 标签样式 */
+            QLabel#title {{
+                {f"color: {theme['label_title']['color']};"}
+                font-size: {theme['label_title']['font-size']};
+                font-weight: {theme['label_title']['font-weight']};
+                margin-bottom: {theme['label_title']['margin-bottom']};
+                min-height: {theme['label_title']['min-height']};
+            }}
+            
+            QLabel#value {{
+                {f"color: {theme['label_value']['color']};"}
+                font-size: {theme['label_value']['font-size']};
+                margin-top: {theme['label_value']['margin-top']};
+            }}
+            
+            /* Material Design 预览样式 */
+            PreviewWidget {{
+                background-color: {theme['preview']['background-color']};
+                border: {theme['preview']['border']};
+                border-radius: {theme['preview']['border-radius']};
+                box-shadow: {theme['preview']['box-shadow']};
+            }}
+            
+            /* Material Design 复选框样式 */
+            QCheckBox {{
+                color: {theme['main_window']['color']};
+                font-size: 11px;
+            }}
+            
+            QCheckBox::indicator {{
+                width: 16px;
+                height: 16px;
+                border: 2px solid {theme['button']['background-color']};
+                border-radius: 3px;
+                background-color: transparent;
+            }}
+            
+            QCheckBox::indicator:checked {{
+                background-color: {theme['button']['background-color']};
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEwIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xIDRMMy41IDYuNUw5IDEiIHN0cm9rZT0ie2NvbG9yfSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+);
+            }}
+            
+            /* Material Design 滚动条样式 */
+            QScrollBar:vertical {{
+                background-color: transparent;
+                width: 8px;
+                margin: 0;
+            }}
+            
+            QScrollBar::handle:vertical {{
+                background-color: {theme['label_value']['color']};
+                border-radius: 4px;
+                min-height: 20px;
+            }}
+            
+            QScrollBar::handle:vertical:hover {{
+                background: {theme['button']['background-color']};
+            }}
+            
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
+                height: 0px;
+            }}
+        """
+    
+    @classmethod
+    def get_preview_theme(cls, theme_name: str) -> str:
+        """获取预览组件主题"""
+        theme = cls.THEMES.get(theme_name, cls.THEMES["default"])
+        return f"""
+            QWidget {{
+                background-color: {theme['preview']['background-color']};
+                border: {theme['preview']['border']};
+                border-radius: {theme['preview']['border-radius']};
+                box-shadow: {theme['preview']['box-shadow']};
+            }}
+        """
+
 class CrosshairPreset:
     """准星预设数据类"""
     def __init__(self, name: str, style: str, color: str = "#00FF00", size: int = 20, thickness: int = 2, opacity: float = 1.0):
@@ -39,15 +456,13 @@ class PreviewWidget(QWidget):
         super().__init__()
         self.preset = CrosshairPreset("Preview", "cross")
         self.setFixedSize(120, 120)
-        # Material Design 预览样式
-        self.setStyleSheet("""
-            QWidget {
-                background-color: #FFFFFF;
-                border: 1px solid #E0E0E0;
-                border-radius: 8px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            }
-        """)
+        self.current_theme = "default"
+        self.update_theme()
+        
+    def update_theme(self, theme_name: str = "default"):
+        """更新主题"""
+        self.current_theme = theme_name
+        self.setStyleSheet(ThemeManager.get_preview_theme(theme_name))
         
     def paintEvent(self, event):
         """绘制预览准星"""
@@ -805,9 +1220,11 @@ class MainWindow(QMainWindow):
         self.overlay = CrosshairOverlay()
         self.preset_manager = PresetManager()
         self.current_preset_index = 0
+        self.current_theme = "default"
         self.init_ui()
         self.setup_hotkeys()
         self.setup_tray()
+        self.apply_theme(self.current_theme)
         
     def init_ui(self):
         """初始化用户界面"""
@@ -976,7 +1393,7 @@ class MainWindow(QMainWindow):
             }
             
             QLabel#title {
-                font-size: 12px;
+                font-size: 14px;
                 font-weight: 500;
                 color: #212121;
                 margin-bottom: 8px;
@@ -1205,6 +1622,17 @@ class MainWindow(QMainWindow):
         self.toggle_button.setFixedSize(80, 25)  # 固定尺寸
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         control_layout.addWidget(self.toggle_button)
+        
+        # 主题选择
+        theme_label = QLabel("主题选择")
+        theme_label.setObjectName("title")
+        control_layout.addWidget(theme_label)
+        
+        self.theme_combo = QComboBox()
+        self.theme_combo.setMinimumWidth(120)
+        self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题"])
+        self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
+        control_layout.addWidget(self.theme_combo)
         
         # 修复复选框样式
         self.click_through_checkbox = QCheckBox("点击穿透")
@@ -1436,6 +1864,28 @@ class MainWindow(QMainWindow):
         """关闭事件"""
         self.overlay.close()
         event.accept()
+    
+    def apply_theme(self, theme_name: str):
+        """应用主题"""
+        self.current_theme = theme_name
+        self.setStyleSheet(ThemeManager.get_theme_stylesheet(theme_name))
+        # 更新预览组件主题
+        if hasattr(self, 'preview_widget'):
+            self.preview_widget.update_theme(theme_name)
+    
+    def change_theme(self, theme_name: str):
+        """切换主题"""
+        self.apply_theme(theme_name)
+    
+    def on_theme_changed(self, theme_display_name: str):
+        """主题切换事件处理"""
+        theme_map = {
+            "默认主题": "default",
+            "黑色主题": "dark", 
+            "白色主题": "light"
+        }
+        theme_name = theme_map.get(theme_display_name, "default")
+        self.change_theme(theme_name)
 
 def main():
     """主函数"""
