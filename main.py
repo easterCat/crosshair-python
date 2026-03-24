@@ -377,6 +377,37 @@ class ThemeManager:
                 background-color: {theme['button_hover']['background-color']};
             }}
             
+            /* Material Design 单选按钮样式 */
+            QRadioButton {{
+                color: {theme['label']['color']};
+                font-size: 11px;
+                font-weight: 500;
+                spacing: 8px;
+                min-height: 20px;
+                padding: 2px 0px;
+            }}
+            
+            QRadioButton::indicator {{
+                width: 16px;
+                height: 16px;
+                border: 2px solid {theme['label']['color']};
+                border-radius: 8px;
+                background-color: {theme['background']['color']};
+            }}
+            
+            QRadioButton::indicator:hover {{
+                border: 2px solid {theme['button']['background-color']};
+            }}
+            
+            QRadioButton::indicator:checked {{
+                background-color: {theme['button']['background-color']};
+                border: 2px solid {theme['button']['background-color']};
+                width: 8px;
+                height: 8px;
+                border-radius: 4px;
+                margin: 4px;
+            }}
+            
             /* Material Design 滑块样式 */
             QSlider::groove:horizontal {{
                 background-color: {theme['slider']['background-color']};
@@ -1695,10 +1726,15 @@ class MainWindow(QMainWindow):
         main_theme_layout = QHBoxLayout()
         main_theme_layout.setSpacing(10)
         
-        self.toggle_button = QPushButton("显示/隐藏准星")
-        self.toggle_button.setFixedSize(90, 28)  # 缩小10像素宽度
-        self.toggle_button.clicked.connect(self.toggle_crosshair)
-        main_theme_layout.addWidget(self.toggle_button)
+        # 显示/隐藏准星 - 使用radio按钮
+        self.show_radio = QRadioButton("显示")
+        self.show_radio.setChecked(True)  # 默认显示
+        self.show_radio.clicked.connect(self.show_crosshair)
+        main_theme_layout.addWidget(self.show_radio)
+        
+        self.hide_radio = QRadioButton("隐藏")
+        self.hide_radio.clicked.connect(self.hide_crosshair)
+        main_theme_layout.addWidget(self.hide_radio)
         
         # 主题选择
         theme_label = QLabel("主题风格:")
@@ -1948,8 +1984,18 @@ class MainWindow(QMainWindow):
         """切换准星显示"""
         if self.overlay.isVisible():
             self.overlay.hide()
+            self.hide_radio.setChecked(True)
         else:
             self.overlay.show()
+            self.show_radio.setChecked(True)
+            
+    def show_crosshair(self):
+        """显示准星"""
+        self.overlay.show()
+        
+    def hide_crosshair(self):
+        """隐藏准星"""
+        self.overlay.hide()
             
     def toggle_click_through(self, state):
         """切换点击穿透"""
