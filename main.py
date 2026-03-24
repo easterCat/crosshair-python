@@ -1696,7 +1696,7 @@ class MainWindow(QMainWindow):
         buttons_h_layout.setSpacing(10)
         
         self.toggle_button = QPushButton("显示/隐藏准星")
-        self.toggle_button.setFixedSize(80, 24)  # 缩小按钮尺寸
+        self.toggle_button.setFixedSize(70, 22)  # 进一步缩小按钮尺寸
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         buttons_h_layout.addWidget(self.toggle_button)
         
@@ -1707,7 +1707,7 @@ class MainWindow(QMainWindow):
         buttons_h_layout.addWidget(theme_label)
         
         self.theme_combo = QComboBox()
-        self.theme_combo.setMinimumWidth(120)
+        self.theme_combo.setMinimumWidth(140)  # 增加宽度以完整显示选项
         self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
         buttons_h_layout.addWidget(self.theme_combo)
