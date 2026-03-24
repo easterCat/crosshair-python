@@ -22,6 +22,49 @@ import keyboard
 import threading
 import time
 import math
+import os
+
+class ConfigManager:
+    """配置管理器，负责保存和加载用户设置"""
+    CONFIG_FILE = "config.json"
+    
+    @classmethod
+    def load_config(cls) -> dict:
+        """加载配置"""
+        if os.path.exists(cls.CONFIG_FILE):
+            try:
+                with open(cls.CONFIG_FILE, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"加载配置失败: {e}")
+        return {}
+
+    @classmethod
+    def save_config(cls, config: dict):
+        """保存配置"""
+        try:
+            with open(cls.CONFIG_FILE, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=4, ensure_ascii=False)
+        except Exception as e:
+            print(f"保存配置失败: {e}")
+
+class HotkeyListener(QThread):
+    """全局快捷键监听线程"""
+    toggle_signal = pyqtSignal()
+    next_signal = pyqtSignal()
+    prev_signal = pyqtSignal()
+    exit_signal = pyqtSignal()
+
+    def run(self):
+        """运行监听循环"""
+        keyboard.add_hotkey('f6', self.toggle_signal.emit)
+        keyboard.add_hotkey('f7', self.next_signal.emit)
+        keyboard.add_hotkey('f8', self.prev_signal.emit)
+        keyboard.add_hotkey('ctrl+q', self.exit_signal.emit)
+        
+        # keyboard 库内部有自己的监听机制，这里只需保持线程存活
+        while True:
+            time.sleep(1)
 
 class ThemeManager:
     """主题管理器"""
@@ -304,6 +347,8 @@ class ThemeManager:
                 font-weight: {theme['button']['font-weight']};
                 font-size: {theme['button']['font-size']};
                 padding: {theme['button']['padding']};
+                min-width: 60px;
+                min-height: 24px;
             }}
             
             QPushButton:hover {{
@@ -313,6 +358,23 @@ class ThemeManager:
             QPushButton:pressed {{
                 background-color: {theme['button_hover']['background-color']};
                 transform: translateY(1px);
+            }}
+            
+            /* 颜色按钮特殊样式 */
+            QPushButton#color_button {{
+                background-color: {theme['button']['background-color']};
+                color: {theme['button']['color']};
+                border: {theme['button']['border']};
+                border-radius: {theme['button']['border-radius']};
+                font-weight: {theme['button']['font-weight']};
+                font-size: {theme['button']['font-size']};
+                padding: 6px 12px;
+                min-width: 80px;
+                min-height: 28px;
+            }}
+            
+            QPushButton#color_button:hover {{
+                background-color: {theme['button_hover']['background-color']};
             }}
             
             /* Material Design 滑块样式 */
@@ -1221,15 +1283,46 @@ class MainWindow(QMainWindow):
         self.preset_manager = PresetManager()
         self.current_preset_index = 0
         self.current_theme = "default"
+        
+        # 加载配置
+        self.config = ConfigManager.load_config()
+        self.load_settings()
+        
         self.init_ui()
         self.setup_hotkeys()
         self.setup_tray()
         self.apply_theme(self.current_theme)
         
+    def load_settings(self):
+        """加载配置设置"""
+        self.current_preset_index = self.config.get("preset_index", 0)
+        self.current_theme = self.config.get("theme", "default")
+        
+        # 应用预设设置
+        preset = self.preset_manager.presets[self.current_preset_index]
+        preset.color = self.config.get("color", preset.color)
+        preset.size = self.config.get("size", preset.size)
+        preset.thickness = self.config.get("thickness", preset.thickness)
+        preset.opacity = self.config.get("opacity", preset.opacity)
+        
+    def save_settings(self):
+        """保存当前设置"""
+        preset = self.preset_manager.presets[self.current_preset_index]
+        self.config = {
+            "preset_index": self.current_preset_index,
+            "theme": self.current_theme,
+            "color": preset.color,
+            "size": preset.size,
+            "thickness": preset.thickness,
+            "opacity": preset.opacity,
+            "click_through": self.click_through_checkbox.isChecked() if hasattr(self, 'click_through_checkbox') else True
+        }
+        ConfigManager.save_config(self.config)
+
     def init_ui(self):
         """初始化用户界面"""
         self.setWindowTitle("FPS Crosshair Tool")
-        self.setFixedSize(1200, 800)  # 增加窗口尺寸
+        self.setFixedSize(500, 750)  # 缩小窗口尺寸以适应更多屏幕
         
         # Material Design QSS样式
         self.setStyleSheet("""
@@ -1271,13 +1364,12 @@ class MainWindow(QMainWindow):
                 color: #FFFFFF;
                 border: none;
                 border-radius: 4px;
-                padding: 6px 12px;
+                padding: 8px 16px;
                 font-weight: 500;
                 font-size: 11px;
-                text-transform: uppercase;
                 letter-spacing: 0.5px;
-                min-height: 20px;
-                min-width: 60px;
+                min-height: 24px;
+                min-width: 80px;
             }
             
             QPushButton:hover {
@@ -1533,33 +1625,12 @@ class MainWindow(QMainWindow):
         
         # 颜色选择
         self.color_button = QPushButton("选择颜色")
-        self.color_button.setFixedSize(55, 22)  # 缩小按钮尺寸
         self.color_button.clicked.connect(self.choose_color)
-        # 向上移动3像素，添加上边距2像素
-        self.color_button.setStyleSheet("""
-            QPushButton {
-                background-color: #2196F3;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                font-size: 10px;
-                font-weight: 500;
-                margin-top: -1px;  # 向上移动1像素，加上边距效果
-            }
-            
-            QPushButton:hover {
-                background-color: #1976D2;
-            }
-            
-            QPushButton:pressed {
-                background-color: #0D47A1;
-            }
-        """)
+        self.color_button.setObjectName("color_button")
         color_label = QLabel("颜色")
         color_label.setObjectName("title")
-        color_label.setAlignment(Qt.AlignmentFlag.AlignVCenter)  # 垂直居中
-        adjust_layout.addWidget(color_label, 0, 0, Qt.AlignmentFlag.AlignVCenter)  # 垂直居中对齐
-        adjust_layout.addWidget(self.color_button, 0, 1, 1, 2, Qt.AlignmentFlag.AlignVCenter)  # 按钮也垂直居中
+        adjust_layout.addWidget(color_label, 0, 0)
+        adjust_layout.addWidget(self.color_button, 0, 1, 1, 2)
         adjust_layout.setVerticalSpacing(20)  # 增加垂直间距
         
         # 大小调整
@@ -1615,24 +1686,31 @@ class MainWindow(QMainWindow):
         # 控制按钮
         control_group = QGroupBox("控制中心")
         control_layout = QVBoxLayout()
-        control_layout.setSpacing(16)  # 增加间距
+        control_layout.setSpacing(16)
         control_layout.setContentsMargins(16, 16, 16, 16)
         
-        self.toggle_button = QPushButton("显示/隐藏")
-        self.toggle_button.setFixedSize(80, 25)  # 固定尺寸
+        self.toggle_button = QPushButton("显示/隐藏准星")
+        self.toggle_button.setFixedSize(100, 30)  # 增加宽度以完整显示文字
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         control_layout.addWidget(self.toggle_button)
         
-        # 主题选择
-        theme_label = QLabel("主题选择")
+        # 主题选择 - 使用水平布局
+        theme_h_layout = QHBoxLayout()
+        theme_h_layout.setSpacing(10)
+        
+        theme_label = QLabel("主题风格:")
         theme_label.setObjectName("title")
-        control_layout.addWidget(theme_label)
+        theme_label.setMinimumHeight(24)
+        theme_h_layout.addWidget(theme_label)
         
         self.theme_combo = QComboBox()
-        self.theme_combo.setMinimumWidth(120)
+        self.theme_combo.setMinimumWidth(150)
         self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
-        control_layout.addWidget(self.theme_combo)
+        theme_h_layout.addWidget(self.theme_combo)
+        theme_h_layout.addStretch()
+        
+        control_layout.addLayout(theme_h_layout)
         
         # 修复复选框样式
         self.click_through_checkbox = QCheckBox("点击穿透")
@@ -1743,25 +1821,27 @@ class MainWindow(QMainWindow):
         # 显示准星
         self.overlay.show()
         
-        # 初始化第一个预设的显示
-        self.on_preset_changed(0)
+        # 初始化当前预设的显示
+        self.on_preset_changed(self.current_preset_index)
+        self.preset_combo.setCurrentIndex(self.current_preset_index)
+        
+        # 设置主题下拉框初始值
+        theme_display_map = {
+            "default": "默认主题",
+            "dark": "黑色主题",
+            "light": "白色主题"
+        }
+        self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "默认主题"))
         
     def setup_hotkeys(self):
         """设置全局快捷键"""
-        self.hotkey_thread = threading.Thread(target=self.setup_global_hotkeys, daemon=True)
-        self.hotkey_thread.start()
+        self.hotkey_listener = HotkeyListener()
+        self.hotkey_listener.toggle_signal.connect(self.toggle_crosshair)
+        self.hotkey_listener.next_signal.connect(self.next_preset)
+        self.hotkey_listener.prev_signal.connect(self.prev_preset)
+        self.hotkey_listener.exit_signal.connect(self.close)
+        self.hotkey_listener.start()
         
-    def setup_global_hotkeys(self):
-        """设置全局快捷键监听"""
-        keyboard.add_hotkey('f6', self.toggle_crosshair)
-        keyboard.add_hotkey('f7', self.next_preset)
-        keyboard.add_hotkey('f8', self.prev_preset)
-        keyboard.add_hotkey('ctrl+q', self.close)
-        
-        # 保持线程运行
-        while True:
-            time.sleep(0.1)
-            
     def setup_tray(self):
         """设置系统托盘"""
         if QSystemTrayIcon.isSystemTrayAvailable():
@@ -1769,14 +1849,25 @@ class MainWindow(QMainWindow):
             self.tray_icon.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon))
             
             tray_menu = QMenu()
-            show_action = tray_menu.addAction("显示/隐藏")
-            show_action.triggered.connect(self.toggle_crosshair)
+            show_overlay_action = tray_menu.addAction("显示/隐藏准星")
+            show_overlay_action.triggered.connect(self.toggle_crosshair)
+            
+            show_window_action = tray_menu.addAction("设置窗口")
+            show_window_action.triggered.connect(self.show_window)
+            
+            tray_menu.addSeparator()
             
             quit_action = tray_menu.addAction("退出")
             quit_action.triggered.connect(self.close)
             
             self.tray_icon.setContextMenu(tray_menu)
             self.tray_icon.show()
+            
+    def show_window(self):
+        """显示主窗口"""
+        self.show()
+        self.activateWindow()
+        self.raise_()
             
     def on_preset_changed(self, index):
         """预设改变事件"""
@@ -1797,6 +1888,9 @@ class MainWindow(QMainWindow):
         self.opacity_slider.setValue(int(preset.opacity * 100))
         self.opacity_label.setText(f"{int(preset.opacity * 100)}%")
         
+        # 保存设置
+        self.save_settings()
+        
     def choose_color(self):
         """选择颜色"""
         color = QColorDialog.getColor()
@@ -1806,6 +1900,7 @@ class MainWindow(QMainWindow):
             self.overlay.update_preset(preset)
             # 更新预览
             self.preview_widget.update_preset(preset)
+            self.save_settings()
             
     def on_size_changed(self, value):
         """大小改变事件"""
@@ -1815,6 +1910,7 @@ class MainWindow(QMainWindow):
         self.overlay.update_preset(preset)
         # 更新预览
         self.preview_widget.update_preset(preset)
+        self.save_settings()
         
     def on_thickness_changed(self, value):
         """粗细改变事件"""
@@ -1824,6 +1920,7 @@ class MainWindow(QMainWindow):
         self.overlay.update_preset(preset)
         # 更新预览
         self.preview_widget.update_preset(preset)
+        self.save_settings()
         
     def on_opacity_changed(self, value):
         """透明度改变事件"""
@@ -1833,6 +1930,7 @@ class MainWindow(QMainWindow):
         self.overlay.update_preset(preset)
         # 更新预览
         self.preview_widget.update_preset(preset)
+        self.save_settings()
         
     def toggle_crosshair(self):
         """切换准星显示"""
@@ -1849,6 +1947,7 @@ class MainWindow(QMainWindow):
             hwnd = int(self.overlay.winId())
             extended_style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
             win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, extended_style & ~win32con.WS_EX_TRANSPARENT)
+        self.save_settings()
             
     def next_preset(self):
         """下一个预设"""
@@ -1886,6 +1985,7 @@ class MainWindow(QMainWindow):
         }
         theme_name = theme_map.get(theme_display_name, "default")
         self.change_theme(theme_name)
+        self.save_settings()
 
 def main():
     """主函数"""
