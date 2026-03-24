@@ -1696,7 +1696,7 @@ class MainWindow(QMainWindow):
         main_theme_layout.setSpacing(10)
         
         self.toggle_button = QPushButton("显示/隐藏准星")
-        self.toggle_button.setFixedSize(100, 28)  # 稍微增大便于点击
+        self.toggle_button.setFixedSize(90, 28)  # 缩小10像素宽度
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         main_theme_layout.addWidget(self.toggle_button)
         
@@ -1754,6 +1754,9 @@ class MainWindow(QMainWindow):
         
         advanced_layout.addStretch()
         control_layout.addLayout(advanced_layout)
+        
+        # 底部添加5像素间距
+        control_layout.addSpacing(5)
         
         control_group.setLayout(control_layout)
         layout.addWidget(control_group)
