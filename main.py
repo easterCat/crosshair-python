@@ -368,9 +368,9 @@ class ThemeManager:
                 border-radius: {theme['button']['border-radius']};
                 font-weight: {theme['button']['font-weight']};
                 font-size: {theme['button']['font-size']};
-                padding: 6px 12px;
-                min-width: 80px;
-                min-height: 28px;
+                padding: 4px 8px;
+                min-width: 60px;
+                min-height: 24px;
             }}
             
             QPushButton#color_button:hover {{
@@ -410,10 +410,12 @@ class ThemeManager:
             
             QComboBox::down-arrow {{
                 image: none;
-                border-left: 4px solid transparent;
-                border-right: 4px solid transparent;
-                border-top: 4px solid {theme['label_title']['color']};
-                margin-right: 4px;
+                width: 0;
+                height: 0;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 6px solid {theme['label_title']['color']};
+                margin-right: 8px;
             }}
             
             QComboBox QAbstractItemView {{
@@ -1689,28 +1691,29 @@ class MainWindow(QMainWindow):
         control_layout.setSpacing(16)
         control_layout.setContentsMargins(16, 16, 16, 16)
         
+        # 控制按钮水平布局
+        buttons_h_layout = QHBoxLayout()
+        buttons_h_layout.setSpacing(10)
+        
         self.toggle_button = QPushButton("显示/隐藏准星")
         self.toggle_button.setFixedSize(100, 30)  # 增加宽度以完整显示文字
         self.toggle_button.clicked.connect(self.toggle_crosshair)
-        control_layout.addWidget(self.toggle_button)
+        buttons_h_layout.addWidget(self.toggle_button)
         
-        # 主题选择 - 使用水平布局
-        theme_h_layout = QHBoxLayout()
-        theme_h_layout.setSpacing(10)
-        
+        # 主题选择
         theme_label = QLabel("主题风格:")
         theme_label.setObjectName("title")
         theme_label.setMinimumHeight(24)
-        theme_h_layout.addWidget(theme_label)
+        buttons_h_layout.addWidget(theme_label)
         
         self.theme_combo = QComboBox()
-        self.theme_combo.setMinimumWidth(150)
+        self.theme_combo.setMinimumWidth(120)
         self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
-        theme_h_layout.addWidget(self.theme_combo)
-        theme_h_layout.addStretch()
+        buttons_h_layout.addWidget(self.theme_combo)
         
-        control_layout.addLayout(theme_h_layout)
+        buttons_h_layout.addStretch()
+        control_layout.addLayout(buttons_h_layout)
         
         # 修复复选框样式
         self.click_through_checkbox = QCheckBox("点击穿透")
