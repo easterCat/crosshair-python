@@ -368,9 +368,9 @@ class ThemeManager:
                 border-radius: {theme['button']['border-radius']};
                 font-weight: {theme['button']['font-weight']};
                 font-size: {theme['button']['font-size']};
-                padding: 4px 8px;
-                min-width: 60px;
-                min-height: 24px;
+                padding: 2px 6px;
+                min-width: 50px;
+                min-height: 20px;
             }}
             
             QPushButton#color_button:hover {{
@@ -1696,7 +1696,7 @@ class MainWindow(QMainWindow):
         buttons_h_layout.setSpacing(10)
         
         self.toggle_button = QPushButton("显示/隐藏准星")
-        self.toggle_button.setFixedSize(100, 30)  # 增加宽度以完整显示文字
+        self.toggle_button.setFixedSize(80, 24)  # 缩小按钮尺寸
         self.toggle_button.clicked.connect(self.toggle_crosshair)
         buttons_h_layout.addWidget(self.toggle_button)
         
