@@ -2306,32 +2306,32 @@ class MainWindow(QMainWindow):
         self.show_radio.setStyleSheet("""
             QRadioButton {
                 color: #FFFFFF;
-                font-size: 12px;
+                font-size: 11px;
                 font-weight: 600;
-                spacing: 10px;
-                padding: 4px 8px;
-                border-radius: 6px;
+                spacing: 8px;
+                padding: 3px 6px;
+                border-radius: 4px;
                 background-color: #424242;
-                border: 2px solid #616161;
+                border: 1px solid #616161;
             }
             QRadioButton::indicator {
-                width: 20px;
-                height: 20px;
-                border-radius: 10px;
-                border: 3px solid #FFFFFF;
+                width: 16px;
+                height: 16px;
+                border-radius: 8px;
+                border: 2px solid #FFFFFF;
                 background-color: #424242;
             }
             QRadioButton::indicator:checked {
                 background-color: #FFFFFF;
-                border: 3px solid #FFFFFF;
-                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjQiIGZpbGw9IiM0MjQyNDIiLz4KPC9zdmc+);
+                border: 2px solid #FFFFFF;
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSI0IiBjeT0iNCIgcj0iMiIgZmlsbD0iIzQyNDI0MiIvPgo8L3N2Zz4=);
             }
             QRadioButton::indicator:hover {
-                border: 3px solid #757575;
+                border: 2px solid #757575;
                 background-color: #4A4A4A;
             }
             QRadioButton::indicator:checked:hover {
-                border: 3px solid #757575;
+                border: 2px solid #757575;
                 background-color: #FFFFFF;
             }
         """)
@@ -2344,16 +2344,16 @@ class MainWindow(QMainWindow):
                 color: #B0B0B0;
                 font-size: 10px;
                 font-weight: 400;
-                spacing: 8px;
-                padding: 2px 6px;
-                border-radius: 4px;
+                spacing: 6px;
+                padding: 2px 4px;
+                border-radius: 3px;
                 background-color: transparent;
                 border: 1px solid transparent;
             }
             QRadioButton::indicator {
-                width: 14px;
-                height: 14px;
-                border-radius: 7px;
+                width: 12px;
+                height: 12px;
+                border-radius: 6px;
                 border: 1px solid #616161;
                 background-color: #1E1E1E;
             }
@@ -2363,12 +2363,12 @@ class MainWindow(QMainWindow):
             }
             QRadioButton::indicator:checked {
                 background-color: #424242;
-                border: 2px solid #616161;
-                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSI0IiBjeT0iNCIgcj0iMiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4=);
+                border: 1px solid #616161;
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgNiA2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS41IiBmaWxsPSIjRkZGRkZGIi8+Cjwvc3ZnPg==);
             }
             QRadioButton::indicator:checked:hover {
                 background-color: #616161;
-                border: 2px solid #757575;
+                border: 1px solid #757575;
             }
         """)
         main_theme_layout.addWidget(self.hide_radio)
@@ -2651,56 +2651,56 @@ class MainWindow(QMainWindow):
         if hasattr(self, 'show_radio') and hasattr(self, 'hide_radio'):
             theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal"])
             
-            # 选中状态的radio样式（更明显）
+            # 选中状态的radio样式（适度突出）
             checked_radio_style = f"""
                 QRadioButton {{
                     color: {theme['main_window']['color']};
-                    font-size: 12px;
+                    font-size: 11px;
                     font-weight: 600;
-                    spacing: 10px;
-                    padding: 4px 8px;
-                    border-radius: 6px;
+                    spacing: 8px;
+                    padding: 3px 6px;
+                    border-radius: 4px;
                     background-color: {theme['button']['background-color']};
-                    border: 2px solid {theme['button_hover']['background-color']};
+                    border: 1px solid {theme['button_hover']['background-color']};
                 }}
                 QRadioButton::indicator {{
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 10px;
-                    border: 3px solid {theme['main_window']['color']};
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 8px;
+                    border: 2px solid {theme['main_window']['color']};
                     background-color: {theme['button']['background-color']};
                 }}
                 QRadioButton::indicator:checked {{
                     background-color: {theme['main_window']['color']};
-                    border: 3px solid {theme['main_window']['color']};
-                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjQiIGZpbGw9IiN7dGhlbVsnYnV0dG9uXVsnYmFja2dyb3VuZC1jb2xvciddfSIvPgo8L3N2Zz4=);
+                    border: 2px solid {theme['main_window']['color']};
+                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSI0IiBjeT0iNCIgcj0iMiIgZmlsbD0ie3RoZW1lWydidXR0b24nXVsnYmFja2dyb3VuZC1jb2xvciddfSIvPgo8L3N2Zz4=);
                 }}
                 QRadioButton::indicator:hover {{
-                    border: 3px solid {theme['button_hover']['background-color']};
+                    border: 2px solid {theme['button_hover']['background-color']};
                     background-color: {theme['button_hover']['background-color']};
                 }}
                 QRadioButton::indicator:checked:hover {{
-                    border: 3px solid {theme['button_hover']['background-color']};
+                    border: 2px solid {theme['button_hover']['background-color']};
                     background-color: {theme['main_window']['color']};
                 }}
             """
             
-            # 非选中状态的radio样式（不太明显）
+            # 非选中状态的radio样式（保持微妙）
             unchecked_radio_style = f"""
                 QRadioButton {{
                     color: {theme['label_value']['color']};
                     font-size: 10px;
                     font-weight: 400;
-                    spacing: 8px;
-                    padding: 2px 6px;
-                    border-radius: 4px;
+                    spacing: 6px;
+                    padding: 2px 4px;
+                    border-radius: 3px;
                     background-color: transparent;
                     border: 1px solid transparent;
                 }}
                 QRadioButton::indicator {{
-                    width: 14px;
-                    height: 14px;
-                    border-radius: 7px;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 6px;
                     border: 1px solid {theme['button']['background-color']};
                     background-color: {theme['groupbox']['background-color']};
                 }}
@@ -2710,12 +2710,12 @@ class MainWindow(QMainWindow):
                 }}
                 QRadioButton::indicator:checked {{
                     background-color: {theme['button']['background-color']};
-                    border: 2px solid {theme['button_hover']['background-color']};
-                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSI0IiBjeT0iNCIgcj0iMiIgZmlsbD0ie3RoZW1lWydtYWluX3dpbmRvdyddWydjb2xvciddfSIvPgo8L3N2Zz4=);
+                    border: 1px solid {theme['button_hover']['background-color']};
+                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgNiA2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS41IiBmaWxsPSJ7dGhlbVsnbWFpbl93aW5kb3cnXVsnY29sb3InXX0iLz4KPC9zdmc+);
                 }}
                 QRadioButton::indicator:checked:hover {{
                     background-color: {theme['button_hover']['background-color']};
-                    border: 2px solid {theme['button_hover']['background-color']};
+                    border: 1px solid {theme['button_hover']['background-color']};
                 }}
             """
             
