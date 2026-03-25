@@ -2373,20 +2373,20 @@ class MainWindow(QMainWindow):
         hotkey_layout.setContentsMargins(16, 16, 16, 16)
         
         # 一行展示所有快捷键，添加背景色
-        hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
-        hotkey_text.setStyleSheet(f"""
+        self.hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
+        self.hotkey_text.setStyleSheet(f"""
             QLabel {{
-                color: #E2E8F0;
+                color: {ThemeManager.get_current_theme_color('button', 'color')};
                 font-size: 10px;
                 padding: 8px 12px;
-                background-color: #2D3748;
-                border: 1px solid #3A4556;
+                background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
+                border: 1px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
                 border-radius: 4px;
                 font-weight: 500;
             }}
         """)
-        hotkey_text.setWordWrap(True)
-        hotkey_layout.addWidget(hotkey_text)
+        self.hotkey_text.setWordWrap(True)
+        hotkey_layout.addWidget(self.hotkey_text)
         
         hotkey_group.setLayout(hotkey_layout)
         layout.addWidget(hotkey_group)
@@ -2561,6 +2561,19 @@ class MainWindow(QMainWindow):
         # 更新预览组件主题
         if hasattr(self, 'preview_widget'):
             self.preview_widget.update_theme(theme_name)
+        # 更新快捷键样式
+        if hasattr(self, 'hotkey_text'):
+            self.hotkey_text.setStyleSheet(f"""
+                QLabel {{
+                    color: {ThemeManager.get_current_theme_color('button', 'color')};
+                    font-size: 10px;
+                    padding: 8px 12px;
+                    background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
+                    border: 1px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
+                    border-radius: 4px;
+                    font-weight: 500;
+                }}
+            """)
     
     def change_theme(self, theme_name: str):
         """切换主题"""
