@@ -881,8 +881,8 @@ class ThemeManager:
             
             QGroupBox::title {{
                 subcontrol-origin: margin;
-                left: 16px;
-                padding: 4px 12px 4px 12px;
+                left: 10px;
+                padding: 0 5px 0 5px;
                 background-color: {theme['groupbox_title']['background-color']};
                 color: {theme['groupbox_title']['color']};
                 border-radius: {theme['groupbox_title']['border-radius']};
@@ -899,8 +899,6 @@ class ThemeManager:
                 font-weight: {theme['button']['font-weight']};
                 font-size: {theme['button']['font-size']};
                 padding: {theme['button']['padding']};
-                min-width: 60px;
-                min-height: 24px;
             }}
             
             QPushButton:hover {{
@@ -909,7 +907,6 @@ class ThemeManager:
             
             QPushButton:pressed {{
                 background-color: {theme['button_hover']['background-color']};
-                transform: translateY(1px);
             }}
             
             /* 颜色按钮特殊样式 */
@@ -973,7 +970,7 @@ class ThemeManager:
                 border-radius: {theme['slider_handle']['border-radius']};
                 width: {theme['slider_handle']['width']};
                 height: {theme['slider_handle']['height']};
-                margin: -3px 0;
+                margin: -{int(int(theme['slider_handle']['height'])/2)}px 0;
             }}
             
             /* Material Design 下拉框样式 */
@@ -983,11 +980,17 @@ class ThemeManager:
                 border-radius: {theme['combobox']['border-radius']};
                 padding: {theme['combobox']['padding']};
                 font-size: {theme['combobox']['font-size']};
-                {f"color: {theme['combobox']['color']};" if 'color' in theme['combobox'] else ""}
+                color: {theme['combobox']['color']};
+                font-weight: {theme['combobox']['font-weight']};
             }}
             
             QComboBox::drop-down {{
-                border: none;
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 15px;
+                border-left-width: 0px;
+                border-left-color: transparent;
+                border-left-style: none;
                 width: 20px;
             }}
             
@@ -1086,6 +1089,24 @@ class ThemeManager:
                 box-shadow: {theme['preview']['box-shadow']};
             }}
         """
+    
+    @classmethod
+    def get_current_theme_color(cls, section: str, key: str) -> str:
+        """获取当前主题的颜色值"""
+        # 获取当前主题名称
+        import sys
+        from PyQt6.QtWidgets import QApplication
+        
+        app = QApplication.instance()
+        if app:
+            window = app.activeWindow()
+            if window and hasattr(window, 'current_theme'):
+                theme_name = window.current_theme
+                theme = cls.THEMES.get(theme_name, cls.THEMES["deep_ocean"])
+                return theme.get(section, {}).get(key, "#FFFFFF")
+        
+        # 默认返回白色
+        return "#FFFFFF"
 
 class CrosshairPreset:
     """准星预设数据类"""
@@ -2305,32 +2326,32 @@ class MainWindow(QMainWindow):
         
         self.click_through_checkbox = QCheckBox("点击穿透")
         self.click_through_checkbox.setMinimumHeight(22)
-        self.click_through_checkbox.setStyleSheet("""
-            QCheckBox {
-                color: #212121;
+        self.click_through_checkbox.setStyleSheet(f"""
+            QCheckBox {{
+                color: {self.theme_manager.get_current_theme_color('main_window', 'color')};
                 font-size: 11px;
                 spacing: 8px;
                 min-height: 22px;
                 padding: 2px 0px;
-            }
+            }}
             
-            QCheckBox::indicator {
+            QCheckBox::indicator {{
                 width: 16px;
                 height: 16px;
-                border: 2px solid #757575;
+                border: 2px solid {self.theme_manager.get_current_theme_color('button', 'background-color')};
                 border-radius: 3px;
-                background-color: #FFFFFF;
-            }
+                background-color: {self.theme_manager.get_current_theme_color('main_window', 'color')};
+            }}
             
-            QCheckBox::indicator:hover {
-                border: 2px solid #2196F3;
-            }
+            QCheckBox::indicator:hover {{
+                border: 2px solid {self.theme_manager.get_current_theme_color('button_hover', 'background-color')};
+            }}
             
-            QCheckBox::indicator:checked {
-                background-color: #2196F3;
-                border: 2px solid #2196F3;
+            QCheckBox::indicator:checked {{
+                background-color: {self.theme_manager.get_current_theme_color('button', 'background-color')};
+                border: 2px solid {self.theme_manager.get_current_theme_color('button', 'background-color')};
                 image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDRMMTUgN0w2IDE2TDMgMTNMNiAxMEwxMiA0WiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4K);
-            }
+            }}
         """)
         self.click_through_checkbox.setChecked(True)
         self.click_through_checkbox.stateChanged.connect(self.toggle_click_through)
@@ -2376,32 +2397,32 @@ class MainWindow(QMainWindow):
             
             # 快捷键标签
             key_label = QLabel(key)
-            key_label.setStyleSheet("""
-                QLabel {
-                    background-color: #FFF3E0;
-                    color: #E65100;
+            key_label.setStyleSheet(f"""
+                QLabel {{
+                    background-color: {self.theme_manager.get_current_theme_color('button', 'background-color')};
+                    color: {self.theme_manager.get_current_theme_color('button', 'color')};
                     padding: 2px 5px;
                     border-radius: 4px;
-                    font-weight: 500;
+                    font-weight: 600;
                     font-size: 8px;
-                    border: 1px solid #FFCC80;
+                    border: 1px solid {self.theme_manager.get_current_theme_color('button', 'background-color')};
                     min-width: 25px;
                     max-width: 35px;
                     text-align: center;
                     min-height: 12px;
-                }
+                }}
             """)
             key_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             
             # 描述标签
             desc_label = QLabel(desc)
-            desc_label.setStyleSheet("""
-                QLabel {
-                    color: #424242;
+            desc_label.setStyleSheet(f"""
+                QLabel {{
+                    color: {self.theme_manager.get_current_theme_color('label_value', 'color')};
                     font-size: 8px;
                     padding: 2px 5px;
                     min-height: 12px;
-                }
+                }}
             """)
             
             hotkey_container_layout.addWidget(key_label)
