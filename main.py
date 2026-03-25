@@ -70,35 +70,35 @@ class HotkeyListener(QThread):
 class ThemeManager:
     """主题管理器"""
     THEMES = {
-        "default": {
-            "name": "默认主题",
+        "cyberpunk": {
+            "name": "赛博霓虹",
             "main_window": {
-                "background-color": "#FAFAFA",
-                "color": "#212121",
+                "background-color": "#121226",
+                "color": "#E0E0FF",
                 "font-family": "'Segoe UI', Arial, sans-serif",
                 "font-size": "11px"
             },
             "groupbox": {
-                "background-color": "#FFFFFF",
-                "border": "1px solid #E0E0E0",
+                "background-color": "#1A1A33",
+                "border": "1px solid #2A2A3A",
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
                 "font-weight": "500",
-                "color": "#212121",
-                "box-shadow": "0 2px 4px rgba(0,0,0,0.1)",
+                "color": "#E0E0FF",
+                "box-shadow": "0 2px 8px rgba(0,240,255,0.2)",
                 "min-height": "80px"
             },
             "groupbox_title": {
-                "background-color": "#2196F3",
-                "color": "#FFFFFF",
+                "background-color": "#00F0FF",
+                "color": "#121226",
                 "border-radius": "4px",
                 "font-weight": "500",
                 "font-size": "12px"
             },
             "button": {
-                "background-color": "#2196F3",
-                "color": "#FFFFFF",
+                "background-color": "#00F0FF",
+                "color": "#121226",
                 "border": "none",
                 "border-radius": "4px",
                 "font-weight": "500",
@@ -106,29 +106,29 @@ class ThemeManager:
                 "padding": "8px 16px"
             },
             "button_hover": {
-                "background-color": "#1976D2"
+                "background-color": "#00D0E0"
             },
             "slider": {
-                "background-color": "#E0E0E0",
+                "background-color": "#00D0E0",
                 "border-radius": "3px",
                 "height": "6px"
             },
             "slider_handle": {
-                "background-color": "#2196F3",
-                "border": "2px solid #FFFFFF",
+                "background-color": "#00F0FF",
+                "border": "2px solid #121226",
                 "border-radius": "6px",
                 "width": "12px",
                 "height": "12px"
             },
             "preview": {
-                "background-color": "#FFFFFF",
-                "border": "1px solid #E0E0E0",
+                "background-color": "#1A1A33",
+                "border": "1px solid #2A2A3A",
                 "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)"
+                "box-shadow": "0 2px 8px rgba(0,240,255,0.2)"
             },
             "combobox": {
-                "background-color": "#FFFFFF",
-                "border": "1px solid #E0E0E0",
+                "background-color": "#1A1A33",
+                "border": "1px solid #2A2A3A",
                 "border-radius": "4px",
                 "padding": "6px 12px",
                 "font-size": "11px"
@@ -136,45 +136,121 @@ class ThemeManager:
             "label_title": {
                 "font-size": "12px",
                 "font-weight": "500",
-                "color": "#212121",
+                "color": "#E0E0FF",
                 "margin-bottom": "8px",
                 "min-height": "18px"
             },
             "label_value": {
                 "font-size": "11px",
-                "color": "#424242",
+                "color": "#E0E0FF",
                 "margin-top": "4px"
             }
         },
-        "dark": {
-            "name": "黑色主题",
+        "military": {
+            "name": "暗夜军事",
+            "main_window": {
+                "background-color": "#0F1916",
+                "color": "#D0E8D8",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#1A2A24",
+                "border": "1px solid #2A3A2A",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "500",
+                "color": "#D0E8D8",
+                "box-shadow": "0 2px 8px rgba(46,204,113,0.2)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#2ECC71",
+                "color": "#0F1916",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#2ECC71",
+                "color": "#0F1916",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#27AE60"
+            },
+            "slider": {
+                "background-color": "#27AE60",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#2ECC71",
+                "border": "2px solid #0F1916",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#1A2A24",
+                "border": "1px solid #2A3A2A",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(46,204,113,0.2)"
+            },
+            "combobox": {
+                "background-color": "#1A2A24",
+                "border": "1px solid #2A3A2A",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "500",
+                "color": "#D0E8D8",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#D0E8D8",
+                "margin-top": "4px"
+            }
+        },
+        "minimal": {
+            "name": "极简暗黑",
             "main_window": {
                 "background-color": "#121212",
-                "color": "#FFFFFF",
+                "color": "#F0F0F0",
                 "font-family": "'Segoe UI', Arial, sans-serif",
                 "font-size": "11px"
             },
             "groupbox": {
                 "background-color": "#1E1E1E",
-                "border": "1px solid #333333",
+                "border": "1px solid #2A2A2A",
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
                 "font-weight": "500",
-                "color": "#FFFFFF",
-                "box-shadow": "0 2px 4px rgba(0,0,0,0.3)",
+                "color": "#F0F0F0",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
                 "min-height": "80px"
             },
             "groupbox_title": {
-                "background-color": "#BB86FC",
-                "color": "#000000",
+                "background-color": "#9D4EDD",
+                "color": "#121212",
                 "border-radius": "4px",
                 "font-weight": "500",
                 "font-size": "12px"
             },
             "button": {
-                "background-color": "#BB86FC",
-                "color": "#000000",
+                "background-color": "#9D4EDD",
+                "color": "#121212",
                 "border": "none",
                 "border-radius": "4px",
                 "font-weight": "500",
@@ -182,181 +258,104 @@ class ThemeManager:
                 "padding": "8px 16px"
             },
             "button_hover": {
-                "background-color": "#9B69E8"
+                "background-color": "#8B3DB5"
             },
             "slider": {
-                "background-color": "#333333",
+                "background-color": "#7B2CBF",
                 "border-radius": "3px",
                 "height": "6px"
             },
             "slider_handle": {
-                "background-color": "#BB86FC",
-                "border": "2px solid #1E1E1E",
+                "background-color": "#9D4EDD",
+                "border": "2px solid #121212",
                 "border-radius": "6px",
                 "width": "12px",
                 "height": "12px"
             },
             "preview": {
                 "background-color": "#1E1E1E",
-                "border": "1px solid #333333",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.3)"
-            },
-            "combobox": {
-                "background-color": "#1E1E1E",
-                "border": "1px solid #333333",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#FFFFFF"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "500",
-                "color": "#FFFFFF",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#B0B0B0",
-                "margin-top": "4px"
-            }
-        },
-        "light": {
-            "name": "白色主题",
-            "main_window": {
-                "background-color": "#FFFFFF",
-                "color": "#000000",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#F5F5F5",
-                "border": "1px solid #E0E0E0",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "500",
-                "color": "#000000",
-                "box-shadow": "0 2px 4px rgba(0,0,0,0.05)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#4CAF50",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "500",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#4CAF50",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "500",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#45A049"
-            },
-            "slider": {
-                "background-color": "#E0E0E0",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#4CAF50",
-                "border": "2px solid #F5F5F5",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#F5F5F5",
-                "border": "1px solid #E0E0E0",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.05)"
-            },
-            "combobox": {
-                "background-color": "#FFFFFF",
-                "border": "1px solid #E0E0E0",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "500",
-                "color": "#000000",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#424242",
-                "margin-top": "4px"
-            }
-        },
-        "pure_black": {
-            "name": "纯黑主题",
-            "main_window": {
-                "background-color": "#000000",
-                "color": "#FFFFFF",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#1A1A1A",
-                "border": "1px solid #333333",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "500",
-                "color": "#FFFFFF",
-                "box-shadow": "0 2px 4px rgba(0,0,0,0.5)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#FFFFFF",
-                "color": "#000000",
-                "border-radius": "4px",
-                "font-weight": "500",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#FFFFFF",
-                "color": "#000000",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "500",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#F0F0F0"
-            },
-            "slider": {
-                "background-color": "#333333",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#FFFFFF",
-                "border": "2px solid #000000",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#1A1A1A",
-                "border": "1px solid #333333",
+                "border": "1px solid #2A2A2A",
                 "border-radius": "8px",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.5)"
             },
             "combobox": {
+                "background-color": "#1E1E1E",
+                "border": "1px solid #2A2A2A",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "500",
+                "color": "#F0F0F0",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#F0F0F0",
+                "margin-top": "4px"
+            }
+        },
+        "eyecare": {
+            "name": "暖光电竞",
+            "main_window": {
                 "background-color": "#1A1A1A",
+                "color": "#FFF4E6",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#262626",
+                "border": "1px solid #333333",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "500",
+                "color": "#FFF4E6",
+                "box-shadow": "0 2px 4px rgba(0,0,0,0.3)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#FF9F1C",
+                "color": "#1A1A1A",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#FF9F1C",
+                "color": "#1A1A1A",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#E67E22"
+            },
+            "slider": {
+                "background-color": "#E67E22",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#FF9F1C",
+                "border": "2px solid #1A1A1A",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#262626",
+                "border": "1px solid #333333",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 4px rgba(0,0,0,0.3)"
+            },
+            "combobox": {
+                "background-color": "#262626",
                 "border": "1px solid #333333",
                 "border-radius": "4px",
                 "padding": "6px 12px",
@@ -365,13 +364,13 @@ class ThemeManager:
             "label_title": {
                 "font-size": "12px",
                 "font-weight": "500",
-                "color": "#FFFFFF",
+                "color": "#FFF4E6",
                 "margin-bottom": "8px",
                 "min-height": "18px"
             },
             "label_value": {
                 "font-size": "11px",
-                "color": "#CCCCCC",
+                "color": "#FFF4E6",
                 "margin-top": "4px"
             }
         }
@@ -1817,7 +1816,7 @@ class MainWindow(QMainWindow):
         self.theme_combo = QComboBox()
         self.theme_combo.setMinimumWidth(120)
         self.theme_combo.setMinimumHeight(28)  # 增加高度以完整显示文字
-        self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题", "纯黑主题"])
+        self.theme_combo.addItems(["赛博霓虹", "暗夜军事", "极简暗黑", "暖光电竞"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
         main_theme_layout.addWidget(self.theme_combo)
         
@@ -1948,12 +1947,12 @@ class MainWindow(QMainWindow):
         
         # 设置主题下拉框初始值
         theme_display_map = {
-            "default": "默认主题",
-            "dark": "黑色主题",
-            "light": "白色主题",
-            "pure_black": "纯黑主题"
+            "cyberpunk": "赛博霓虹",
+            "military": "暗夜军事",
+            "minimal": "极简暗黑",
+            "eyecare": "暖光电竞"
         }
-        self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "默认主题"))
+        self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "赛博霓虹"))
         
     def setup_hotkeys(self):
         """设置全局快捷键"""
@@ -2111,12 +2110,12 @@ class MainWindow(QMainWindow):
     def on_theme_changed(self, theme_display_name: str):
         """主题切换事件处理"""
         theme_map = {
-            "默认主题": "default",
-            "黑色主题": "dark", 
-            "白色主题": "light",
-            "纯黑主题": "pure_black"
+            "赛博霓虹": "cyberpunk",
+            "暗夜军事": "military",
+            "极简暗黑": "minimal",
+            "暖光电竞": "eyecare"
         }
-        theme_name = theme_map.get(theme_display_name, "default")
+        theme_name = theme_map.get(theme_display_name, "cyberpunk")
         self.change_theme(theme_name)
         self.save_settings()
 
