@@ -2303,10 +2303,66 @@ class MainWindow(QMainWindow):
         self.show_radio = QRadioButton("显示准星")
         self.show_radio.setChecked(True)  # 默认显示
         self.show_radio.clicked.connect(self.show_crosshair)
+        self.show_radio.setStyleSheet("""
+            QRadioButton {
+                color: #FFFFFF;
+                font-size: 11px;
+                font-weight: 500;
+                spacing: 8px;
+            }
+            QRadioButton::indicator {
+                width: 18px;
+                height: 18px;
+                border-radius: 9px;
+                border: 2px solid #424242;
+                background-color: #1E1E1E;
+            }
+            QRadioButton::indicator:hover {
+                border: 2px solid #616161;
+                background-color: #2A2A2A;
+            }
+            QRadioButton::indicator:checked {
+                background-color: #424242;
+                border: 2px solid #616161;
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNSIgY3k9IjUiIHI9IjMiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+);
+            }
+            QRadioButton::indicator:checked:hover {
+                background-color: #616161;
+                border: 2px solid #757575;
+            }
+        """)
         main_theme_layout.addWidget(self.show_radio)
         
         self.hide_radio = QRadioButton("隐藏准星")
         self.hide_radio.clicked.connect(self.hide_crosshair)
+        self.hide_radio.setStyleSheet("""
+            QRadioButton {
+                color: #FFFFFF;
+                font-size: 11px;
+                font-weight: 500;
+                spacing: 8px;
+            }
+            QRadioButton::indicator {
+                width: 18px;
+                height: 18px;
+                border-radius: 9px;
+                border: 2px solid #424242;
+                background-color: #1E1E1E;
+            }
+            QRadioButton::indicator:hover {
+                border: 2px solid #616161;
+                background-color: #2A2A2A;
+            }
+            QRadioButton::indicator:checked {
+                background-color: #424242;
+                border: 2px solid #616161;
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNSIgY3k9IjUiIHI9IjMiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+);
+            }
+            QRadioButton::indicator:checked:hover {
+                background-color: #616161;
+                border: 2px solid #757575;
+            }
+        """)
         main_theme_layout.addWidget(self.hide_radio)
         
         # 主题选择
@@ -2565,7 +2621,7 @@ class MainWindow(QMainWindow):
             self.preview_widget.update_theme(theme_name)
         # 更新快捷键样式
         if hasattr(self, 'hotkey_text'):
-            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["deep_ocean"])
+            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal"])
             self.hotkey_text.setStyleSheet(f"""
                 QLabel {{
                     color: {theme['button']['color']};
@@ -2577,7 +2633,40 @@ class MainWindow(QMainWindow):
                     font-weight: 500;
                 }}
             """)
-    
+        # 更新radio按钮样式
+        if hasattr(self, 'show_radio') and hasattr(self, 'hide_radio'):
+            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal"])
+            radio_style = f"""
+                QRadioButton {{
+                    color: {theme['main_window']['color']};
+                    font-size: 11px;
+                    font-weight: 500;
+                    spacing: 8px;
+                }}
+                QRadioButton::indicator {{
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 9px;
+                    border: 2px solid {theme['button']['background-color']};
+                    background-color: {theme['groupbox']['background-color']};
+                }}
+                QRadioButton::indicator:hover {{
+                    border: 2px solid {theme['button_hover']['background-color']};
+                    background-color: {theme['button']['background-color']};
+                }}
+                QRadioButton::indicator:checked {{
+                    background-color: {theme['button']['background-color']};
+                    border: 2px solid {theme['button_hover']['background-color']};
+                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNSIgY3k9IjUiIHI9IjMiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+);
+                }}
+                QRadioButton::indicator:checked:hover {{
+                    background-color: {theme['button_hover']['background-color']};
+                    border: 2px solid {theme['button_hover']['background-color']};
+                }}
+            """
+            self.show_radio.setStyleSheet(radio_style)
+            self.hide_radio.setStyleSheet(radio_style)
+
     def change_theme(self, theme_name: str):
         """切换主题"""
         self.apply_theme(theme_name)
@@ -2596,7 +2685,7 @@ class MainWindow(QMainWindow):
             "雾蓝冷调": "fog_blue",
             "极简白灰": "minimal_white"
         }
-        theme_name = theme_map.get(theme_display_name, "deep_ocean")
+        theme_name = theme_map.get(theme_display_name, "minimal")
         self.change_theme(theme_name)
         self.save_settings()
 
