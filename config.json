@@ -1,8 +1,8 @@
 {
-    "preset_index": 0,
+    "preset_index": 167,
     "theme": "cyberpunk",
-    "color": "#00FF00",
-    "size": 10,
+    "color": "#FF00FF",
+    "size": 15,
     "thickness": 2,
     "opacity": 1.0,
     "click_through": true

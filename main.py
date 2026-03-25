@@ -1321,9 +1321,9 @@ class PresetManager:
             for color in colors[:5]:  # 使用前5种颜色
                 # 点准星使用小尺寸，其他使用标准尺寸
                 if style == "dot":
-                    sizes = [3, 5, 7, 9]  # 点准星使用小尺寸
+                    sizes = [3, 5, 6, 7, 8, 9]  # 点准星使用小尺寸，添加6和8
                 else:
-                    sizes = [10, 15, 20, 25]  # 其他样式使用标准尺寸
+                    sizes = [6, 8, 10, 15, 20, 25]  # 其他样式使用标准尺寸，添加6和8
                 for size in sizes:
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
@@ -1335,7 +1335,7 @@ class PresetManager:
         new_styles = ["hourglass", "crown", "grid", "spike", "compass", "segmented"]
         for style in new_styles:
             for color in colors[:5]:  # 使用前5种颜色
-                for size in [15, 20, 25]:
+                for size in [6, 8, 15, 20, 25]:  # 添加6和8
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
                         color_name = color_names.get(color, color.replace('#', ''))
@@ -1346,7 +1346,7 @@ class PresetManager:
         geo_styles = ["triangle", "diamond", "square", "hexagon", "star"]
         for style in geo_styles:
             for color in colors[:5]:  # 使用前5种颜色
-                for size in [12, 18, 25]:
+                for size in [6, 8, 12, 18, 25]:  # 添加6和8
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
                         color_name = color_names.get(color, color.replace('#', ''))
@@ -1357,7 +1357,7 @@ class PresetManager:
         func_styles = ["t_shape", "l_shape", "chevron", "arrow", "bracket"]
         for style in func_styles:
             for color in colors[:5]:  # 使用前5种颜色
-                for size in [15, 20, 25]:
+                for size in [6, 8, 15, 20, 25]:  # 添加6和8
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
                         color_name = color_names.get(color, color.replace('#', ''))
@@ -1368,7 +1368,7 @@ class PresetManager:
         pro_styles = ["target", "scope", "reticle", "mil_dot", "horseshoe"]
         for style in pro_styles:
             for color in colors[:3]:  # 使用前3种颜色
-                for size in [15, 20, 25]:
+                for size in [6, 8, 15, 20, 25]:  # 添加6和8
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
                         color_name = color_names.get(color, color.replace('#', ''))
@@ -1379,7 +1379,7 @@ class PresetManager:
         complex_styles = ["crosshair_circle", "dot_circle", "crosshair_plus", "dotted_circle"]
         for style in complex_styles:
             for color in colors[:3]:  # 使用前3种颜色
-                for size in [15, 20, 25]:
+                for size in [6, 8, 15, 20, 25]:  # 添加6和8
                     if len(presets) < 200:
                         style_name = self.get_style_name(style)
                         color_name = color_names.get(color, color.replace('#', ''))
