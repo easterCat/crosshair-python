@@ -2369,68 +2369,22 @@ class MainWindow(QMainWindow):
         # 快捷键说明
         hotkey_group = QGroupBox("快捷键指南")
         hotkey_layout = QVBoxLayout()
-        hotkey_layout.setSpacing(12)
+        hotkey_layout.setSpacing(8)
         hotkey_layout.setContentsMargins(16, 16, 16, 16)
         
-        hotkey_title = QLabel("全局快捷键")
-        hotkey_title.setObjectName("title")
-        hotkey_layout.addWidget(hotkey_title)
-        
-        # 使用水平布局，一行展示所有快捷键
-        hotkey_h_layout = QHBoxLayout()
-        hotkey_h_layout.setSpacing(15)
-        hotkey_h_layout.setContentsMargins(0, 0, 0, 0)
-        
-        hotkey_items = [
-            ("F6", "显示/隐藏准星"),
-            ("F7", "切换下一个预设"),
-            ("F8", "切换上一个预设"),
-            ("Ctrl+Q", "退出程序")
-        ]
-        
-        for key, desc in hotkey_items:
-            # 快捷键容器
-            hotkey_container = QWidget()
-            hotkey_container_layout = QHBoxLayout(hotkey_container)
-            hotkey_container_layout.setSpacing(6)
-            hotkey_container_layout.setContentsMargins(0, 0, 0, 0)
-            
-            # 快捷键标签
-            key_label = QLabel(key)
-            key_label.setStyleSheet(f"""
-                QLabel {{
-                    background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
-                    color: {ThemeManager.get_current_theme_color('button', 'color')};
-                    padding: 2px 5px;
-                    border-radius: 4px;
-                    font-weight: 600;
-                    font-size: 8px;
-                    border: 1px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
-                    min-width: 25px;
-                    max-width: 35px;
-                    text-align: center;
-                    min-height: 12px;
-                }}
-            """)
-            key_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            
-            # 描述标签
-            desc_label = QLabel(desc)
-            desc_label.setStyleSheet(f"""
-                QLabel {{
-                    color: {ThemeManager.get_current_theme_color('label_value', 'color')};
-                    font-size: 8px;
-                    padding: 2px 5px;
-                    min-height: 12px;
-                }}
-            """)
-            
-            hotkey_container_layout.addWidget(key_label)
-            hotkey_container_layout.addWidget(desc_label)
-            hotkey_h_layout.addWidget(hotkey_container)
-        
-        hotkey_h_layout.addStretch()
-        hotkey_layout.addLayout(hotkey_h_layout)
+        # 简单的文字展示方式
+        hotkey_text = QLabel("F6 - 显示/隐藏准星\nF7 - 切换下一个预设\nF8 - 切换上一个预设\nCtrl+Q - 退出程序")
+        hotkey_text.setStyleSheet(f"""
+            QLabel {{
+                color: {ThemeManager.get_current_theme_color('label_value', 'color')};
+                font-size: 10px;
+                line-height: 1.4;
+                padding: 8px;
+                background-color: transparent;
+            }}
+        """)
+        hotkey_text.setWordWrap(True)
+        hotkey_layout.addWidget(hotkey_text)
         
         hotkey_group.setLayout(hotkey_layout)
         layout.addWidget(hotkey_group)
