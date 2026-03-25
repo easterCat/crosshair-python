@@ -2380,7 +2380,7 @@ class MainWindow(QMainWindow):
                 font-size: 10px;
                 padding: 8px 12px;
                 background-color: {ThemeManager.get_current_theme_color('groupbox', 'background-color')};
-                border: 1px solid {ThemeManager.get_current_theme_color('groupbox', 'border').split(' ')[2]};
+                border: 1px solid {ThemeManager.get_current_theme_color('groupbox', 'border').split('#')[-1] if '#' in ThemeManager.get_current_theme_color('groupbox', 'border') else '#3A4556'};
                 border-radius: 4px;
                 font-weight: 500;
             }}
