@@ -601,7 +601,7 @@ class ThemeManager:
     @classmethod
     def get_preview_theme(cls, theme_name: str) -> str:
         """获取预览组件主题"""
-        theme = cls.THEMES.get(theme_name, cls.THEMES["default"])
+        theme = cls.THEMES.get(theme_name, cls.THEMES["cyberpunk"])
         return f"""
             QWidget {{
                 background-color: {theme['preview']['background-color']};
@@ -1391,7 +1391,7 @@ class MainWindow(QMainWindow):
         self.overlay = CrosshairOverlay()
         self.preset_manager = PresetManager()
         self.current_preset_index = 0
-        self.current_theme = "default"
+        self.current_theme = "cyberpunk"
         
         # 加载配置
         self.config = ConfigManager.load_config()
