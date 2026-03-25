@@ -1,8 +1,9 @@
 {
     "preset_index": 0,
-    "theme": "military",
+    "theme": "cyberpunk",
     "color": "#00FF00",
     "size": 10,
     "thickness": 2,
     "opacity": 1.0,
-    "click_through": tru
+    "click_through": true
+}

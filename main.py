@@ -91,14 +91,14 @@ class ThemeManager:
             },
             "groupbox_title": {
                 "background-color": "#00F0FF",
-                "color": "#121226",
+                "color": "#FFFFFF",
                 "border-radius": "4px",
                 "font-weight": "500",
                 "font-size": "12px"
             },
             "button": {
                 "background-color": "#00F0FF",
-                "color": "#121226",
+                "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
                 "font-weight": "500",
@@ -167,14 +167,14 @@ class ThemeManager:
             },
             "groupbox_title": {
                 "background-color": "#2ECC71",
-                "color": "#0F1916",
+                "color": "#FFFFFF",
                 "border-radius": "4px",
                 "font-weight": "500",
                 "font-size": "12px"
             },
             "button": {
                 "background-color": "#2ECC71",
-                "color": "#0F1916",
+                "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
                 "font-weight": "500",
@@ -243,14 +243,14 @@ class ThemeManager:
             },
             "groupbox_title": {
                 "background-color": "#9D4EDD",
-                "color": "#121212",
+                "color": "#FFFFFF",
                 "border-radius": "4px",
                 "font-weight": "500",
                 "font-size": "12px"
             },
             "button": {
                 "background-color": "#9D4EDD",
-                "color": "#121212",
+                "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
                 "font-weight": "500",
@@ -319,14 +319,14 @@ class ThemeManager:
             },
             "groupbox_title": {
                 "background-color": "#FF9F1C",
-                "color": "#1A1A1A",
+                "color": "#FFFFFF",
                 "border-radius": "4px",
                 "font-weight": "500",
                 "font-size": "12px"
             },
             "button": {
                 "background-color": "#FF9F1C",
-                "color": "#1A1A1A",
+                "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
                 "font-weight": "500",
