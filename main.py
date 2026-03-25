@@ -970,7 +970,7 @@ class ThemeManager:
                 border-radius: {theme['slider_handle']['border-radius']};
                 width: {theme['slider_handle']['width']};
                 height: {theme['slider_handle']['height']};
-                margin: -{int(int(theme['slider_handle']['height'])/2)}px 0;
+                margin: -{int(theme['slider_handle']['height'].replace('px', ''))//2}px 0;
             }}
             
             /* Material Design 下拉框样式 */
