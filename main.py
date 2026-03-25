@@ -70,84 +70,6 @@ class HotkeyListener(QThread):
 class ThemeManager:
     """主题管理器"""
     THEMES = {
-        "deep_ocean": {
-            "name": "深海静谧",
-            "main_window": {
-                "background-color": "#1A202C",
-                "color": "#FFFFFF",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#2D3748",
-                "border": "1px solid #3A4556",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#E2E8F0",
-                "box-shadow": "0 2px 8px rgba(42,85,132,0.2)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#3182CE",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#3182CE",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#2970C6"
-            },
-            "slider": {
-                "background-color": "#4A5568",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#3182CE",
-                "border": "2px solid #1A202C",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#2D3748",
-                "border": "1px solid #3A4556",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(42,85,132,0.2)"
-            },
-            "combobox": {
-                "background-color": "#2D3748",
-                "border": "1px solid #3A4556",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#E2E8F0",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#E2E8F0",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#B0C4DE",
-                "margin-top": "4px"
-            }
-        },
         "minimal": {
             "name": "石墨极简",
             "main_window": {
@@ -223,6 +145,84 @@ class ThemeManager:
             "label_value": {
                 "font-size": "11px",
                 "color": "#B0B0B0",
+                "margin-top": "4px"
+            }
+        },
+        "deep_ocean": {
+            "name": "深海静谧",
+            "main_window": {
+                "background-color": "#1A202C",
+                "color": "#FFFFFF",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#2D3748",
+                "border": "1px solid #3A4556",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#E2E8F0",
+                "box-shadow": "0 2px 8px rgba(42,85,132,0.2)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#3182CE",
+                "color": "#FFFFFF",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#3182CE",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#2970C6"
+            },
+            "slider": {
+                "background-color": "#4A5568",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#3182CE",
+                "border": "2px solid #1A202C",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#2D3748",
+                "border": "1px solid #3A4556",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(42,85,132,0.2)"
+            },
+            "combobox": {
+                "background-color": "#2D3748",
+                "border": "1px solid #3A4556",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#E2E8F0",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#E2E8F0",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#B0C4DE",
                 "margin-top": "4px"
             }
         },
@@ -855,7 +855,7 @@ class ThemeManager:
     @classmethod
     def get_theme_stylesheet(cls, theme_name: str) -> str:
         """获取主题样式表"""
-        theme = cls.THEMES.get(theme_name, cls.THEMES["deep_ocean"])
+        theme = cls.THEMES.get(theme_name, cls.THEMES["minimal"])
         
         return f"""
             /* Material Design 主色调 - {theme['name']} */
@@ -1080,7 +1080,7 @@ class ThemeManager:
     @classmethod
     def get_preview_theme(cls, theme_name: str) -> str:
         """获取预览组件主题"""
-        theme = cls.THEMES.get(theme_name, cls.THEMES["deep_ocean"])
+        theme = cls.THEMES.get(theme_name, cls.THEMES["minimal"])
         return f"""
             QWidget {{
                 background-color: {theme['preview']['background-color']};
@@ -1102,7 +1102,7 @@ class ThemeManager:
             window = app.activeWindow()
             if window and hasattr(window, 'current_theme'):
                 theme_name = window.current_theme
-                theme = cls.THEMES.get(theme_name, cls.THEMES["deep_ocean"])
+                theme = cls.THEMES.get(theme_name, cls.THEMES["minimal"])
                 return theme.get(section, {}).get(key, "#FFFFFF")
         
         # 默认返回白色
@@ -1888,7 +1888,7 @@ class MainWindow(QMainWindow):
         self.overlay = CrosshairOverlay()
         self.preset_manager = PresetManager()
         self.current_preset_index = 0
-        self.current_theme = "deep_ocean"
+        self.current_theme = "minimal"
         
         # 加载配置
         self.config = ConfigManager.load_config()
@@ -1902,7 +1902,7 @@ class MainWindow(QMainWindow):
     def load_settings(self):
         """加载配置设置"""
         self.current_preset_index = self.config.get("preset_index", 0)
-        self.current_theme = self.config.get("theme", "default")
+        self.current_theme = self.config.get("theme", "minimal")
         
         # 应用预设设置
         preset = self.preset_manager.presets[self.current_preset_index]
@@ -2313,7 +2313,7 @@ class MainWindow(QMainWindow):
         self.theme_combo = QComboBox()
         self.theme_combo.setMinimumWidth(120)
         self.theme_combo.setMinimumHeight(28)  # 增加高度以完整显示文字
-        self.theme_combo.addItems(["深海静谧", "石墨极简", "青柠薄荷", "暖灰办公", "暗夜紫雾", "晴空淡蓝", "炭黑银线", "燕麦奶咖", "雾蓝冷调", "极简白灰"])
+        self.theme_combo.addItems(["石墨极简", "深海静谧", "青柠薄荷", "暖灰办公", "暗夜紫雾", "晴空淡蓝", "炭黑银线", "燕麦奶咖", "雾蓝冷调", "极简白灰"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
         main_theme_layout.addWidget(self.theme_combo)
         
@@ -2375,7 +2375,7 @@ class MainWindow(QMainWindow):
         # 一行展示所有快捷键，添加背景色
         self.hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
         # 使用默认主题的固定颜色，避免初始化时的白色背景问题
-        default_theme = ThemeManager.THEMES.get("deep_ocean", ThemeManager.THEMES["deep_ocean"])
+        default_theme = ThemeManager.THEMES.get("minimal", ThemeManager.THEMES["minimal"])
         self.hotkey_text.setStyleSheet(f"""
             QLabel {{
                 color: {default_theme['button']['color']};
@@ -2413,7 +2413,7 @@ class MainWindow(QMainWindow):
             "fog_blue": "雾蓝冷调",
             "minimal_white": "极简白灰"
         }
-        self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "深海静谧"))
+        self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "石墨极简"))
         
     def setup_hotkeys(self):
         """设置全局快捷键"""
