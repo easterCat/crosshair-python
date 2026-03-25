@@ -131,7 +131,9 @@ class ThemeManager:
                 "border": "1px solid #2A2A3A",
                 "border-radius": "4px",
                 "padding": "6px 12px",
-                "font-size": "11px"
+                "font-size": "11px",
+                "color": "#FFFFFF",
+                "font-weight": "600"
             },
             "label_title": {
                 "font-size": "12px",
@@ -207,7 +209,9 @@ class ThemeManager:
                 "border": "1px solid #2A3A2A",
                 "border-radius": "4px",
                 "padding": "6px 12px",
-                "font-size": "11px"
+                "font-size": "11px",
+                "color": "#FFFFFF",
+                "font-weight": "600"
             },
             "label_title": {
                 "font-size": "12px",
@@ -283,7 +287,9 @@ class ThemeManager:
                 "border": "1px solid #2A2A2A",
                 "border-radius": "4px",
                 "padding": "6px 12px",
-                "font-size": "11px"
+                "font-size": "11px",
+                "color": "#FFFFFF",
+                "font-weight": "600"
             },
             "label_title": {
                 "font-size": "12px",
@@ -359,7 +365,9 @@ class ThemeManager:
                 "border": "1px solid #333333",
                 "border-radius": "4px",
                 "padding": "6px 12px",
-                "font-size": "11px"
+                "font-size": "11px",
+                "color": "#FFFFFF",
+                "font-weight": "600"
             },
             "label_title": {
                 "font-size": "12px",
