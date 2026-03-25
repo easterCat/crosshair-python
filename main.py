@@ -2328,7 +2328,7 @@ class MainWindow(QMainWindow):
         self.click_through_checkbox.setMinimumHeight(22)
         self.click_through_checkbox.setStyleSheet(f"""
             QCheckBox {{
-                color: {self.theme_manager.get_current_theme_color('main_window', 'color')};
+                color: {ThemeManager.get_current_theme_color('main_window', 'color')};
                 font-size: 11px;
                 spacing: 8px;
                 min-height: 22px;
@@ -2338,18 +2338,18 @@ class MainWindow(QMainWindow):
             QCheckBox::indicator {{
                 width: 16px;
                 height: 16px;
-                border: 2px solid {self.theme_manager.get_current_theme_color('button', 'background-color')};
+                border: 2px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
                 border-radius: 3px;
-                background-color: {self.theme_manager.get_current_theme_color('main_window', 'color')};
+                background-color: {ThemeManager.get_current_theme_color('main_window', 'color')};
             }}
             
             QCheckBox::indicator:hover {{
-                border: 2px solid {self.theme_manager.get_current_theme_color('button_hover', 'background-color')};
+                border: 2px solid {ThemeManager.get_current_theme_color('button_hover', 'background-color')};
             }}
             
             QCheckBox::indicator:checked {{
-                background-color: {self.theme_manager.get_current_theme_color('button', 'background-color')};
-                border: 2px solid {self.theme_manager.get_current_theme_color('button', 'background-color')};
+                background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
+                border: 2px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
                 image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDRMMTUgN0w2IDE2TDMgMTNMNiAxMEwxMiA0WiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4K);
             }}
         """)
@@ -2399,13 +2399,13 @@ class MainWindow(QMainWindow):
             key_label = QLabel(key)
             key_label.setStyleSheet(f"""
                 QLabel {{
-                    background-color: {self.theme_manager.get_current_theme_color('button', 'background-color')};
-                    color: {self.theme_manager.get_current_theme_color('button', 'color')};
+                    background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
+                    color: {ThemeManager.get_current_theme_color('button', 'color')};
                     padding: 2px 5px;
                     border-radius: 4px;
                     font-weight: 600;
                     font-size: 8px;
-                    border: 1px solid {self.theme_manager.get_current_theme_color('button', 'background-color')};
+                    border: 1px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
                     min-width: 25px;
                     max-width: 35px;
                     text-align: center;
@@ -2418,7 +2418,7 @@ class MainWindow(QMainWindow):
             desc_label = QLabel(desc)
             desc_label.setStyleSheet(f"""
                 QLabel {{
-                    color: {self.theme_manager.get_current_theme_color('label_value', 'color')};
+                    color: {ThemeManager.get_current_theme_color('label_value', 'color')};
                     font-size: 8px;
                     padding: 2px 5px;
                     min-height: 12px;
