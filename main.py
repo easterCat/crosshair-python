@@ -2328,7 +2328,7 @@ class MainWindow(QMainWindow):
         self.click_through_checkbox.setMinimumHeight(22)
         self.click_through_checkbox.setStyleSheet(f"""
             QCheckBox {{
-                color: {ThemeManager.get_current_theme_color('main_window', 'color')};
+                color: #E2E8F0;
                 font-size: 11px;
                 spacing: 8px;
                 min-height: 22px;
@@ -2338,18 +2338,18 @@ class MainWindow(QMainWindow):
             QCheckBox::indicator {{
                 width: 16px;
                 height: 16px;
-                border: 2px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
+                border: 2px solid #3182CE;
                 border-radius: 3px;
-                background-color: {ThemeManager.get_current_theme_color('main_window', 'color')};
+                background-color: #1A202C;
             }}
             
             QCheckBox::indicator:hover {{
-                border: 2px solid {ThemeManager.get_current_theme_color('button_hover', 'background-color')};
+                border: 2px solid #2B6CB0;
             }}
             
             QCheckBox::indicator:checked {{
-                background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
-                border: 2px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
+                background-color: #3182CE;
+                border: 2px solid #3182CE;
                 image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDRMMTUgN0w2IDE2TDMgMTNMNiAxMEwxMiA0WiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4K);
             }}
         """)
@@ -2376,11 +2376,11 @@ class MainWindow(QMainWindow):
         hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
         hotkey_text.setStyleSheet(f"""
             QLabel {{
-                color: {ThemeManager.get_current_theme_color('label_value', 'color')};
+                color: #E2E8F0;
                 font-size: 10px;
                 padding: 8px 12px;
-                background-color: {ThemeManager.get_current_theme_color('groupbox', 'background-color')};
-                border: 1px solid {ThemeManager.get_current_theme_color('groupbox', 'border').split('#')[-1] if '#' in ThemeManager.get_current_theme_color('groupbox', 'border') else '#3A4556'};
+                background-color: #2D3748;
+                border: 1px solid #3A4556;
                 border-radius: 4px;
                 font-weight: 500;
             }}
