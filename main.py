@@ -1745,6 +1745,7 @@ class MainWindow(QMainWindow):
         
         self.theme_combo = QComboBox()
         self.theme_combo.setMinimumWidth(120)
+        self.theme_combo.setMinimumHeight(28)  # 增加高度以完整显示文字
         self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
         main_theme_layout.addWidget(self.theme_combo)
