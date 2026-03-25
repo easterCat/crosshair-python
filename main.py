@@ -2422,6 +2422,8 @@ class MainWindow(QMainWindow):
         """)
         self.click_through_checkbox.setChecked(True)
         self.click_through_checkbox.stateChanged.connect(self.toggle_click_through)
+        # 添加5像素左边距
+        advanced_layout.addSpacing(5)
         advanced_layout.addWidget(self.click_through_checkbox)
         
         advanced_layout.addStretch()
