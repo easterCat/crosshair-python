@@ -2384,8 +2384,8 @@ class MainWindow(QMainWindow):
         main_theme_layout.addStretch()
         control_layout.addLayout(main_theme_layout)
         
-        # 添加5单位间距
-        control_layout.addSpacing(5)
+        # 添加10单位间距
+        control_layout.addSpacing(10)
         
         # 第二行：高级选项
         advanced_layout = QHBoxLayout()
