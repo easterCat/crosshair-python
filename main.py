@@ -2315,9 +2315,9 @@ class MainWindow(QMainWindow):
                 border: 1px solid transparent;
             }
             QRadioButton::indicator {
-                width: 16px;
-                height: 16px;
-                border-radius: 8px;
+                width: 15px;
+                height: 15px;
+                border-radius: 7.5px;
                 border: 2px solid #FFFFFF;
                 background-color: #424242;
             }
@@ -2669,9 +2669,9 @@ class MainWindow(QMainWindow):
                     border: 1px solid transparent;
                 }}
                 QRadioButton::indicator {{
-                    width: 16px;
-                    height: 16px;
-                    border-radius: 8px;
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 7.5px;
                     border: 2px solid {theme['main_window']['color']};
                     background-color: {theme['button']['background-color']};
                 }}
