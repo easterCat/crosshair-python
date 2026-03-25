@@ -84,7 +84,7 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#E0E0FF",
                 "box-shadow": "0 2px 8px rgba(0,240,255,0.2)",
                 "min-height": "80px"
@@ -93,7 +93,7 @@ class ThemeManager:
                 "background-color": "#00F0FF",
                 "color": "#FFFFFF",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "12px"
             },
             "button": {
@@ -101,7 +101,7 @@ class ThemeManager:
                 "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "11px",
                 "padding": "8px 16px"
             },
@@ -137,7 +137,7 @@ class ThemeManager:
             },
             "label_title": {
                 "font-size": "12px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#E0E0FF",
                 "margin-bottom": "8px",
                 "min-height": "18px"
@@ -162,7 +162,7 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#D0E8D8",
                 "box-shadow": "0 2px 8px rgba(46,204,113,0.2)",
                 "min-height": "80px"
@@ -171,7 +171,7 @@ class ThemeManager:
                 "background-color": "#2ECC71",
                 "color": "#FFFFFF",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "12px"
             },
             "button": {
@@ -179,7 +179,7 @@ class ThemeManager:
                 "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "11px",
                 "padding": "8px 16px"
             },
@@ -215,7 +215,7 @@ class ThemeManager:
             },
             "label_title": {
                 "font-size": "12px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#D0E8D8",
                 "margin-bottom": "8px",
                 "min-height": "18px"
@@ -240,7 +240,7 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#F0F0F0",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
                 "min-height": "80px"
@@ -249,7 +249,7 @@ class ThemeManager:
                 "background-color": "#9D4EDD",
                 "color": "#FFFFFF",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "12px"
             },
             "button": {
@@ -257,7 +257,7 @@ class ThemeManager:
                 "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "11px",
                 "padding": "8px 16px"
             },
@@ -293,7 +293,7 @@ class ThemeManager:
             },
             "label_title": {
                 "font-size": "12px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#F0F0F0",
                 "margin-bottom": "8px",
                 "min-height": "18px"
@@ -318,7 +318,7 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#FFF4E6",
                 "box-shadow": "0 2px 4px rgba(0,0,0,0.3)",
                 "min-height": "80px"
@@ -327,7 +327,7 @@ class ThemeManager:
                 "background-color": "#FF9F1C",
                 "color": "#FFFFFF",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "12px"
             },
             "button": {
@@ -335,7 +335,7 @@ class ThemeManager:
                 "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "font-size": "11px",
                 "padding": "8px 16px"
             },
@@ -371,7 +371,7 @@ class ThemeManager:
             },
             "label_title": {
                 "font-size": "12px",
-                "font-weight": "500",
+                "font-weight": "600",
                 "color": "#FFF4E6",
                 "margin-bottom": "8px",
                 "min-height": "18px"
