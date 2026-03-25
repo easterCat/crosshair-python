@@ -2372,15 +2372,17 @@ class MainWindow(QMainWindow):
         hotkey_layout.setSpacing(8)
         hotkey_layout.setContentsMargins(16, 16, 16, 16)
         
-        # 简单的文字展示方式
-        hotkey_text = QLabel("F6 - 显示/隐藏准星\nF7 - 切换下一个预设\nF8 - 切换上一个预设\nCtrl+Q - 退出程序")
+        # 一行展示所有快捷键，添加背景色
+        hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
         hotkey_text.setStyleSheet(f"""
             QLabel {{
                 color: {ThemeManager.get_current_theme_color('label_value', 'color')};
                 font-size: 10px;
-                line-height: 1.4;
-                padding: 8px;
-                background-color: transparent;
+                padding: 8px 12px;
+                background-color: {ThemeManager.get_current_theme_color('groupbox', 'background-color')};
+                border: 1px solid {ThemeManager.get_current_theme_color('groupbox', 'border').split(' ')[2]};
+                border-radius: 4px;
+                font-weight: 500;
             }}
         """)
         hotkey_text.setWordWrap(True)
