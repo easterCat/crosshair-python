@@ -379,7 +379,7 @@ class ThemeManager:
     @classmethod
     def get_theme_stylesheet(cls, theme_name: str) -> str:
         """获取主题样式表"""
-        theme = cls.THEMES.get(theme_name, cls.THEMES["default"])
+        theme = cls.THEMES.get(theme_name, cls.THEMES["cyberpunk"])
         
         return f"""
             /* Material Design 主色调 - {theme['name']} */
