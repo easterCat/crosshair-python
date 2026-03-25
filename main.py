@@ -2311,8 +2311,8 @@ class MainWindow(QMainWindow):
                 spacing: 8px;
                 padding: 3px 6px;
                 border-radius: 4px;
-                background-color: #424242;
-                border: 1px solid #616161;
+                background-color: transparent;
+                border: 1px solid transparent;
             }
             QRadioButton::indicator {
                 width: 16px;
@@ -2654,7 +2654,7 @@ class MainWindow(QMainWindow):
         if hasattr(self, 'show_radio') and hasattr(self, 'hide_radio'):
             theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal"])
             
-            # 选中状态的radio样式（适度突出）
+            # 选中状态的radio样式（适度突出，无背景）
             checked_radio_style = f"""
                 QRadioButton {{
                     color: {theme['main_window']['color']};
@@ -2663,8 +2663,8 @@ class MainWindow(QMainWindow):
                     spacing: 8px;
                     padding: 3px 6px;
                     border-radius: 4px;
-                    background-color: {theme['button']['background-color']};
-                    border: 1px solid {theme['button_hover']['background-color']};
+                    background-color: transparent;
+                    border: 1px solid transparent;
                 }}
                 QRadioButton::indicator {{
                     width: 16px;
