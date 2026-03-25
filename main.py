@@ -298,6 +298,82 @@ class ThemeManager:
                 "color": "#424242",
                 "margin-top": "4px"
             }
+        },
+        "pure_black": {
+            "name": "纯黑主题",
+            "main_window": {
+                "background-color": "#000000",
+                "color": "#FFFFFF",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#1A1A1A",
+                "border": "1px solid #333333",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "500",
+                "color": "#FFFFFF",
+                "box-shadow": "0 2px 4px rgba(0,0,0,0.5)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#FFFFFF",
+                "color": "#000000",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#FFFFFF",
+                "color": "#000000",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "500",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#F0F0F0"
+            },
+            "slider": {
+                "background-color": "#333333",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#FFFFFF",
+                "border": "2px solid #000000",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#1A1A1A",
+                "border": "1px solid #333333",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)"
+            },
+            "combobox": {
+                "background-color": "#1A1A1A",
+                "border": "1px solid #333333",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "500",
+                "color": "#FFFFFF",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#CCCCCC",
+                "margin-top": "4px"
+            }
         }
     }
     
@@ -1728,25 +1804,20 @@ class MainWindow(QMainWindow):
         main_theme_layout.setSpacing(10)
         
         # 显示/隐藏准星 - 使用radio按钮
-        self.show_radio = QRadioButton("显示")
+        self.show_radio = QRadioButton("显示准星")
         self.show_radio.setChecked(True)  # 默认显示
         self.show_radio.clicked.connect(self.show_crosshair)
         main_theme_layout.addWidget(self.show_radio)
         
-        self.hide_radio = QRadioButton("隐藏")
+        self.hide_radio = QRadioButton("隐藏准星")
         self.hide_radio.clicked.connect(self.hide_crosshair)
         main_theme_layout.addWidget(self.hide_radio)
         
         # 主题选择
-        theme_label = QLabel("主题风格:")
-        theme_label.setObjectName("title")
-        theme_label.setMinimumWidth(60)
-        main_theme_layout.addWidget(theme_label)
-        
         self.theme_combo = QComboBox()
         self.theme_combo.setMinimumWidth(120)
         self.theme_combo.setMinimumHeight(28)  # 增加高度以完整显示文字
-        self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题"])
+        self.theme_combo.addItems(["默认主题", "黑色主题", "白色主题", "纯黑主题"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
         main_theme_layout.addWidget(self.theme_combo)
         
@@ -1879,7 +1950,8 @@ class MainWindow(QMainWindow):
         theme_display_map = {
             "default": "默认主题",
             "dark": "黑色主题",
-            "light": "白色主题"
+            "light": "白色主题",
+            "pure_black": "纯黑主题"
         }
         self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "默认主题"))
         
@@ -2041,7 +2113,8 @@ class MainWindow(QMainWindow):
         theme_map = {
             "默认主题": "default",
             "黑色主题": "dark", 
-            "白色主题": "light"
+            "白色主题": "light",
+            "纯黑主题": "pure_black"
         }
         theme_name = theme_map.get(theme_display_name, "default")
         self.change_theme(theme_name)
