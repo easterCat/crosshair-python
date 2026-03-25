@@ -2374,13 +2374,15 @@ class MainWindow(QMainWindow):
         
         # 一行展示所有快捷键，添加背景色
         self.hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
+        # 使用默认主题的固定颜色，避免初始化时的白色背景问题
+        default_theme = ThemeManager.THEMES.get("deep_ocean", ThemeManager.THEMES["deep_ocean"])
         self.hotkey_text.setStyleSheet(f"""
             QLabel {{
-                color: {ThemeManager.get_current_theme_color('button', 'color')};
+                color: {default_theme['button']['color']};
                 font-size: 10px;
                 padding: 8px 12px;
-                background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
-                border: 1px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
+                background-color: {default_theme['button']['background-color']};
+                border: 1px solid {default_theme['button']['background-color']};
                 border-radius: 4px;
                 font-weight: 500;
             }}
@@ -2563,13 +2565,14 @@ class MainWindow(QMainWindow):
             self.preview_widget.update_theme(theme_name)
         # 更新快捷键样式
         if hasattr(self, 'hotkey_text'):
+            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["deep_ocean"])
             self.hotkey_text.setStyleSheet(f"""
                 QLabel {{
-                    color: {ThemeManager.get_current_theme_color('button', 'color')};
+                    color: {theme['button']['color']};
                     font-size: 10px;
                     padding: 8px 12px;
-                    background-color: {ThemeManager.get_current_theme_color('button', 'background-color')};
-                    border: 1px solid {ThemeManager.get_current_theme_color('button', 'background-color')};
+                    background-color: {theme['button']['background-color']};
+                    border: 1px solid {theme['button']['background-color']};
                     border-radius: 4px;
                     font-weight: 500;
                 }}
