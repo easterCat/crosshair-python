@@ -1,8 +1,8 @@
 {
-    "preset_index": 1,
+    "preset_index": 24,
     "theme": "minimal",
     "color": "#00FF00",
-    "size": 8,
+    "size": 3,
     "thickness": 2,
     "opacity": 1.0,
     "click_through": true
