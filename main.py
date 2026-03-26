@@ -2628,7 +2628,9 @@ class MainWindow(QMainWindow):
         
     def closeEvent(self, event):
         """关闭事件"""
+        # 确保彻底退出程序
         self.overlay.close()
+        QApplication.quit()  # 强制退出应用程序
         event.accept()
     
     def apply_theme(self, theme_name: str):
@@ -2757,7 +2759,7 @@ class MainWindow(QMainWindow):
 def main():
     """主函数"""
     app = QApplication(sys.argv)
-    app.setQuitOnLastWindowClosed(False)  # 允许程序在后台运行
+    app.setQuitOnLastWindowClosed(True)  # 确保在窗口关闭时程序退出
     
     window = MainWindow()
     window.show()
