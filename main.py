@@ -882,7 +882,7 @@ class ThemeManager:
             QGroupBox::title {{
                 subcontrol-origin: margin;
                 left: 10px;
-                padding: 0 5px 0 5px;
+                padding: 1px 6px 1px 6px;
                 background-color: {theme['groupbox_title']['background-color']};
                 color: {theme['groupbox_title']['color']};
                 border-radius: {theme['groupbox_title']['border-radius']};
