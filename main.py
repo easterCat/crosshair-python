@@ -2299,79 +2299,43 @@ class MainWindow(QMainWindow):
         main_theme_layout = QHBoxLayout()
         main_theme_layout.setSpacing(10)
         
-        # 显示/隐藏准星 - 使用radio按钮
-        self.show_radio = QRadioButton("显示准星")
-        self.show_radio.setChecked(True)  # 默认显示
-        self.show_radio.clicked.connect(self.show_crosshair)
-        self.show_radio.setStyleSheet("""
-            QRadioButton {
+        # 显示/隐藏准星 - 使用checkbox
+        self.show_crosshair_checkbox = QCheckBox("显示准星")
+        self.show_crosshair_checkbox.setChecked(True)  # 默认显示
+        self.show_crosshair_checkbox.stateChanged.connect(self.toggle_crosshair)
+        self.show_crosshair_checkbox.setStyleSheet("""
+            QCheckBox {
                 color: #FFFFFF;
                 font-size: 11px;
-                font-weight: 600;
+                font-weight: 500;
                 spacing: 8px;
                 padding: 3px 6px;
                 border-radius: 4px;
                 background-color: transparent;
                 border: 1px solid transparent;
             }
-            QRadioButton::indicator {
-                width: 13px;
-                height: 13px;
-                border-radius: 6.5px;
-                border: 2px solid #FFFFFF;
-                background-color: #424242;
-            }
-            QRadioButton::indicator:checked {
-                background-color: #FFFFFF;
-                border: 2px solid #FFFFFF;
-                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSI0IiBjeT0iNCIgcj0iMiIgZmlsbD0iIzQyNDI0MiIvPgo8L3N2Zz4=);
-            }
-            QRadioButton::indicator:hover {
-                border: 2px solid #757575;
-                background-color: #4A4A4A;
-            }
-            QRadioButton::indicator:checked:hover {
-                border: 2px solid #757575;
-                background-color: #FFFFFF;
-            }
-        """)
-        main_theme_layout.addWidget(self.show_radio)
-        
-        self.hide_radio = QRadioButton("隐藏准星")
-        self.hide_radio.clicked.connect(self.hide_crosshair)
-        self.hide_radio.setStyleSheet("""
-            QRadioButton {
-                color: #B0B0B0;
-                font-size: 10px;
-                font-weight: 400;
-                spacing: 6px;
-                padding: 2px 4px;
-                border-radius: 3px;
-                background-color: transparent;
-                border: 1px solid transparent;
-            }
-            QRadioButton::indicator {
+            QCheckBox::indicator {
                 width: 12px;
                 height: 12px;
-                border-radius: 6px;
-                border: 1px solid #616161;
-                background-color: #1E1E1E;
-            }
-            QRadioButton::indicator:hover {
-                border: 1px solid #757575;
-                background-color: #2A2A2A;
-            }
-            QRadioButton::indicator:checked {
+                border-radius: 2px;
+                border: 1px solid #FFFFFF;
                 background-color: #424242;
-                border: 1px solid #616161;
-                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgNiA2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS41IiBmaWxsPSIjRkZGRkZGIi8+Cjwvc3ZnPg==);
             }
-            QRadioButton::indicator:checked:hover {
-                background-color: #616161;
+            QCheckBox::indicator:checked {
+                background-color: #FFFFFF;
+                border: 1px solid #FFFFFF;
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgNUw0IDhMOSAzIiBzdHJva2U9IiM0MjQyNDIiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+);
+            }
+            QCheckBox::indicator:hover {
                 border: 1px solid #757575;
+                background-color: #4A4A4A;
+            }
+            QCheckBox::indicator:checked:hover {
+                border: 1px solid #757575;
+                background-color: #FFFFFF;
             }
         """)
-        main_theme_layout.addWidget(self.hide_radio)
+        main_theme_layout.addWidget(self.show_crosshair_checkbox)
         
         # 主题选择
         self.theme_combo = QComboBox()
@@ -2583,28 +2547,12 @@ class MainWindow(QMainWindow):
         self.preview_widget.update_preset(preset)
         self.save_settings()
         
-    def toggle_crosshair(self):
-        """切换准星显示"""
-        if self.overlay.isVisible():
-            self.overlay.hide()
-            self.hide_radio.setChecked(True)
-        else:
+    def toggle_crosshair(self, state):
+        """切换准星显示状态"""
+        if state == Qt.CheckState.Checked.value:
             self.overlay.show()
-            self.show_radio.setChecked(True)
-        # 更新radio按钮样式以反映新的选中状态
-        self.apply_theme(self.current_theme)
-            
-    def show_crosshair(self):
-        """显示准星"""
-        self.overlay.show()
-        # 更新radio按钮样式
-        self.apply_theme(self.current_theme)
-        
-    def hide_crosshair(self):
-        """隐藏准星"""
-        self.overlay.hide()
-        # 更新radio按钮样式
-        self.apply_theme(self.current_theme)
+        else:
+            self.overlay.hide()
             
     def toggle_click_through(self, state):
         """切换点击穿透"""
@@ -2654,85 +2602,44 @@ class MainWindow(QMainWindow):
                     font-weight: 500;
                 }}
             """)
-        # 更新radio按钮样式
-        if hasattr(self, 'show_radio') and hasattr(self, 'hide_radio'):
+        # 更新checkbox样式
+        if hasattr(self, 'show_crosshair_checkbox'):
             theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal"])
             
-            # 选中状态的radio样式（适度突出，无背景）
-            checked_radio_style = f"""
-                QRadioButton {{
+            checkbox_style = f"""
+                QCheckBox {{
                     color: {theme['main_window']['color']};
                     font-size: 11px;
-                    font-weight: 600;
+                    font-weight: 500;
                     spacing: 8px;
                     padding: 3px 6px;
                     border-radius: 4px;
                     background-color: transparent;
                     border: 1px solid transparent;
                 }}
-                QRadioButton::indicator {{
-                    width: 13px;
-                    height: 13px;
-                    border-radius: 6.5px;
-                    border: 2px solid {theme['main_window']['color']};
-                    background-color: {theme['button']['background-color']};
-                }}
-                QRadioButton::indicator:checked {{
-                    background-color: {theme['main_window']['color']};
-                    border: 2px solid {theme['main_window']['color']};
-                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSI0IiBjeT0iNCIgcj0iMiIgZmlsbD0ie3RoZW1lWydidXR0b24nXVsnYmFja2dyb3VuZC1jb2xvciddfSIvPgo8L3N2Zz4=);
-                }}
-                QRadioButton::indicator:hover {{
-                    border: 2px solid {theme['button_hover']['background-color']};
-                    background-color: {theme['button_hover']['background-color']};
-                }}
-                QRadioButton::indicator:checked:hover {{
-                    border: 2px solid {theme['button_hover']['background-color']};
-                    background-color: {theme['main_window']['color']};
-                }}
-            """
-            
-            # 非选中状态的radio样式（保持微妙）
-            unchecked_radio_style = f"""
-                QRadioButton {{
-                    color: {theme['label_value']['color']};
-                    font-size: 10px;
-                    font-weight: 400;
-                    spacing: 6px;
-                    padding: 2px 4px;
-                    border-radius: 3px;
-                    background-color: transparent;
-                    border: 1px solid transparent;
-                }}
-                QRadioButton::indicator {{
+                QCheckBox::indicator {{
                     width: 12px;
                     height: 12px;
-                    border-radius: 6px;
-                    border: 1px solid {theme['button']['background-color']};
-                    background-color: {theme['groupbox']['background-color']};
-                }}
-                QRadioButton::indicator:hover {{
-                    border: 1px solid {theme['button_hover']['background-color']};
+                    border-radius: 2px;
+                    border: 1px solid {theme['main_window']['color']};
                     background-color: {theme['button']['background-color']};
                 }}
-                QRadioButton::indicator:checked {{
-                    background-color: {theme['button']['background-color']};
-                    border: 1px solid {theme['button_hover']['background-color']};
-                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgNiA2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS41IiBmaWxsPSJ7dGhlbVsnbWFpbl93aW5kb3cnXVsnY29sb3InXX0iLz4KPC9zdmc+);
+                QCheckBox::indicator:checked {{
+                    background-color: {theme['main_window']['color']};
+                    border: 1px solid {theme['main_window']['color']};
+                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgNUw0IDhMOSAzIiBzdHJva2U9Int7dGhlbVsnYnV0dG9uJ11bJ2JhY2tncm91bmQtY29sb3InXX0iIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+);
                 }}
-                QRadioButton::indicator:checked:hover {{
+                QCheckBox::indicator:hover {{
+                    border: 1px solid {theme['button_hover']['background-color']};
                     background-color: {theme['button_hover']['background-color']};
+                }}
+                QCheckBox::indicator:checked:hover {{
                     border: 1px solid {theme['button_hover']['background-color']};
+                    background-color: {theme['main_window']['color']};
                 }}
             """
             
-            # 根据当前选中状态应用不同样式
-            if self.show_radio.isChecked():
-                self.show_radio.setStyleSheet(checked_radio_style)
-                self.hide_radio.setStyleSheet(unchecked_radio_style)
-            else:
-                self.show_radio.setStyleSheet(unchecked_radio_style)
-                self.hide_radio.setStyleSheet(checked_radio_style)
+            self.show_crosshair_checkbox.setStyleSheet(checkbox_style)
 
     def change_theme(self, theme_name: str):
         """切换主题"""
