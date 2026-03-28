@@ -1804,8 +1804,8 @@ class PresetManager:
             "#00FF88": "薄荷绿"
         }
         
-        # 1. 优先生成基础样式（点准星和十字准星优先）
-        basic_styles = ["cross", "dot", "circle", "plus"]
+        # 1. 优先生成基础样式（点准星优先，然后是其他基础样式）
+        basic_styles = ["dot", "cross", "circle", "plus"]
         for style in basic_styles:
             for color in colors[:4]:  # 使用前4种颜色
                 # 点准星使用小尺寸，其他使用标准尺寸
