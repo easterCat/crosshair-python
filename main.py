@@ -2145,7 +2145,7 @@ class MainWindow(QMainWindow):
         preset_group = QGroupBox("准星预设")
         preset_layout = QVBoxLayout()
         preset_layout.setSpacing(12)
-        preset_layout.setContentsMargins(18, 18, 18, 18)
+        preset_layout.setContentsMargins(16, 16, 16, 16)
         
         # 预设选择和预览的水平布局
         preset_h_layout = QHBoxLayout()
@@ -2223,7 +2223,7 @@ class MainWindow(QMainWindow):
         adjust_group = QGroupBox("调整选项")
         adjust_layout = QGridLayout()
         adjust_layout.setSpacing(16)
-        adjust_layout.setContentsMargins(22, 22, 22, 22)  # 增大内边距
+        adjust_layout.setContentsMargins(20, 20, 20, 20)  # 增大内边距
         
         # 颜色选择
         self.color_button = QPushButton("选择颜色")
@@ -2289,7 +2289,7 @@ class MainWindow(QMainWindow):
         control_group = QGroupBox("控制中心")
         control_layout = QVBoxLayout()
         control_layout.setSpacing(12)
-        control_layout.setContentsMargins(18, 18, 18, 18)
+        control_layout.setContentsMargins(16, 16, 16, 16)
         
         # 第一行：控制选项和主题选择
         main_theme_layout = QHBoxLayout()
@@ -2419,7 +2419,7 @@ class MainWindow(QMainWindow):
         hotkey_group = QGroupBox("快捷键指南")
         hotkey_layout = QVBoxLayout()
         hotkey_layout.setSpacing(8)
-        hotkey_layout.setContentsMargins(18, 18, 18, 18)
+        hotkey_layout.setContentsMargins(16, 16, 16, 16)
         
         # 一行展示所有快捷键，添加背景色
         self.hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
