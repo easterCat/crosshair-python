@@ -2204,13 +2204,9 @@ class MainWindow(QMainWindow):
         self.style_label.setObjectName("value")
         self.style_label.setStyleSheet("""
             QLabel {
-                background-color: #E8F5E8;
                 color: #2E7D32;
-                padding: 6px 10px;
-                border-radius: 16px;
                 font-weight: 500;
                 font-size: 11px;
-                border: 1px solid #A5D6A7;
                 min-height: 18px;
             }
         """)
