@@ -2301,7 +2301,7 @@ class MainWindow(QMainWindow):
         
         # 显示/隐藏准星 - 使用checkbox
         self.show_crosshair_checkbox = QCheckBox("显示准星")
-        self.show_crosshair_checkbox.setChecked(True)  # 默认显示
+        self.show_crosshair_checkbox.setChecked(True)  # 默认选中
         self.show_crosshair_checkbox.setMinimumHeight(24)  # 设置最小高度以完整显示文字
         self.show_crosshair_checkbox.stateChanged.connect(self.toggle_crosshair)
         self.show_crosshair_checkbox.setStyleSheet("""
@@ -2324,25 +2324,25 @@ class MainWindow(QMainWindow):
                 background-color: #424242;
             }
             QCheckBox::indicator:checked {
-                background-color: #FFFFFF;
-                border: 2px solid #FFFFFF;
-                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEuNSA1TDMuNSA3TDguNSAyIiBzdHJva2U9IiM0MjQyNDIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPg==);
+                background-color: #FF4444;
+                border: 2px solid #FF4444;
+                image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEuNSA1TDMuNSA3TDguNSAyIiBzdHJva2U9IiNGRjRjRkIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4=);
             }
             QCheckBox::indicator:hover {
                 border: 2px solid #757575;
                 background-color: #4A4A4A;
             }
             QCheckBox::indicator:checked:hover {
-                border: 2px solid #757575;
-                background-color: #FFFFFF;
+                border: 2px solid #CC0000;
+                background-color: #FF4444;
             }
             QCheckBox::indicator:pressed {
                 background-color: #616161;
                 border: 2px solid #616161;
             }
             QCheckBox::indicator:checked:pressed {
-                background-color: #757575;
-                border: 2px solid #757575;
+                background-color: #CC0000;
+                border: 2px solid #CC0000;
             }
         """)
         main_theme_layout.addWidget(self.show_crosshair_checkbox)
@@ -2357,12 +2357,12 @@ class MainWindow(QMainWindow):
         
         # 点击穿透
         self.click_through_checkbox = QCheckBox("点击穿透")
-        self.click_through_checkbox.setChecked(True)
+        self.click_through_checkbox.setChecked(True)  # 默认选中
         self.click_through_checkbox.setMinimumHeight(24)  # 统一高度
         self.click_through_checkbox.stateChanged.connect(self.toggle_click_through)
         self.click_through_checkbox.setStyleSheet("""
             QCheckBox {
-                color: #E2E8F0;
+                color: #FFFFFF;
                 font-size: 11px;
                 font-weight: 500;
                 spacing: 8px;
@@ -2376,29 +2376,29 @@ class MainWindow(QMainWindow):
                 width: 14px;
                 height: 14px;
                 border-radius: 3px;
-                border: 2px solid #E2E8F0;
+                border: 2px solid #FFFFFF;
                 background-color: #424242;
             }
             QCheckBox::indicator:checked {
-                background-color: #3182CE;
-                border: 2px solid #3182CE;
+                background-color: #FF4444;
+                border: 2px solid #FF4444;
                 image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDRMMTUgN0w2IDE2TDMgMTNMNiAxMEwxMiA0WiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4=);
             }
             QCheckBox::indicator:hover {
-                border: 2px solid #63B3ED;
+                border: 2px solid #757575;
                 background-color: #4A4A4A;
             }
             QCheckBox::indicator:checked:hover {
-                border: 2px solid #63B3ED;
-                background-color: #3182CE;
+                border: 2px solid #CC0000;
+                background-color: #FF4444;
             }
             QCheckBox::indicator:pressed {
-                background-color: #2C5282;
-                border: 2px solid #2C5282;
+                background-color: #616161;
+                border: 2px solid #616161;
             }
             QCheckBox::indicator:checked:pressed {
-                background-color: #2C5282;
-                border: 2px solid #2C5282;
+                background-color: #CC0000;
+                border: 2px solid #CC0000;
             }
         """)
         main_theme_layout.addWidget(self.click_through_checkbox)
@@ -2639,29 +2639,74 @@ class MainWindow(QMainWindow):
                     background-color: {theme['button']['background-color']};
                 }}
                 QCheckBox::indicator:checked {{
-                    background-color: {theme['main_window']['color']};
-                    border: 2px solid {theme['main_window']['color']};
-                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEuNSA1TDMuNSA3TDguNSAyIiBzdHJva2U9Int7dGhlbVsnYnV0dG9uJ11bJ2JhY2tncm91bmQtY29sb3InXX0iIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPg==);
+                    background-color: #FF4444;
+                    border: 2px solid #FF4444;
+                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEuNSA1TDMuNSA3TDguNSAyIiBzdHJva2U9IiNGRjRjRkIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4=);
                 }}
                 QCheckBox::indicator:hover {{
                     border: 2px solid {theme['button_hover']['background-color']};
                     background-color: {theme['button_hover']['background-color']};
                 }}
                 QCheckBox::indicator:checked:hover {{
-                    border: 2px solid {theme['button_hover']['background-color']};
-                    background-color: {theme['main_window']['color']};
+                    border: 2px solid #CC0000;
+                    background-color: #FF4444;
                 }}
                 QCheckBox::indicator:pressed {{
                     background-color: {theme['button_hover']['background-color']};
                     border: 2px solid {theme['button_hover']['background-color']};
                 }}
                 QCheckBox::indicator:checked:pressed {{
-                    background-color: {theme['button_hover']['background-color']};
-                    border: 2px solid {theme['button_hover']['background-color']};
+                    background-color: #CC0000;
+                    border: 2px solid #CC0000;
                 }}
             """
             
             self.show_crosshair_checkbox.setStyleSheet(checkbox_style)
+            
+            # 点击穿透checkbox样式
+            click_through_style = f"""
+                QCheckBox {{
+                    color: {theme['main_window']['color']};
+                    font-size: 11px;
+                    font-weight: 500;
+                    spacing: 8px;
+                    min-height: 24px;
+                    padding: 4px 8px;
+                    border-radius: 6px;
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                }}
+                QCheckBox::indicator {{
+                    width: 14px;
+                    height: 14px;
+                    border-radius: 3px;
+                    border: 2px solid {theme['main_window']['color']};
+                    background-color: {theme['button']['background-color']};
+                }}
+                QCheckBox::indicator:checked {{
+                    background-color: #FF4444;
+                    border: 2px solid #FF4444;
+                    image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDRMMTUgN0w2IDE2TDMgMTNMNiAxMEwxMiA0WiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4=);
+                }}
+                QCheckBox::indicator:hover {{
+                    border: 2px solid {theme['button_hover']['background-color']};
+                    background-color: {theme['button_hover']['background-color']};
+                }}
+                QCheckBox::indicator:checked:hover {{
+                    border: 2px solid #CC0000;
+                    background-color: #FF4444;
+                }}
+                QCheckBox::indicator:pressed {{
+                    background-color: {theme['button_hover']['background-color']};
+                    border: 2px solid {theme['button_hover']['background-color']};
+                }}
+                QCheckBox::indicator:checked:pressed {{
+                    background-color: #CC0000;
+                    border: 2px solid #CC0000;
+                }}
+            """
+            
+            self.click_through_checkbox.setStyleSheet(click_through_style)
 
     def change_theme(self, theme_name: str):
         """切换主题"""
