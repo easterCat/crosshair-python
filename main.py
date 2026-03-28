@@ -2295,9 +2295,13 @@ class MainWindow(QMainWindow):
         control_layout.setSpacing(12)
         control_layout.setContentsMargins(16, 16, 16, 16)
         
-        # 第一行：所有控制选项在同一行
+        # 第一行：控制选项和主题选择
         main_theme_layout = QHBoxLayout()
         main_theme_layout.setSpacing(15)
+        
+        # 控制选项组
+        control_options_layout = QHBoxLayout()
+        control_options_layout.setSpacing(10)
         
         # 显示/隐藏准星 - 使用checkbox
         self.show_crosshair_checkbox = QCheckBox("显示准星")
@@ -2345,15 +2349,7 @@ class MainWindow(QMainWindow):
                 border: 2px solid #CC0000;
             }
         """)
-        main_theme_layout.addWidget(self.show_crosshair_checkbox)
-        
-        # 主题选择
-        self.theme_combo = QComboBox()
-        self.theme_combo.setMinimumWidth(120)
-        self.theme_combo.setMinimumHeight(24)  # 统一高度
-        self.theme_combo.addItems(["石墨极简", "深海静谧", "青柠薄荷", "暖灰办公", "暗夜紫雾", "晴空淡蓝", "炭黑银线", "燕麦奶咖", "雾蓝冷调", "极简白灰"])
-        self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
-        main_theme_layout.addWidget(self.theme_combo)
+        control_options_layout.addWidget(self.show_crosshair_checkbox)
         
         # 点击穿透
         self.click_through_checkbox = QCheckBox("点击穿透")
@@ -2401,9 +2397,20 @@ class MainWindow(QMainWindow):
                 border: 2px solid #CC0000;
             }
         """)
-        main_theme_layout.addWidget(self.click_through_checkbox)
+        control_options_layout.addWidget(self.click_through_checkbox)
         
+        # 添加控制选项组到主布局
+        main_theme_layout.addLayout(control_options_layout)
+        
+        # 主题选择 - 移到右边
         main_theme_layout.addStretch()
+        self.theme_combo = QComboBox()
+        self.theme_combo.setMinimumWidth(120)
+        self.theme_combo.setMinimumHeight(24)  # 统一高度
+        self.theme_combo.addItems(["石墨极简", "深海静谧", "青柠薄荷", "暖灰办公", "暗夜紫雾", "晴空淡蓝", "炭黑银线", "燕麦奶咖", "雾蓝冷调", "极简白灰"])
+        self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
+        main_theme_layout.addWidget(self.theme_combo)
+        
         control_layout.addLayout(main_theme_layout)
         
         # 底部添加5像素间距
