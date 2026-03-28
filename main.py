@@ -84,6 +84,9 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "18px",
+                "padding-right": "18px",
+                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#FFFFFF",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
@@ -162,9 +165,12 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "18px",
+                "padding-right": "18px",
+                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#E2E8F0",
-                "box-shadow": "0 2px 8px rgba(42,85,132,0.2)",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.3)",
                 "min-height": "80px"
             },
             "groupbox_title": {
@@ -240,9 +246,12 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "18px",
+                "padding-right": "18px",
+                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#2D3748",
-                "box-shadow": "0 2px 8px rgba(154,230,180,0.2)",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
                 "min-height": "80px"
             },
             "groupbox_title": {
@@ -318,9 +327,12 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "18px",
+                "padding-right": "18px",
+                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#2D3748",
-                "box-shadow": "0 2px 4px rgba(160,174,192,0.2)",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
                 "min-height": "80px"
             },
             "groupbox_title": {
@@ -396,6 +408,9 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "20px",
+                "padding-right": "20px",
+                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#E9D8FD",
                 "box-shadow": "0 2px 8px rgba(128,90,213,0.2)",
@@ -474,9 +489,12 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "20px",
+                "padding-right": "20px",
+                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#2C5282",
-                "box-shadow": "0 2px 8px rgba(99,179,237,0.2)",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
                 "min-height": "80px"
             },
             "groupbox_title": {
@@ -552,9 +570,12 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "20px",
+                "padding-right": "20px",
+                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#F3F4F6",
-                "box-shadow": "0 2px 8px rgba(156,163,175,0.2)",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
                 "min-height": "80px"
             },
             "groupbox_title": {
@@ -630,6 +651,9 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "20px",
+                "padding-right": "20px",
+                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#5C4033",
                 "box-shadow": "0 2px 8px rgba(210,180,140,0.2)",
@@ -708,9 +732,12 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "18px",
+                "padding-right": "18px",
+                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#E2E8F0",
-                "box-shadow": "0 2px 8px rgba(138,153,183,0.2)",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
                 "min-height": "80px"
             },
             "groupbox_title": {
@@ -786,9 +813,12 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
+                "padding-left": "18px",
+                "padding-right": "18px",
+                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#111111",
-                "box-shadow": "0 2px 8px rgba(102,102,102,0.2)",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
                 "min-height": "80px"
             },
             "groupbox_title": {
@@ -873,6 +903,9 @@ class ThemeManager:
                 border-radius: {theme['groupbox']['border-radius']};
                 margin-top: {theme['groupbox']['margin-top']};
                 padding-top: {theme['groupbox']['padding-top']};
+                padding-left: {theme['groupbox']['padding-left']};
+                padding-right: {theme['groupbox']['padding-right']};
+                padding-bottom: {theme['groupbox']['padding-bottom']};
                 font-weight: {theme['groupbox']['font-weight']};
                 color: {theme['groupbox']['color']};
                 box-shadow: {theme['groupbox']['box-shadow']};
