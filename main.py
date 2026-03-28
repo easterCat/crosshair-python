@@ -84,9 +84,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "18px",
-                "padding-right": "18px",
-                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#FFFFFF",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
@@ -165,9 +162,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "18px",
-                "padding-right": "18px",
-                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#E2E8F0",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.3)",
@@ -246,9 +240,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "18px",
-                "padding-right": "18px",
-                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#2D3748",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
@@ -327,9 +318,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "18px",
-                "padding-right": "18px",
-                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#2D3748",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
@@ -408,9 +396,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "20px",
-                "padding-right": "20px",
-                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#E9D8FD",
                 "box-shadow": "0 2px 8px rgba(128,90,213,0.2)",
@@ -489,9 +474,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "20px",
-                "padding-right": "20px",
-                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#2C5282",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
@@ -570,9 +552,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "20px",
-                "padding-right": "20px",
-                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#F3F4F6",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
@@ -651,9 +630,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "20px",
-                "padding-right": "20px",
-                "padding-bottom": "20px",
                 "font-weight": "600",
                 "color": "#5C4033",
                 "box-shadow": "0 2px 8px rgba(210,180,140,0.2)",
@@ -732,9 +708,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "18px",
-                "padding-right": "18px",
-                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#E2E8F0",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
@@ -813,9 +786,6 @@ class ThemeManager:
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
-                "padding-left": "18px",
-                "padding-right": "18px",
-                "padding-bottom": "18px",
                 "font-weight": "600",
                 "color": "#111111",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
@@ -903,9 +873,6 @@ class ThemeManager:
                 border-radius: {theme['groupbox']['border-radius']};
                 margin-top: {theme['groupbox']['margin-top']};
                 padding-top: {theme['groupbox']['padding-top']};
-                padding-left: {theme['groupbox']['padding-left']};
-                padding-right: {theme['groupbox']['padding-right']};
-                padding-bottom: {theme['groupbox']['padding-bottom']};
                 font-weight: {theme['groupbox']['font-weight']};
                 color: {theme['groupbox']['color']};
                 box-shadow: {theme['groupbox']['box-shadow']};
@@ -2178,7 +2145,7 @@ class MainWindow(QMainWindow):
         preset_group = QGroupBox("准星预设")
         preset_layout = QVBoxLayout()
         preset_layout.setSpacing(12)
-        preset_layout.setContentsMargins(16, 16, 16, 16)
+        preset_layout.setContentsMargins(18, 18, 18, 18)
         
         # 预设选择和预览的水平布局
         preset_h_layout = QHBoxLayout()
@@ -2256,7 +2223,7 @@ class MainWindow(QMainWindow):
         adjust_group = QGroupBox("调整选项")
         adjust_layout = QGridLayout()
         adjust_layout.setSpacing(16)
-        adjust_layout.setContentsMargins(20, 20, 20, 20)  # 增大内边距
+        adjust_layout.setContentsMargins(22, 22, 22, 22)  # 增大内边距
         
         # 颜色选择
         self.color_button = QPushButton("选择颜色")
@@ -2322,7 +2289,7 @@ class MainWindow(QMainWindow):
         control_group = QGroupBox("控制中心")
         control_layout = QVBoxLayout()
         control_layout.setSpacing(12)
-        control_layout.setContentsMargins(16, 16, 16, 16)
+        control_layout.setContentsMargins(18, 18, 18, 18)
         
         # 第一行：控制选项和主题选择
         main_theme_layout = QHBoxLayout()
@@ -2452,7 +2419,7 @@ class MainWindow(QMainWindow):
         hotkey_group = QGroupBox("快捷键指南")
         hotkey_layout = QVBoxLayout()
         hotkey_layout.setSpacing(8)
-        hotkey_layout.setContentsMargins(16, 16, 16, 16)
+        hotkey_layout.setContentsMargins(18, 18, 18, 18)
         
         # 一行展示所有快捷键，添加背景色
         self.hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
