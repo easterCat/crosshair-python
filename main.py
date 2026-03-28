@@ -918,7 +918,7 @@ class ThemeManager:
                 font-weight: {theme['button']['font-weight']};
                 font-size: {theme['button']['font-size']};
                 padding: 2px 6px;
-                min-width: 50px;
+                min-width: 17px;
                 min-height: 20px;
             }}
             
