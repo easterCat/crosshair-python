@@ -3203,7 +3203,7 @@ class MainWindow(QMainWindow):
         # 一行展示所有快捷键，添加背景色
         self.hotkey_text = QLabel("F6 - 显示/隐藏准星 | F7 - 切换下一个预设 | F8 - 切换上一个预设 | Ctrl+Q - 退出程序")
         # 使用默认主题的固定颜色，避免初始化时的白色背景问题
-        default_theme = ThemeManager.THEMES.get("minimal", ThemeManager.THEMES["minimal"])
+        default_theme = ThemeManager.THEMES.get("minimal_black", ThemeManager.THEMES["minimal_black"])
         self.hotkey_text.setStyleSheet(f"""
             QLabel {{
                 color: {default_theme['button']['color']};
