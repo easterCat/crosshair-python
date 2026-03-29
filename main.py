@@ -3409,7 +3409,7 @@ class MainWindow(QMainWindow):
             """)
         # 更新checkbox样式
         if hasattr(self, 'show_crosshair_checkbox'):
-            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal"])
+            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal_black"])
             
             checkbox_style = f"""
                 QCheckBox {{
