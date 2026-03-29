@@ -3395,7 +3395,7 @@ class MainWindow(QMainWindow):
             self.preview_widget.update_theme(theme_name)
         # 更新快捷键样式
         if hasattr(self, 'hotkey_text'):
-            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal"])
+            theme = ThemeManager.THEMES.get(theme_name, ThemeManager.THEMES["minimal_black"])
             self.hotkey_text.setStyleSheet(f"""
                 QLabel {{
                     color: {theme['button']['color']};
