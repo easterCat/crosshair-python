@@ -70,17 +70,17 @@ class HotkeyListener(QThread):
 class ThemeManager:
     """主题管理器"""
     THEMES = {
-        "minimal": {
-            "name": "石墨极简",
+        "minimal_black": {
+            "name": "极简黑",
             "main_window": {
-                "background-color": "#121212",
+                "background-color": "#1E1E1E",
                 "color": "#FFFFFF",
                 "font-family": "'Segoe UI', Arial, sans-serif",
                 "font-size": "11px"
             },
             "groupbox": {
-                "background-color": "#1E1E1E",
-                "border": "1px solid #2A2A2A",
+                "background-color": "#2D2D2D",
+                "border": "1px solid #404040",
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
@@ -90,14 +90,14 @@ class ThemeManager:
                 "min-height": "80px"
             },
             "groupbox_title": {
-                "background-color": "#424242",
+                "background-color": "#4CAF50",
                 "color": "#FFFFFF",
                 "border-radius": "4px",
                 "font-weight": "600",
                 "font-size": "12px"
             },
             "button": {
-                "background-color": "#424242",
+                "background-color": "#F44336",
                 "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
@@ -106,29 +106,29 @@ class ThemeManager:
                 "padding": "8px 16px"
             },
             "button_hover": {
-                "background-color": "#616161"
+                "background-color": "#D32F2F"
             },
             "slider": {
-                "background-color": "#616161",
+                "background-color": "#404040",
                 "border-radius": "3px",
                 "height": "6px"
             },
             "slider_handle": {
-                "background-color": "#424242",
-                "border": "2px solid #121212",
+                "background-color": "#F44336",
+                "border": "2px solid #1E1E1E",
                 "border-radius": "6px",
                 "width": "12px",
                 "height": "12px"
             },
             "preview": {
-                "background-color": "#1E1E1E",
-                "border": "1px solid #2A2A2A",
+                "background-color": "#2D2D2D",
+                "border": "1px solid #404040",
                 "border-radius": "8px",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.5)"
             },
             "combobox": {
-                "background-color": "#1E1E1E",
-                "border": "1px solid #2A2A2A",
+                "background-color": "#2D2D2D",
+                "border": "1px solid #404040",
                 "border-radius": "4px",
                 "padding": "6px 12px",
                 "font-size": "11px",
@@ -148,580 +148,34 @@ class ThemeManager:
                 "margin-top": "4px"
             }
         },
-        "deep_ocean": {
-            "name": "深海静谧",
+        "cyber_gray_blue": {
+            "name": "赛博灰蓝",
             "main_window": {
-                "background-color": "#1A202C",
-                "color": "#FFFFFF",
+                "background-color": "#212529",
+                "color": "#F8F9FA",
                 "font-family": "'Segoe UI', Arial, sans-serif",
                 "font-size": "11px"
             },
             "groupbox": {
-                "background-color": "#2D3748",
-                "border": "1px solid #3A4556",
+                "background-color": "#343A40",
+                "border": "1px solid #495057",
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
                 "font-weight": "600",
-                "color": "#E2E8F0",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.3)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#3182CE",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#3182CE",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#2970C6"
-            },
-            "slider": {
-                "background-color": "#4A5568",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#3182CE",
-                "border": "2px solid #1A202C",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#2D3748",
-                "border": "1px solid #3A4556",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(42,85,132,0.2)"
-            },
-            "combobox": {
-                "background-color": "#2D3748",
-                "border": "1px solid #3A4556",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#E2E8F0",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#E2E8F0",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#B0C4DE",
-                "margin-top": "4px"
-            }
-        },
-        "mint_lemon": {
-            "name": "青柠薄荷",
-            "main_window": {
-                "background-color": "#F7FAFC",
-                "color": "#2D3748",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#EDF2F7",
-                "border": "1px solid #D1E7DD",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#2D3748",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#48BB78",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#48BB78",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#38A862"
-            },
-            "slider": {
-                "background-color": "#9AE6B4",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#48BB78",
-                "border": "2px solid #F7FAFC",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#EDF2F7",
-                "border": "1px solid #D1E7DD",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(154,230,180,0.2)"
-            },
-            "combobox": {
-                "background-color": "#EDF2F7",
-                "border": "1px solid #D1E7DD",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#2D3748",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#2D3748",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#38A169",
-                "margin-top": "4px"
-            }
-        },
-        "warm_gray": {
-            "name": "暖灰办公",
-            "main_window": {
-                "background-color": "#F5F5F5",
-                "color": "#2D3748",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#E0E0E0",
-                "border": "1px solid #C5C5C5",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#2D3748",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#718096",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#718096",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#5A6B7B"
-            },
-            "slider": {
-                "background-color": "#A0AEC0",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#718096",
-                "border": "2px solid #F5F5F5",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#E0E0E0",
-                "border": "1px solid #C5C5C5",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 4px rgba(160,174,192,0.2)"
-            },
-            "combobox": {
-                "background-color": "#E0E0E0",
-                "border": "1px solid #C5C5C5",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#2D3748",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#2D3748",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#4A5568",
-                "margin-top": "4px"
-            }
-        },
-        "dark_purple": {
-            "name": "暗夜紫雾",
-            "main_window": {
-                "background-color": "#1E1B2E",
-                "color": "#E9D8FD",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#2D2A3E",
-                "border": "1px solid #3A3848",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#E9D8FD",
-                "box-shadow": "0 2px 8px rgba(128,90,213,0.2)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#805AD5",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#805AD5",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#6B49C3"
-            },
-            "slider": {
-                "background-color": "#9F7AEA",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#805AD5",
-                "border": "2px solid #1E1B2E",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#2D2A3E",
-                "border": "1px solid #3A3848",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(128,90,213,0.2)"
-            },
-            "combobox": {
-                "background-color": "#2D2A3E",
-                "border": "1px solid #3A3848",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#E9D8FD",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#E9D8FD",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#D6BCFA",
-                "margin-top": "4px"
-            }
-        },
-        "sky_blue": {
-            "name": "晴空淡蓝",
-            "main_window": {
-                "background-color": "#EBF8FF",
-                "color": "#2C5282",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#BEE3F8",
-                "border": "1px solid #A8D0E8",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#2C5282",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#3182CE",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#3182CE",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#2970C6"
-            },
-            "slider": {
-                "background-color": "#63B3ED",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#3182CE",
-                "border": "2px solid #EBF8FF",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#BEE3F8",
-                "border": "1px solid #A8D0E8",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(99,179,237,0.2)"
-            },
-            "combobox": {
-                "background-color": "#BEE3F8",
-                "border": "1px solid #A8D0E8",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#2C5282",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#2C5282",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#2B6CB0",
-                "margin-top": "4px"
-            }
-        },
-        "charcoal_silver": {
-            "name": "炭黑银线",
-            "main_window": {
-                "background-color": "#1A1A1A",
-                "color": "#F3F4F6",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#252525",
-                "border": "1px solid #303030",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#F3F4F6",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#D1D5DB",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#D1D5DB",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#B8C1DB"
-            },
-            "slider": {
-                "background-color": "#9CA3AF",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#D1D5DB",
-                "border": "2px solid #1A1A1A",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#252525",
-                "border": "1px solid #303030",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(156,163,175,0.2)"
-            },
-            "combobox": {
-                "background-color": "#252525",
-                "border": "1px solid #303030",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#F3F4F6",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#F3F4F6",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#D1D5DB",
-                "margin-top": "4px"
-            }
-        },
-        "wheat_coffee": {
-            "name": "燕麦奶咖",
-            "main_window": {
-                "background-color": "#FDF6E3",
-                "color": "#5C4033",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#F4EAD5",
-                "border": "1px solid #E8D5C0",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#5C4033",
-                "box-shadow": "0 2px 8px rgba(210,180,140,0.2)",
-                "min-height": "80px"
-            },
-            "groupbox_title": {
-                "background-color": "#B08968",
-                "color": "#FFFFFF",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "12px"
-            },
-            "button": {
-                "background-color": "#B08968",
-                "color": "#FFFFFF",
-                "border": "none",
-                "border-radius": "4px",
-                "font-weight": "600",
-                "font-size": "11px",
-                "padding": "8px 16px"
-            },
-            "button_hover": {
-                "background-color": "#9B7659"
-            },
-            "slider": {
-                "background-color": "#D2B48C",
-                "border-radius": "3px",
-                "height": "6px"
-            },
-            "slider_handle": {
-                "background-color": "#B08968",
-                "border": "2px solid #FDF6E3",
-                "border-radius": "6px",
-                "width": "12px",
-                "height": "12px"
-            },
-            "preview": {
-                "background-color": "#F4EAD5",
-                "border": "1px solid #E8D5C0",
-                "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(210,180,140,0.2)"
-            },
-            "combobox": {
-                "background-color": "#F4EAD5",
-                "border": "1px solid #E8D5C0",
-                "border-radius": "4px",
-                "padding": "6px 12px",
-                "font-size": "11px",
-                "color": "#5C4033",
-                "font-weight": "600"
-            },
-            "label_title": {
-                "font-size": "12px",
-                "font-weight": "600",
-                "color": "#5C4033",
-                "margin-bottom": "8px",
-                "min-height": "18px"
-            },
-            "label_value": {
-                "font-size": "11px",
-                "color": "#8B5A3C",
-                "margin-top": "4px"
-            }
-        },
-        "fog_blue": {
-            "name": "雾蓝冷调",
-            "main_window": {
-                "background-color": "#2B3A55",
-                "color": "#E2E8F0",
-                "font-family": "'Segoe UI', Arial, sans-serif",
-                "font-size": "11px"
-            },
-            "groupbox": {
-                "background-color": "#3A4D6D",
-                "border": "1px solid #4A5B7A",
-                "border-radius": "8px",
-                "margin-top": "12px",
-                "padding-top": "25px",
-                "font-weight": "600",
-                "color": "#E2E8F0",
+                "color": "#F8F9FA",
                 "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
                 "min-height": "80px"
             },
             "groupbox_title": {
-                "background-color": "#637394",
+                "background-color": "#4DABF7",
                 "color": "#FFFFFF",
                 "border-radius": "4px",
                 "font-weight": "600",
                 "font-size": "12px"
             },
             "button": {
-                "background-color": "#637394",
+                "background-color": "#22B8CF",
                 "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
@@ -730,76 +184,76 @@ class ThemeManager:
                 "padding": "8px 16px"
             },
             "button_hover": {
-                "background-color": "#55627F"
+                "background-color": "#1CA3C4"
             },
             "slider": {
-                "background-color": "#8A99B7",
+                "background-color": "#495057",
                 "border-radius": "3px",
                 "height": "6px"
             },
             "slider_handle": {
-                "background-color": "#637394",
-                "border": "2px solid #2B3A55",
+                "background-color": "#22B8CF",
+                "border": "2px solid #212529",
                 "border-radius": "6px",
                 "width": "12px",
                 "height": "12px"
             },
             "preview": {
-                "background-color": "#3A4D6D",
-                "border": "1px solid #4A5B7A",
+                "background-color": "#343A40",
+                "border": "1px solid #495057",
                 "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(138,153,183,0.2)"
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
             },
             "combobox": {
-                "background-color": "#3A4D6D",
-                "border": "1px solid #4A5B7A",
+                "background-color": "#343A40",
+                "border": "1px solid #495057",
                 "border-radius": "4px",
                 "padding": "6px 12px",
                 "font-size": "11px",
-                "color": "#E2E8F0",
+                "color": "#F8F9FA",
                 "font-weight": "600"
             },
             "label_title": {
                 "font-size": "12px",
                 "font-weight": "600",
-                "color": "#E2E8F0",
+                "color": "#F8F9FA",
                 "margin-bottom": "8px",
                 "min-height": "18px"
             },
             "label_value": {
                 "font-size": "11px",
-                "color": "#A0B7D4",
+                "color": "#ADB5BD",
                 "margin-top": "4px"
             }
         },
-        "minimal_white": {
-            "name": "极简白灰",
+        "forest_green": {
+            "name": "森林深绿",
             "main_window": {
-                "background-color": "#FFFFFF",
-                "color": "#111111",
+                "background-color": "#1B281B",
+                "color": "#E6F4E6",
                 "font-family": "'Segoe UI', Arial, sans-serif",
                 "font-size": "11px"
             },
             "groupbox": {
-                "background-color": "#F7F7F7",
-                "border": "1px solid #E0E0E0",
+                "background-color": "#2A3B2A",
+                "border": "1px solid #3A4A3A",
                 "border-radius": "8px",
                 "margin-top": "12px",
                 "padding-top": "25px",
                 "font-weight": "600",
-                "color": "#111111",
-                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
+                "color": "#E6F4E6",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
                 "min-height": "80px"
             },
             "groupbox_title": {
-                "background-color": "#333333",
-                "color": "#FFFFFF",
+                "background-color": "#69DB7C",
+                "color": "#1B281B",
                 "border-radius": "4px",
                 "font-weight": "600",
                 "font-size": "12px"
             },
             "button": {
-                "background-color": "#333333",
+                "background-color": "#37B24D",
                 "color": "#FFFFFF",
                 "border": "none",
                 "border-radius": "4px",
@@ -808,50 +262,1375 @@ class ThemeManager:
                 "padding": "8px 16px"
             },
             "button_hover": {
-                "background-color": "#555555"
+                "background-color": "#2F9A43"
             },
             "slider": {
-                "background-color": "#666666",
+                "background-color": "#3A4A3A",
                 "border-radius": "3px",
                 "height": "6px"
             },
             "slider_handle": {
-                "background-color": "#333333",
-                "border": "2px solid #FFFFFF",
+                "background-color": "#37B24D",
+                "border": "2px solid #1B281B",
                 "border-radius": "6px",
                 "width": "12px",
                 "height": "12px"
             },
             "preview": {
-                "background-color": "#F7F7F7",
-                "border": "1px solid #E0E0E0",
+                "background-color": "#2A3B2A",
+                "border": "1px solid #3A4A3A",
                 "border-radius": "8px",
-                "box-shadow": "0 2px 8px rgba(102,102,102,0.2)"
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
             },
             "combobox": {
-                "background-color": "#F7F7F7",
-                "border": "1px solid #E0E0E0",
+                "background-color": "#2A3B2A",
+                "border": "1px solid #3A4A3A",
                 "border-radius": "4px",
                 "padding": "6px 12px",
                 "font-size": "11px",
-                "color": "#111111",
+                "color": "#E6F4E6",
                 "font-weight": "600"
             },
             "label_title": {
                 "font-size": "12px",
                 "font-weight": "600",
-                "color": "#111111",
+                "color": "#E6F4E6",
                 "margin-bottom": "8px",
                 "min-height": "18px"
             },
             "label_value": {
                 "font-size": "11px",
-                "color": "#4A5568",
+                "color": "#A8D5A8",
+                "margin-top": "4px"
+            }
+        },
+        "lava_orange": {
+            "name": "熔岩橙黑",
+            "main_window": {
+                "background-color": "#1A120B",
+                "color": "#FFF3E0",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#2D2116",
+                "border": "1px solid #3D2A1F",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#FFF3E0",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#FF922B",
+                "color": "#1A120B",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#E8590C",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#D44800"
+            },
+            "slider": {
+                "background-color": "#3D2A1F",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#E8590C",
+                "border": "2px solid #1A120B",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#2D2116",
+                "border": "1px solid #3D2A1F",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)"
+            },
+            "combobox": {
+                "background-color": "#2D2116",
+                "border": "1px solid #3D2A1F",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#FFF3E0",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#FFF3E0",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#FFCC80",
+                "margin-top": "4px"
+            }
+        },
+        "deep_indigo": {
+            "name": "深海靛蓝",
+            "main_window": {
+                "background-color": "#121F33",
+                "color": "#E6F7FF",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#1E3050",
+                "border": "1px solid #2A3D5F",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#E6F7FF",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#339AF0",
+                "color": "#FFFFFF",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#1C7ED6",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#1864AB"
+            },
+            "slider": {
+                "background-color": "#2A3D5F",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#1C7ED6",
+                "border": "2px solid #121F33",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#1E3050",
+                "border": "1px solid #2A3D5F",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#1E3050",
+                "border": "1px solid #2A3D5F",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#E6F7FF",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#E6F7FF",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#A5D8FF",
+                "margin-top": "4px"
+            }
+        },
+        "sakura_pink": {
+            "name": "樱花粉灰",
+            "main_window": {
+                "background-color": "#2B2426",
+                "color": "#FFF0F6",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#3D3236",
+                "border": "1px solid #4A3D42",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#FFF0F6",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#F06595",
+                "color": "#FFFFFF",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#D6336C",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#B02A5B"
+            },
+            "slider": {
+                "background-color": "#4A3D42",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#D6336C",
+                "border": "2px solid #2B2426",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#3D3236",
+                "border": "1px solid #4A3D42",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#3D3236",
+                "border": "1px solid #4A3D42",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#FFF0F6",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#FFF0F6",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#FFC9DD",
+                "margin-top": "4px"
+            }
+        },
+        "minimal_white": {
+            "name": "极简白",
+            "main_window": {
+                "background-color": "#F8F9FA",
+                "color": "#212529",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#E9ECEF",
+                "border": "1px solid #DEE2E6",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#212529",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#40C057",
+                "color": "#FFFFFF",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#FA5252",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#E03131"
+            },
+            "slider": {
+                "background-color": "#DEE2E6",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#FA5252",
+                "border": "2px solid #F8F9FA",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#E9ECEF",
+                "border": "1px solid #DEE2E6",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)"
+            },
+            "combobox": {
+                "background-color": "#E9ECEF",
+                "border": "1px solid #DEE2E6",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#212529",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#212529",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#6C757D",
+                "margin-top": "4px"
+            }
+        },
+        "esports_purple": {
+            "name": "电竞紫黑",
+            "main_window": {
+                "background-color": "#1F1726",
+                "color": "#F8F0FC",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#30243A",
+                "border": "1px solid #40324A",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#F8F0FC",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#B197FC",
+                "color": "#1F1726",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#7950F2",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#6741D9"
+            },
+            "slider": {
+                "background-color": "#40324A",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#7950F2",
+                "border": "2px solid #1F1726",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#30243A",
+                "border": "1px solid #40324A",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#30243A",
+                "border": "1px solid #40324A",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#F8F0FC",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#F8F0FC",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#D0BFFF",
+                "margin-top": "4px"
+            }
+        },
+        "desert_brown": {
+            "name": "沙漠棕褐",
+            "main_window": {
+                "background-color": "#241F1A",
+                "color": "#FFF8F0",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#3A322A",
+                "border": "1px solid #4A4035",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#FFF8F0",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#FBBF24",
+                "color": "#241F1A",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#D97706",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#B45309"
+            },
+            "slider": {
+                "background-color": "#4A4035",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#D97706",
+                "border": "2px solid #241F1A",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#3A322A",
+                "border": "1px solid #4A4035",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#3A322A",
+                "border": "1px solid #4A4035",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#FFF8F0",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#FFF8F0",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#FED7AA",
+                "margin-top": "4px"
+            }
+        },
+        "mint_green": {
+            "name": "薄荷浅绿",
+            "main_window": {
+                "background-color": "#1A2C25",
+                "color": "#E6FFFA",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#2A443B",
+                "border": "1px solid #3A544B",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#E6FFFA",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#5EEAD4",
+                "color": "#1A2C25",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#14B8A6",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#0D9488"
+            },
+            "slider": {
+                "background-color": "#3A544B",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#14B8A6",
+                "border": "2px solid #1A2C25",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#2A443B",
+                "border": "1px solid #3A544B",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#2A443B",
+                "border": "1px solid #3A544B",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#E6FFFA",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#E6FFFA",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#5EEAD4",
+                "margin-top": "4px"
+            }
+        },
+        "graphite_gray": {
+            "name": "石墨深灰",
+            "main_window": {
+                "background-color": "#232323",
+                "color": "#F5F5F5",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#333333",
+                "border": "1px solid #404040",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#F5F5F5",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#9CA3AF",
+                "color": "#232323",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#6B7280",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#4B5563"
+            },
+            "slider": {
+                "background-color": "#404040",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#6B7280",
+                "border": "2px solid #232323",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#333333",
+                "border": "1px solid #404040",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#333333",
+                "border": "1px solid #404040",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#F5F5F5",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#F5F5F5",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#9CA3AF",
+                "margin-top": "4px"
+            }
+        },
+        "neon_cyan": {
+            "name": "霓虹青蓝",
+            "main_window": {
+                "background-color": "#0D1B2A",
+                "color": "#E0E1DD",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#1B263B",
+                "border": "1px solid #2B3448",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#E0E1DD",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#00F5D4",
+                "color": "#0D1B2A",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#00BBF9",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#00A6E0"
+            },
+            "slider": {
+                "background-color": "#2B3448",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#00BBF9",
+                "border": "2px solid #0D1B2A",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#1B263B",
+                "border": "1px solid #2B3448",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)"
+            },
+            "combobox": {
+                "background-color": "#1B263B",
+                "border": "1px solid #2B3448",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#E0E1DD",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#E0E1DD",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#00F5D4",
+                "margin-top": "4px"
+            }
+        },
+        "retro_amber": {
+            "name": "复古琥珀",
+            "main_window": {
+                "background-color": "#201B13",
+                "color": "#FFF7E6",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#362D20",
+                "border": "1px solid #463A2A",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#FFF7E6",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#FFC078",
+                "color": "#201B13",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#F59F00",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#E08E0B"
+            },
+            "slider": {
+                "background-color": "#463A2A",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#F59F00",
+                "border": "2px solid #201B13",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#362D20",
+                "border": "1px solid #463A2A",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#362D20",
+                "border": "1px solid #463A2A",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#FFF7E6",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#FFF7E6",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#FFD8A8",
+                "margin-top": "4px"
+            }
+        },
+        "minimal_blue_white": {
+            "name": "极简蓝白",
+            "main_window": {
+                "background-color": "#F0F4F8",
+                "color": "#1E293B",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#E2E8F0",
+                "border": "1px solid #CBD5E1",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#1E293B",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#3B82F6",
+                "color": "#FFFFFF",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#2563EB",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#1D4ED8"
+            },
+            "slider": {
+                "background-color": "#CBD5E1",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#2563EB",
+                "border": "2px solid #F0F4F8",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#E2E8F0",
+                "border": "1px solid #CBD5E1",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.1)"
+            },
+            "combobox": {
+                "background-color": "#E2E8F0",
+                "border": "1px solid #CBD5E1",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#1E293B",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#1E293B",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#64748B",
+                "margin-top": "4px"
+            }
+        },
+        "dark_red_black": {
+            "name": "暗夜红黑",
+            "main_window": {
+                "background-color": "#1A0A0A",
+                "color": "#FFEBEB",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#2D1212",
+                "border": "1px solid #3D1818",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#FFEBEB",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#FF6B6B",
+                "color": "#1A0A0A",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#DC2626",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#B91C1C"
+            },
+            "slider": {
+                "background-color": "#3D1818",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#DC2626",
+                "border": "2px solid #1A0A0A",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#2D1212",
+                "border": "1px solid #3D1818",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.5)"
+            },
+            "combobox": {
+                "background-color": "#2D1212",
+                "border": "1px solid #3D1818",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#FFEBEB",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#FFEBEB",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#FF6B6B",
+                "margin-top": "4px"
+            }
+        },
+        "matte_silver": {
+            "name": "雾面银灰",
+            "main_window": {
+                "background-color": "#2F3136",
+                "color": "#F1F3F5",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#3F4147",
+                "border": "1px solid #4F5157",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#F1F3F5",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#868E96",
+                "color": "#2F3136",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#495057",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#343A40"
+            },
+            "slider": {
+                "background-color": "#4F5157",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#495057",
+                "border": "2px solid #2F3136",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#3F4147",
+                "border": "1px solid #4F5157",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#3F4147",
+                "border": "1px solid #4F5157",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#F1F3F5",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#F1F3F5",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#868E96",
+                "margin-top": "4px"
+            }
+        },
+        "fluorescent_lime": {
+            "name": "荧光柠绿",
+            "main_window": {
+                "background-color": "#181E10",
+                "color": "#F4FFE0",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#27301A",
+                "border": "1px solid #374024",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#F4FFE0",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#BEF264",
+                "color": "#181E10",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#94D82D",
+                "color": "#181E10",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#84CC16"
+            },
+            "slider": {
+                "background-color": "#374024",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#94D82D",
+                "border": "2px solid #181E10",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#27301A",
+                "border": "1px solid #374024",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#27301A",
+                "border": "1px solid #374024",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#F4FFE0",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#F4FFE0",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#BEF264",
+                "margin-top": "4px"
+            }
+        },
+        "morandi_pink": {
+            "name": "莫兰迪灰粉",
+            "main_window": {
+                "background-color": "#2A2628",
+                "color": "#F8F2F4",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#3D373A",
+                "border": "1px solid #4D4548",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#F8F2F4",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#E599A8",
+                "color": "#2A2628",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#D17086",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#C15A75"
+            },
+            "slider": {
+                "background-color": "#4D4548",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#D17086",
+                "border": "2px solid #2A2628",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#3D373A",
+                "border": "1px solid #4D4548",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#3D373A",
+                "border": "1px solid #4D4548",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#F8F2F4",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#F8F2F4",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#E599A8",
+                "margin-top": "4px"
+            }
+        },
+        "deep_ink_blue": {
+            "name": "深海墨蓝",
+            "main_window": {
+                "background-color": "#0F172A",
+                "color": "#F1F5F9",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#1E293B",
+                "border": "1px solid #334155",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#F1F5F9",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#60A5FA",
+                "color": "#0F172A",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#3B82F6",
+                "color": "#FFFFFF",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#2563EB"
+            },
+            "slider": {
+                "background-color": "#334155",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#3B82F6",
+                "border": "2px solid #0F172A",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#1E293B",
+                "border": "1px solid #334155",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.4)"
+            },
+            "combobox": {
+                "background-color": "#1E293B",
+                "border": "1px solid #334155",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#F1F5F9",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#F1F5F9",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#60A5FA",
+                "margin-top": "4px"
+            }
+        },
+        "minimal_transparent": {
+            "name": "极简黑透",
+            "main_window": {
+                "background-color": "#121212",
+                "color": "#D4D4D4",
+                "font-family": "'Segoe UI', Arial, sans-serif",
+                "font-size": "11px"
+            },
+            "groupbox": {
+                "background-color": "#1F1F1F",
+                "border": "1px solid #2A2A2A",
+                "border-radius": "8px",
+                "margin-top": "12px",
+                "padding-top": "25px",
+                "font-weight": "600",
+                "color": "#D4D4D4",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.3)",
+                "min-height": "80px"
+            },
+            "groupbox_title": {
+                "background-color": "#525252",
+                "color": "#D4D4D4",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "12px"
+            },
+            "button": {
+                "background-color": "#404040",
+                "color": "#D4D4D4",
+                "border": "none",
+                "border-radius": "4px",
+                "font-weight": "600",
+                "font-size": "11px",
+                "padding": "8px 16px"
+            },
+            "button_hover": {
+                "background-color": "#525252"
+            },
+            "slider": {
+                "background-color": "#525252",
+                "border-radius": "3px",
+                "height": "6px"
+            },
+            "slider_handle": {
+                "background-color": "#404040",
+                "border": "2px solid #121212",
+                "border-radius": "6px",
+                "width": "12px",
+                "height": "12px"
+            },
+            "preview": {
+                "background-color": "#1F1F1F",
+                "border": "1px solid #2A2A2A",
+                "border-radius": "8px",
+                "box-shadow": "0 2px 8px rgba(0,0,0,0.3)"
+            },
+            "combobox": {
+                "background-color": "#1F1F1F",
+                "border": "1px solid #2A2A2A",
+                "border-radius": "4px",
+                "padding": "6px 12px",
+                "font-size": "11px",
+                "color": "#D4D4D4",
+                "font-weight": "600"
+            },
+            "label_title": {
+                "font-size": "12px",
+                "font-weight": "600",
+                "color": "#D4D4D4",
+                "margin-bottom": "8px",
+                "min-height": "18px"
+            },
+            "label_value": {
+                "font-size": "11px",
+                "color": "#A3A3A3",
                 "margin-top": "4px"
             }
         }
     }
-    
     @classmethod
     def get_theme_stylesheet(cls, theme_name: str) -> str:
         """获取主题样式表"""
@@ -1888,7 +2667,7 @@ class MainWindow(QMainWindow):
         self.overlay = CrosshairOverlay()
         self.preset_manager = PresetManager()
         self.current_preset_index = 0
-        self.current_theme = "minimal"
+        self.current_theme = "minimal_black"
         
         # 加载配置
         self.config = ConfigManager.load_config()
@@ -1902,7 +2681,7 @@ class MainWindow(QMainWindow):
     def load_settings(self):
         """加载配置设置"""
         self.current_preset_index = self.config.get("preset_index", 0)
-        self.current_theme = self.config.get("theme", "minimal")
+        self.current_theme = self.config.get("theme", "minimal_black")
         
         # 应用预设设置
         preset = self.preset_manager.presets[self.current_preset_index]
@@ -2403,7 +3182,7 @@ class MainWindow(QMainWindow):
         self.theme_combo = QComboBox()
         self.theme_combo.setMinimumWidth(120)
         self.theme_combo.setMinimumHeight(24)  # 统一高度
-        self.theme_combo.addItems(["石墨极简", "深海静谧", "青柠薄荷", "暖灰办公", "暗夜紫雾", "晴空淡蓝", "炭黑银线", "燕麦奶咖", "雾蓝冷调", "极简白灰"])
+        self.theme_combo.addItems(["极简黑", "赛博灰蓝", "森林深绿", "熔岩橙黑", "深海靛蓝", "樱花粉灰", "极简白", "电竞紫黑", "沙漠棕褐", "薄荷浅绿", "石墨深灰", "霓虹青蓝", "复古琥珀", "极简蓝白", "暗夜红黑", "雾面银灰", "荧光柠绿", "莫兰迪灰粉", "深海墨蓝", "极简黑透"])
         self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
         main_theme_layout.addWidget(self.theme_combo)
         
@@ -2451,18 +3230,28 @@ class MainWindow(QMainWindow):
         
         # 设置主题下拉框初始值
         theme_display_map = {
-            "deep_ocean": "深海静谧",
-            "minimal": "石墨极简",
-            "mint_lemon": "青柠薄荷",
-            "warm_gray": "暖灰办公",
-            "dark_purple": "暗夜紫雾",
-            "sky_blue": "晴空淡蓝",
-            "charcoal_silver": "炭黑银线",
-            "heat_coffee": "燕麦奶咖",
-            "fog_blue": "雾蓝冷调",
-            "minimal_white": "极简白灰"
+            "minimal_black": "极简黑",
+            "cyber_gray_blue": "赛博灰蓝",
+            "forest_green": "森林深绿",
+            "lava_orange": "熔岩橙黑",
+            "deep_indigo": "深海靛蓝",
+            "sakura_pink": "樱花粉灰",
+            "minimal_white": "极简白",
+            "esports_purple": "电竞紫黑",
+            "desert_brown": "沙漠棕褐",
+            "mint_green": "薄荷浅绿",
+            "graphite_gray": "石墨深灰",
+            "neon_cyan": "霓虹青蓝",
+            "retro_amber": "复古琥珀",
+            "minimal_blue_white": "极简蓝白",
+            "dark_red_black": "暗夜红黑",
+            "matte_silver": "雾面银灰",
+            "fluorescent_lime": "荧光柠绿",
+            "morandi_pink": "莫兰迪灰粉",
+            "deep_ink_blue": "深海墨蓝",
+            "minimal_transparent": "极简黑透"
         }
-        self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "石墨极简"))
+        self.theme_combo.setCurrentText(theme_display_map.get(self.current_theme, "极简黑"))
         
     def setup_hotkeys(self):
         """设置全局快捷键"""
@@ -2718,18 +3507,28 @@ class MainWindow(QMainWindow):
     def on_theme_changed(self, theme_display_name: str):
         """主题切换事件处理"""
         theme_map = {
-            "深海静谧": "deep_ocean",
-            "石墨极简": "minimal",
-            "青柠薄荷": "mint_lemon",
-            "暖灰办公": "warm_gray",
-            "暗夜紫雾": "dark_purple",
-            "晴空淡蓝": "sky_blue",
-            "炭黑银线": "charcoal_silver",
-            "燕麦奶咖": "heat_coffee",
-            "雾蓝冷调": "fog_blue",
-            "极简白灰": "minimal_white"
+            "极简黑": "minimal_black",
+            "赛博灰蓝": "cyber_gray_blue",
+            "森林深绿": "forest_green",
+            "熔岩橙黑": "lava_orange",
+            "深海靛蓝": "deep_indigo",
+            "樱花粉灰": "sakura_pink",
+            "极简白": "minimal_white",
+            "电竞紫黑": "esports_purple",
+            "沙漠棕褐": "desert_brown",
+            "薄荷浅绿": "mint_green",
+            "石墨深灰": "graphite_gray",
+            "霓虹青蓝": "neon_cyan",
+            "复古琥珀": "retro_amber",
+            "极简蓝白": "minimal_blue_white",
+            "暗夜红黑": "dark_red_black",
+            "雾面银灰": "matte_silver",
+            "荧光柠绿": "fluorescent_lime",
+            "莫兰迪灰粉": "morandi_pink",
+            "深海墨蓝": "deep_ink_blue",
+            "极简黑透": "minimal_transparent"
         }
-        theme_name = theme_map.get(theme_display_name, "minimal")
+        theme_name = theme_map.get(theme_display_name, "minimal_black")
         self.change_theme(theme_name)
         self.save_settings()
 
