@@ -2,6 +2,7 @@
 """
 PyQt6 FPS Crosshair Tool
 200 presets + Windows专用
+Version: 1.0.0
 """
 
 import sys
