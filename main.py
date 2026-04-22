@@ -1,8 +1,33 @@
 #!/usr/bin/env python3
 """
 PyQt6 FPS Crosshair Tool
-200 presets + Windows专用
+=========================
+
+一款专为 Windows 设计的 FPS 游戏准星工具，提供 200 个预设准星样式和 20 个专业主题。
+
+主要特性：
+- 200 个准星预设：自动生成，覆盖所有主流 FPS 样式
+- 20 个专业主题：精心设计的配色方案，满足不同审美需求
+- Windows 全屏/窗口化游戏通用：完美适配各种游戏模式
+- 穿透点击不影响操作：点击穿透功能，不影响游戏操作
+- 纯覆盖层，不读写游戏内存：100% 安全，不会被检测
+- 可调颜色、大小、粗细：自定义准星外观
+- 全局快捷键：游戏内无需切窗口即可控制
+- 系统托盘集成：后台运行，方便管理
+- 配置保存：自动保存用户设置
+
 Version: 1.0.0
+Author: easterCat
+License: MIT
+Repository: https://github.com/easterCat/crosshair-python
+
+技术栈：
+- PyQt6 6.6.1: GUI 框架
+- pywin32 306: Windows API
+- keyboard 0.13.5: 全局热键
+- PyInstaller 6.3.0: 打包工具
+
+设计文档：详见 DESIGN.md
 """
 
 import sys
@@ -27,12 +52,44 @@ import math
 import os
 
 class ConfigManager:
-    """配置管理器，负责保存和加载用户设置"""
+    """
+    配置管理器 - 负责保存和加载用户设置
+    
+    使用单例模式管理配置文件 config.json，提供配置的持久化功能。
+    配置项包括：预设索引、主题、颜色、大小、粗细、透明度、点击穿透状态。
+    
+    Attributes:
+        CONFIG_FILE (str): 配置文件名，固定为 "config.json"
+    
+    Methods:
+        load_config(): 从文件加载配置，如果文件不存在或读取失败返回空字典
+        save_config(config): 将配置字典保存到文件
+    
+    Example:
+        >>> config = ConfigManager.load_config()
+        >>> config['theme'] = 'minimal_black'
+        >>> ConfigManager.save_config(config)
+    """
     CONFIG_FILE = "config.json"
     
     @classmethod
     def load_config(cls) -> dict:
-        """加载配置"""
+        """
+        从配置文件加载用户设置
+        
+        Returns:
+            dict: 配置字典，包含以下键：
+                - preset_index (int): 当前预设索引
+                - theme (str): 当前主题名称
+                - color (str): 准星颜色 (hex格式)
+                - size (int): 准星大小
+                - thickness (int): 准星粗细
+                - opacity (float): 透明度 (0.0-1.0)
+                - click_through (bool): 点击穿透状态
+        
+        Note:
+            如果配置文件不存在或读取失败，返回空字典
+        """
         if os.path.exists(cls.CONFIG_FILE):
             try:
                 with open(cls.CONFIG_FILE, 'r', encoding='utf-8') as f:
@@ -43,7 +100,16 @@ class ConfigManager:
 
     @classmethod
     def save_config(cls, config: dict):
-        """保存配置"""
+        """
+        将配置保存到文件
+        
+        Args:
+            config (dict): 配置字典，包含所有用户设置
+        
+        Note:
+            使用 UTF-8 编码保存，确保中文字符正确显示
+            使用缩进格式化，便于人工阅读和编辑
+        """
         try:
             with open(cls.CONFIG_FILE, 'w', encoding='utf-8') as f:
                 json.dump(config, f, indent=4, ensure_ascii=False)
@@ -51,14 +117,44 @@ class ConfigManager:
             print(f"保存配置失败: {e}")
 
 class HotkeyListener(QThread):
-    """全局快捷键监听线程"""
+    """
+    全局快捷键监听线程
+    
+    继承 QThread 在独立线程中监听全局快捷键，通过 PyQt 信号槽机制
+    将热键事件传递给主窗口。使用 keyboard 库实现跨应用的热键监听。
+    
+    Attributes:
+        toggle_signal (pyqtSignal): 显示/隐藏准星信号 (F6)
+        next_signal (pyqtSignal): 切换下一个预设信号 (F7)
+        prev_signal (pyqtSignal): 切换上一个预设信号 (F8)
+        exit_signal (pyqtSignal): 退出程序信号 (Ctrl+Q)
+    
+    Methods:
+        run(): 启动监听循环，注册热键并保持线程存活
+    
+    Note:
+        需要以管理员权限运行才能监听全局热键
+        keyboard 库内部有监听机制，线程只需保持存活
+    """
     toggle_signal = pyqtSignal()
     next_signal = pyqtSignal()
     prev_signal = pyqtSignal()
     exit_signal = pyqtSignal()
 
     def run(self):
-        """运行监听循环"""
+        """
+        运行监听循环
+        
+        注册全局快捷键并启动监听：
+        - F6: 显示/隐藏准星
+        - F7: 切换下一个预设
+        - F8: 切换上一个预设
+        - Ctrl+Q: 退出程序
+        
+        Note:
+            keyboard 库内部有自己的监听机制，这里只需保持线程存活
+            使用 sleep(1) 避免 CPU 占用过高
+        """
         keyboard.add_hotkey('f6', self.toggle_signal.emit)
         keyboard.add_hotkey('f7', self.next_signal.emit)
         keyboard.add_hotkey('f8', self.prev_signal.emit)
@@ -1889,8 +1985,36 @@ class ThemeManager:
         return "#FFFFFF"
 
 class CrosshairPreset:
-    """准星预设数据类"""
+    """
+    准星预设数据类
+    
+    封装准星的所有属性，用于在预览组件和覆盖层之间传递准星配置。
+    
+    Attributes:
+        name (str): 预设名称，用于显示和识别
+        style (str): 准星样式类型，支持 30+ 种样式 (cross, dot, circle, plus, x, etc.)
+        color (str): 准星颜色，十六进制格式 (如 "#00FF00")
+        size (int): 准星大小，单位像素 (范围: 1-50)
+        thickness (int): 准星粗细，单位像素 (范围: 1-10)
+        opacity (float): 透明度，范围 0.0-1.0 (0.0=完全透明, 1.0=完全不透明)
+    
+    Example:
+        >>> preset = CrosshairPreset("十字准星_绿色_大小20", "cross", "#00FF00", 20, 2, 1.0)
+        >>> print(preset.style)
+        'cross'
+    """
     def __init__(self, name: str, style: str, color: str = "#00FF00", size: int = 20, thickness: int = 2, opacity: float = 1.0):
+        """
+        初始化准星预设
+        
+        Args:
+            name (str): 预设名称
+            style (str): 准星样式类型
+            color (str): 准星颜色，默认绿色
+            size (int): 准星大小，默认 20 像素
+            thickness (int): 准星粗细，默认 2 像素
+            opacity (float): 透明度，默认 1.0 (完全不透明)
+        """
         self.name = name
         self.style = style  # cross, dot, circle, plus, x, etc.
         self.color = color
@@ -1899,8 +2023,32 @@ class CrosshairPreset:
         self.opacity = opacity  # 透明度 0.0-1.0
 
 class PreviewWidget(QWidget):
-    """准星预览组件"""
+    """
+    准星预览组件
+    
+    在主窗口中显示准星的实时预览，使用缩放版本以便在小窗口中完整显示。
+    重写 paintEvent 实现自定义绘制。
+    
+    Attributes:
+        preset (CrosshairPreset): 当前预览的准星预设
+        current_theme (str): 当前主题名称
+    
+    Methods:
+        update_theme(theme_name): 更新组件主题样式
+        paintEvent(event): 重写绘制事件，绘制预览准星
+        draw_crosshair(painter, center, style, scale): 根据样式绘制准星
+        update_preset(preset): 更新预览的准星预设
+    
+    Note:
+        预览使用缩放版本 (scale=0.5) 以适应小窗口
+        背景固定为浅色以便清晰显示准星
+    """
     def __init__(self):
+        """
+        初始化预览组件
+        
+        设置固定大小 120x120 像素，初始化默认准星和主题
+        """
         super().__init__()
         self.preset = CrosshairPreset("Preview", "cross")
         self.setFixedSize(120, 120)
@@ -1908,7 +2056,12 @@ class PreviewWidget(QWidget):
         self.update_theme()
         
     def update_theme(self, theme_name: str = "default"):
-        """更新主题"""
+        """
+        更新组件主题样式
+        
+        Args:
+            theme_name (str): 主题名称，默认为 "default"
+        """
         self.current_theme = theme_name
         self.setStyleSheet(ThemeManager.get_preview_theme(theme_name))
         
@@ -2186,14 +2339,52 @@ class PreviewWidget(QWidget):
         self.update()
 
 class CrosshairOverlay(QWidget):
-    """准星覆盖层窗口"""
+    """
+    准星覆盖层窗口
+    
+    全屏无边框窗口，用于在游戏或其他应用上显示准星。
+    使用 Windows API 实现点击穿透和置顶显示。
+    
+    Attributes:
+        preset (CrosshairPreset): 当前显示的准星预设
+    
+    Methods:
+        init_window(): 初始化窗口属性（无边框、置顶、透明、点击穿透）
+        set_click_through(): 设置 Windows 点击穿透属性
+        paintEvent(event): 重写绘制事件，在全屏中心绘制准星
+        draw_crosshair(painter, center, style): 根据样式绘制准星
+        update_preset(preset): 更新显示的准星预设
+    
+    Note:
+        使用 Windows API (WS_EX_LAYERED, WS_EX_TRANSPARENT) 实现点击穿透
+        窗口始终置顶显示，覆盖在所有其他窗口之上
+        背景完全透明，只绘制准星
+    """
     def __init__(self):
+        """
+        初始化覆盖层窗口
+        
+        创建无边框、置顶、透明的全屏窗口
+        """
         super().__init__()
         self.preset = CrosshairPreset("Default", "cross")
         self.init_window()
         
     def init_window(self):
-        """初始化窗口属性"""
+        """
+        初始化窗口属性
+        
+        设置以下 Windows 特定属性：
+        - FramelessWindowHint: 无边框窗口
+        - WindowStaysOnTopHint: 始终置顶显示
+        - Tool: 工具窗口类型
+        - WA_TranslucentBackground: 透明背景
+        - WA_ShowWithoutActivating: 显示时不激活窗口
+        - WS_EX_LAYERED: 分层窗口
+        - WS_EX_TRANSPARENT: 点击穿透
+        
+        全屏覆盖整个显示器
+        """
         # Windows特定设置
         self.setWindowFlags(
             Qt.WindowType.FramelessWindowHint | 
@@ -2211,7 +2402,19 @@ class CrosshairOverlay(QWidget):
         self.setGeometry(screen)
         
     def set_click_through(self):
-        """设置点击穿透"""
+        """
+        设置点击穿透
+        
+        使用 Windows API 设置窗口点击穿透属性，使鼠标事件穿透窗口
+        传递到下层窗口，不影响游戏或其他应用的操作。
+        
+        Windows API 说明：
+        - WS_EX_LAYERED: 创建分层窗口
+        - WS_EX_TRANSPARENT: 窗口点击穿透，鼠标事件传递到下层
+        
+        Note:
+            需要使用 pywin32 库调用 Windows API
+        """
         hwnd = int(self.winId())
         extended_style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
         win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, extended_style | win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT)
@@ -2520,8 +2723,35 @@ class CrosshairOverlay(QWidget):
         self.update()
 
 class PresetManager:
-    """预设管理器"""
+    """
+    预设管理器
+    
+    负责生成和管理 200 个准星预设。使用工厂模式批量生成预设，
+    支持多种样式、颜色和尺寸的组合。
+    
+    Attributes:
+        style_names (dict): 样式键名到中文名称的映射
+        presets (list): 200 个 CrosshairPreset 对象的列表
+    
+    Methods:
+        get_style_name(style): 获取样式的中文名称
+        generate_200_presets(): 生成 200 个准星预设
+    
+    Note:
+        预设生成策略：
+        1. 基础样式优先 (dot, cross, circle, plus)
+        2. 新增样式 (hourglass, crown)
+        3. 几何样式 (triangle, diamond)
+        4. 功能样式 (t_shape, l_shape)
+        5. 专业样式 (target, scope)
+        6. 复合样式 (crosshair_circle, dot_circle)
+    """
     def __init__(self):
+        """
+        初始化预设管理器
+        
+        初始化样式名称映射并生成 200 个预设
+        """
         self.style_names = {
             "cross": "十字准星",
             "dot": "点准星", 
@@ -2562,7 +2792,15 @@ class PresetManager:
         self.presets = self.generate_200_presets()
         
     def get_style_name(self, style: str) -> str:
-        """获取样式中文名称"""
+        """
+        获取样式中文名称
+        
+        Args:
+            style (str): 样式键名 (如 "cross")
+        
+        Returns:
+            str: 样式中文名称 (如 "十字准星")，如果未找到返回原键名
+        """
         return self.style_names.get(style, style)
         
     def generate_200_presets(self) -> List[CrosshairPreset]:
